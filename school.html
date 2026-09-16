@@ -20,93 +20,88 @@
       --border: #cbd5e1;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 24px 16px; display: flex; justify-content: center; }
+    body { background-color: var(--bg); color: var(--text); padding: 14px 14px 20px; display: flex; justify-content: center; }
     .container { width: 100%; max-width: 650px; }
     
-    .back-nav {
-      margin-bottom: 18px;
-    }
+    .back-nav { margin-bottom: 10px; }
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: #ffffff;
       color: var(--primary);
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.9rem;
-      padding: 8px 16px;
-      border-radius: 8px;
+      font-size: 0.86rem;
+      padding: 6px 12px;
+      border-radius: 6px;
       border: 1px solid #cbd5e1;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       cursor: pointer;
     }
-    .back-btn:hover {
-      background: #f1f5f9;
-    }
+    .back-btn:hover { background: #f1f5f9; }
 
-    .card { background: var(--card); border-radius: 16px; padding: 30px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
-    .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
-    .bismillah { color: var(--gold); font-size: 1.35rem; font-family: 'Amiri', serif; margin-bottom: 6px; }
-    h1 { color: var(--primary); font-size: 1.6rem; font-weight: 800; }
-    .sub { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+    .card { background: var(--card); border-radius: 14px; padding: 20px 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+    .header { text-align: center; margin-bottom: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; }
+    .bismillah { color: var(--gold); font-size: 1.25rem; font-family: 'Amiri', serif; margin-bottom: 2px; }
+    h1 { color: var(--primary); font-size: 1.45rem; font-weight: 800; }
+    .sub { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
     
-    .info-banner { background: var(--gold-light); border: 1px solid rgba(197,155,39,0.3); border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; color: #78350f; margin-bottom: 20px; line-height: 1.5; }
+    .info-banner { background: var(--gold-light); border: 1px solid rgba(197,155,39,0.3); border-radius: 8px; padding: 8px 12px; font-size: 0.84rem; color: #78350f; margin-bottom: 12px; line-height: 1.4; }
     
     .tuition-box {
       background: #f0fdf4;
       border: 1.5px solid #86efac;
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
     }
-    .tuition-info h3 { color: var(--primary); font-size: 1.05rem; font-weight: 700; }
-    .tuition-info p { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
-    .tuition-rate { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
-    .tuition-rate span { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .tuition-info h3 { color: var(--primary); font-size: 0.96rem; font-weight: 700; }
+    .tuition-info p { color: var(--text-muted); font-size: 0.8rem; margin-top: 1px; }
+    .tuition-rate { font-size: 1.35rem; font-weight: 800; color: var(--primary); }
+    .tuition-rate span { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); }
 
-    .section-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin: 20px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #f1f5f9; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 6px; }
+    .section-title { font-size: 0.96rem; font-weight: 700; color: var(--primary); margin: 12px 0 8px; padding-bottom: 4px; border-bottom: 1.5px solid #f1f5f9; }
+    .form-group { margin-bottom: 10px; }
+    label { display: block; font-size: 0.84rem; font-weight: 600; margin-bottom: 4px; }
     .required { color: #dc2626; }
-    input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; color: var(--text); }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(6,78,59,0.1); }
-    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
+    input, select, textarea { width: 100%; padding: 8px 11px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; outline: none; background: #fff; color: var(--text); }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(6,78,59,0.1); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 10px; }
 
     .pay-tuition-action {
       background: #fafaf9;
       border: 1px solid #e7e5e4;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 24px 0 12px;
+      border-radius: 10px;
+      padding: 12px;
+      margin: 14px 0 10px;
       text-align: center;
     }
-    .pay-tuition-action h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; }
-    .pay-tuition-action p { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 14px; }
+    .pay-tuition-action h3 { color: var(--primary); font-size: 0.98rem; margin-bottom: 3px; }
+    .pay-tuition-action p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; }
     .btn-pay-tuition {
       display: inline-block;
       background: #d97706;
       color: #fff;
       text-decoration: none;
       font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
     }
 
-    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 11px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 6px; }
     .btn-submit:hover { background: var(--primary-light); }
 
-    .success-box { display: none; text-align: center; padding: 30px 16px; }
-    .success-box h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 10px; }
-    .success-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
-    @media (max-width: 600px) { .row-2, .row-3 { grid-template-columns: 1fr; } .tuition-box { flex-direction: column; align-items: flex-start; } }
+    .success-box { display: none; text-align: center; padding: 20px 10px; }
+    .success-box h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 8px; }
+    .success-box p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px; }
+    @media (max-width: 600px) { .row-2, .row-3 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -189,11 +184,12 @@
             <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
           </div>
 
+          <!-- Pre-selected $100 and Monthly frequency -->
           <div class="pay-tuition-action">
             <h3>💳 Pay Monthly Tuition ($100)</h3>
-            <p>You can pay your child's monthly tuition directly via Givebutter.</p>
-            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
-              Pay $100 Monthly Tuition via Givebutter →
+            <p>Opens Givebutter with $100 and Monthly recurring pre-selected for tuition.</p>
+            <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+              Pay $100 Monthly Tuition Online →
             </a>
           </div>
 
@@ -206,8 +202,8 @@
         <p>Jazakum Allahu Khairan! Your child's registration has been received for <strong>Al-Noor Islamic School</strong>. The administration will contact you shortly.</p>
         <div class="pay-tuition-action">
           <h3>Ready to finalize tuition?</h3>
-          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
-            Pay $100 Monthly Tuition via Givebutter →
+          <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+            Pay $100 Monthly Tuition Online →
           </a>
         </div>
       </div>
