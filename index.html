@@ -123,7 +123,7 @@
       gap: 16px;
     }
 
-    /* Live Next Prayer */
+    /* Next Prayer Banner */
     .next-prayer-banner {
       background: #ffffff;
       border-radius: var(--radius);
@@ -208,7 +208,7 @@
       font-size: 0.84rem;
     }
 
-    /* Separate Categorized Cards */
+    /* Distinct Categorized Cards */
     .side-stack { display: flex; flex-direction: column; gap: 10px; }
     .feature-card {
       background: var(--card);
@@ -247,7 +247,7 @@
     .action-school { background: #0284c7; color: white; }
     .action-donate { background: var(--accent); color: white; }
 
-    /* Photos Section */
+    /* Photo Gallery */
     .gallery-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr 1fr;
@@ -316,7 +316,6 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="#" class="brand">
@@ -338,7 +337,6 @@
     </div>
   </nav>
 
-  <!-- Hero Header -->
   <header class="hero">
     <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
     <h1>Islamic Center of Lumberton</h1>
@@ -358,7 +356,6 @@
 
   <main class="main-wrap">
 
-    <!-- Live Prayer Status -->
     <section class="next-prayer-banner">
       <div>
         <div class="tag-live">Next Prayer</div>
@@ -370,7 +367,7 @@
 
     <div class="content-grid">
 
-      <!-- Prayer Schedule Table -->
+      <!-- Prayer Timetable -->
       <section class="card" id="prayers">
         <div class="card-header">
           <h2 class="card-title">Prayer Timetable</h2>
@@ -389,7 +386,7 @@
         </table>
       </section>
 
-      <!-- Separate Categorized Services -->
+      <!-- Separate Individual Categories -->
       <div class="side-stack" id="services">
 
         <!-- 1. Support & Donations -->
@@ -447,7 +444,7 @@
 
     </div>
 
-    <!-- Mosque Photos Gallery (Loaded from repo images) -->
+    <!-- Mosque Photos Gallery -->
     <section class="card" id="photos">
       <div class="card-header">
         <div>
@@ -473,7 +470,7 @@
           <div class="gallery-caption">Main Prayer Hall (Musalla)</div>
         </div>
 
-        <!-- 3. Welcome & Iqamah Notice Board -->
+        <!-- 3. Welcome Notice Board -->
         <div class="gallery-item" onclick="openLightbox('images/board.jpg')">
           <img src="images/board.jpg" alt="Welcome Notice and Iqamah Timings" loading="lazy" />
           <div class="gallery-caption">Iqamah & Mosque Board</div>
@@ -495,7 +492,6 @@
 
   </main>
 
-  <!-- Lightbox Modal -->
   <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
     <span class="lightbox-close">&times;</span>
     <img id="lightboxImg" class="lightbox-img" src="" alt="Enlarged Mosque View" onclick="event.stopPropagation()" />
