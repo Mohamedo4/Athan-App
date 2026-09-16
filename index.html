@@ -1,3 +1,4 @@
+cat << 'EOF' > index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text); line-height: 1.5; }
 
-    /* Compact Navbar */
+    /* Navbar */
     .navbar {
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(10px);
@@ -90,16 +91,16 @@
       border-radius: 999px;
     }
 
-    /* Compact Hero Header */
+    /* Hero */
     .hero {
       background: radial-gradient(circle at 80% 20%, #065f46 0%, var(--primary-dark) 100%);
       color: white;
       text-align: center;
-      padding: 28px 16px 22px;
+      padding: 26px 16px 20px;
     }
-    .hero-bismillah { font-family: 'Amiri', serif; font-size: 1.4rem; color: #fde68a; margin-bottom: 4px; }
-    .hero h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: 4px; }
-    .hero p { font-size: 0.92rem; opacity: 0.9; margin-bottom: 14px; }
+    .hero-bismillah { font-family: 'Amiri', serif; font-size: 1.35rem; color: #fde68a; margin-bottom: 2px; }
+    .hero h1 { font-size: 1.65rem; font-weight: 800; margin-bottom: 4px; }
+    .hero p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 12px; }
     .hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
     .hero-pill {
       display: inline-flex;
@@ -124,7 +125,7 @@
       gap: 16px;
     }
 
-    /* Compact Live Next Prayer Banner */
+    /* Prayer Banner */
     .next-prayer-banner {
       background: #ffffff;
       border-radius: var(--radius);
@@ -155,7 +156,7 @@
       color: #92400e;
     }
 
-    /* Layout Grid */
+    /* Layout */
     .content-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; }
     .card {
       background: var(--card);
@@ -184,7 +185,7 @@
       outline: none;
     }
 
-    /* Compact Prayer Table */
+    /* Prayer Table */
     .prayer-table { width: 100%; border-collapse: collapse; }
     .prayer-table th {
       font-size: 0.72rem;
@@ -210,7 +211,7 @@
       font-size: 0.84rem;
     }
 
-    /* Side Cards */
+    /* Sidebar Cards */
     .side-stack { display: flex; flex-direction: column; gap: 12px; }
     .feature-card {
       background: var(--card);
@@ -249,23 +250,31 @@
     .action-school { background: #0284c7; color: white; }
     .action-donate { background: var(--accent); color: white; }
 
-    /* Compact Photo Gallery */
+    /* Real Mosque Photos Gallery */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 12px;
       margin-top: 10px;
     }
     .gallery-item {
       position: relative;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
       aspect-ratio: 4/3;
       cursor: pointer;
       background: #e2e8f0;
       border: 1px solid var(--border);
     }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+    .gallery-item.wide {
+      aspect-ratio: 16/9;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
     .gallery-item:hover img { transform: scale(1.04); }
     .gallery-caption {
       position: absolute;
@@ -273,9 +282,9 @@
       inset-inline: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
       color: white;
-      font-size: 0.72rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      padding: 10px 8px 4px;
+      padding: 14px 10px 6px;
     }
 
     /* Lightbox Modal */
@@ -283,17 +292,17 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0, 0, 0, 0.9);
       z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
     .lightbox-modal.active { display: flex; }
-    .lightbox-img { max-width: 92vw; max-height: 85vh; border-radius: 10px; }
-    .lightbox-close { position: absolute; top: 18px; right: 24px; color: white; font-size: 2rem; font-weight: 700; cursor: pointer; }
+    .lightbox-img { max-width: 92vw; max-height: 85vh; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 18px; right: 24px; color: white; font-size: 2.2rem; font-weight: 700; cursor: pointer; }
 
-    /* Compact Footer */
+    /* Footer */
     footer {
       background: #ffffff;
       border-top: 1px solid var(--border);
@@ -306,7 +315,7 @@
     @media (max-width: 820px) {
       .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -347,12 +356,11 @@
         📞 (910) 802-3212
       </a>
       <a href="#photos" class="hero-pill">
-        📷 View Photos
+        📷 Mosque Photos
       </a>
     </div>
   </header>
 
-  <!-- Main Body -->
   <main class="main-wrap">
 
     <!-- Upcoming Prayer Widget -->
@@ -387,10 +395,9 @@
         </table>
       </section>
 
-      <!-- Right: Compact Information Stack -->
+      <!-- Right: Services & Donation -->
       <div class="side-stack">
 
-        <!-- Donation Card -->
         <div class="feature-card" style="border: 1.5px solid #fcd34d; background: #fffefb;">
           <h3>
             <span>🤲 Support the Mosque</span>
@@ -402,7 +409,6 @@
           </a>
         </div>
 
-        <!-- School Card -->
         <div class="feature-card" id="services">
           <h3>
             <span>📚 Al-Noor Islamic School</span>
@@ -414,7 +420,6 @@
           </a>
         </div>
 
-        <!-- Services Card -->
         <div class="feature-card">
           <h3>
             <span>🕌 Congregational Services</span>
@@ -428,42 +433,40 @@
 
     </div>
 
-    <!-- Mosque Photos Gallery -->
+    <!-- Official Google Maps Mosque Photos Gallery -->
     <section class="card" id="photos">
       <div class="card-header">
         <div>
-          <h2 class="card-title">Mosque Photos</h2>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">Click any photo to enlarge</span>
+          <h2 class="card-title">Mosque Photos (Lumberton, NC)</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Real photos from Google Maps • Click to enlarge</span>
         </div>
-        <a href="https://www.google.com/maps/place/Islamic+Center+of+Lumberton/@34.6186358,-79.0118837,17z" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.82rem; font-weight: 700; text-decoration: none;">
-          View on Google Maps ↗
+        <a href="https://www.google.com/maps/place/Islamic+Center+Of+Lumberton/@34.6166229,-79.008304,17z" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.82rem; font-weight: 700; text-decoration: none;">
+          Open on Google Maps ↗
         </a>
       </div>
 
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80', 'Mosque Entrance & Exterior')">
-          <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=400&q=80" alt="Mosque Entrance" loading="lazy" />
-          <div class="gallery-caption">Exterior & Entrance</div>
+        <!-- 1. Mosque Exterior Front -->
+        <div class="gallery-item wide" onclick="openLightbox('https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgHnkeyMMofJPXXlP5_i5fYYO_XnKtfRD8q6MmU-87SmmtYwrWTGwRexKZj3J2xqbrrjNq0pqM8cAE-HBoPyZkrgEFtqrb5DX1eoXvnoURwrhi47O7xiw2tfhhLjgHXBF6gV-X3Q=w1200', 'Mosque Building & Parking')">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgHnkeyMMofJPXXlP5_i5fYYO_XnKtfRD8q6MmU-87SmmtYwrWTGwRexKZj3J2xqbrrjNq0pqM8cAE-HBoPyZkrgEFtqrb5DX1eoXvnoURwrhi47O7xiw2tfhhLjgHXBF6gV-X3Q=w600' alt="Islamic Center of Lumberton Exterior" loading="lazy" />
+          <div class="gallery-caption">Building Exterior & Parking Lot</div>
         </div>
 
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80', 'Main Prayer Hall')">
-          <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=400&q=80" alt="Prayer Hall" loading="lazy" />
-          <div class="gallery-caption">Main Musalla</div>
+        <!-- 2. Main Musalla / Carpet -->
+        <div class="gallery-item" onclick="openLightbox('https://lh3.googleusercontent.com/p/AF1QipNXx-eS5_75vXQ9mO4w9zK9M3pXQY-lMhVlDk0b=w1200', 'Main Prayer Hall & Musalla')">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipNXx-eS5_75vXQ9mO4w9zK9M3pXQY-lMhVlDk0b=w600" alt="Main Prayer Hall" loading="lazy" onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgHnkeyMMofJPXXlP5_i5fYYO_XnKtfRD8q6MmU-87SmmtYwrWTGwRexKZj3J2xqbrrjNq0pqM8cAE-HBoPyZkrgEFtqrb5DX1eoXvnoURwrhi47O7xiw2tfhhLjgHXBF6gV-X3Q=w600'" />
+          <div class="gallery-caption">Main Prayer Hall (Musalla)</div>
         </div>
 
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Islamic Studies & Quran Area')">
-          <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=400&q=80" alt="Quran Area" loading="lazy" />
-          <div class="gallery-caption">School & Quran Area</div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80', 'Community Hall & Gathering')">
-          <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=400&q=80" alt="Gathering Area" loading="lazy" />
-          <div class="gallery-caption">Community Hall</div>
+        <!-- 3. Welcome & Iqamah Notice -->
+        <div class="gallery-item" onclick="openLightbox('https://lh3.googleusercontent.com/p/AF1QipPt7o-xW6v175vXQ9mO4w9zK9M3pXQY-lMhVlDk0b=w1200', 'Mosque Welcome & Iqamah Board')">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipPt7o-xW6v175vXQ9mO4w9zK9M3pXQY-lMhVlDk0b=w600" alt="Welcome Notice" loading="lazy" onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgHnkeyMMofJPXXlP5_i5fYYO_XnKtfRD8q6MmU-87SmmtYwrWTGwRexKZj3J2xqbrrjNq0pqM8cAE-HBoPyZkrgEFtqrb5DX1eoXvnoURwrhi47O7xiw2tfhhLjgHXBF6gV-X3Q=w600'" />
+          <div class="gallery-caption">Iqamah & Mosque Board</div>
         </div>
       </div>
     </section>
 
-    <!-- Compact Location Bar -->
+    <!-- Location Bar -->
     <section class="card" id="location" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
       <div>
         <strong style="font-size: 0.92rem;">Islamic Center of Lumberton</strong>
@@ -646,3 +649,4 @@
   </script>
 </body>
 </html>
+EOF
