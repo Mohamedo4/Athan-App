@@ -1,3 +1,4 @@
+cat << 'EOF' > school.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,26 @@
     .bismillah { color: var(--gold); font-size: 1.35rem; font-family: serif; margin-bottom: 6px; }
     h1 { color: var(--primary); font-size: 1.6rem; font-weight: 800; }
     .sub { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
-    .info-banner { background: var(--gold-light); border: 1px solid rgba(197,155,39,0.3); border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; color: #78350f; margin-bottom: 24px; line-height: 1.5; }
+    
+    .info-banner { background: var(--gold-light); border: 1px solid rgba(197,155,39,0.3); border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; color: #78350f; margin-bottom: 20px; line-height: 1.5; }
+    
+    .tuition-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .tuition-info h3 { color: var(--primary); font-size: 1.05rem; font-weight: 700; }
+    .tuition-info p { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
+    .tuition-rate { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+    .tuition-rate span { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
     .section-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin: 20px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #f1f5f9; }
     .form-group { margin-bottom: 16px; }
     label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 6px; }
@@ -33,16 +53,37 @@
     input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13,74,54,0.1); }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
-    .pay-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 18px; margin: 24px 0; text-align: center; }
-    .pay-card h3 { color: var(--primary); font-size: 1.05rem; margin-bottom: 6px; }
-    .pay-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-    .btn-pay { display: inline-block; background: var(--gold); color: #fff; text-decoration: none; font-weight: 700; padding: 10px 20px; border-radius: 8px; font-size: 0.92rem; }
-    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
+
+    .pay-tuition-action {
+      background: #fafaf9;
+      border: 1px solid #e7e5e4;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0 12px;
+      text-align: center;
+    }
+    .pay-tuition-action h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; }
+    .pay-tuition-action p { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 14px; }
+    .btn-pay-tuition {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn-pay-tuition:hover { opacity: 0.92; }
+
+    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-submit:hover { background: var(--primary-light); }
+
     .success-box { display: none; text-align: center; padding: 30px 16px; }
     .success-box h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 10px; }
     .success-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
-    @media (max-width: 600px) { .row-2, .row-3 { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .row-2, .row-3 { grid-template-columns: 1fr; } .tuition-box { flex-direction: column; align-items: flex-start; } }
   </style>
 </head>
 <body>
@@ -54,10 +95,21 @@
           <h1>Al-Noor Islamic School</h1>
           <p class="sub">Islamic Center of Lumberton • Student Registration</p>
         </div>
+
         <div class="info-banner">
           📅 <strong>Classes:</strong> Saturdays & Sundays, 10:00 AM – Dhuhr Prayer<br>
           📍 <strong>Location:</strong> 104 South Chestnut St, Lumberton, NC 28358
         </div>
+
+        <!-- School Tuition Rate Banner -->
+        <div class="tuition-box">
+          <div class="tuition-info">
+            <h3>Monthly School Tuition</h3>
+            <p>Quran recitation, Arabic reading & Islamic curriculum</p>
+          </div>
+          <div class="tuition-rate">$100 <span>/ month</span></div>
+        </div>
+
         <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
           <div class="section-title">1. Parent / Guardian Information</div>
           <div class="row-2">
@@ -111,23 +163,30 @@
             <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
           </div>
 
-          <div class="pay-card">
-            <h3>💳 Tuition & Donation Online</h3>
-            <p>You can fulfill registration fees or school dues anytime via our verified Givebutter portal.</p>
-            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay">Pay Tuition Fees Online →</a>
+          <!-- Tuition Payment Box with pre-configured $100/mo link -->
+          <div class="pay-tuition-action">
+            <h3>💳 Pay Monthly Tuition ($100)</h3>
+            <p>Pay your child's monthly tuition securely online. Opens with $100 pre-selected for Al-Noor Islamic School.</p>
+            <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly&desc=Al-Noor+Islamic+School+Monthly+Tuition" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+              Pay $100 Monthly Tuition Online →
+            </a>
           </div>
 
-          <button type="submit" class="btn-submit">Submit Registration</button>
+          <button type="submit" class="btn-submit">Submit Registration Application</button>
         </form>
       </div>
 
+      <!-- Success Screen -->
       <div id="successSection" class="success-box">
         <h2>🎉 Registration Submitted!</h2>
-        <p>Jazakum Allahu Khairan! Your child's registration has been received for <strong>Al-Noor Islamic School</strong>. The administration will contact you shortly regarding the start of classes.</p>
-        <div class="pay-card">
-          <h3>Need to pay tuition now?</h3>
-          <p>Click below to complete tuition payment through Givebutter:</p>
-          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay">Pay School Fees Online →</a>
+        <p>Jazakum Allahu Khairan! Your child's registration has been received for <strong>Al-Noor Islamic School</strong>. The administration will contact you shortly.</p>
+        
+        <div class="pay-tuition-action">
+          <h3>Ready to finalize tuition?</h3>
+          <p>You can fulfill the $100 monthly tuition fee anytime using the direct link below:</p>
+          <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly&desc=Al-Noor+Islamic+School+Monthly+Tuition" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+            Pay $100 Monthly Tuition via Givebutter →
+          </a>
         </div>
       </div>
     </div>
@@ -152,15 +211,16 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           alert('Could not submit form. Please call the center directly at (910) 802-3212.');
-          btn.innerText = "Submit Registration";
+          btn.innerText = "Submit Registration Application";
           btn.disabled = false;
         }
       } catch (err) {
         alert('Network error. Please try again or contact the center.');
-        btn.innerText = "Submit Registration";
+        btn.innerText = "Submit Registration Application";
         btn.disabled = false;
       }
     });
   </script>
 </body>
 </html>
+EOF
