@@ -3,125 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Islamic Center of Lumberton | A Place for Worship</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Islamic Center of Lumberton</title>
   <style>
     :root {
-      --primary: #064e3b;
-      --primary-light: #047857;
-      --primary-dark: #022c22;
-      --accent: #d97706;
-      --accent-light: #fef3c7;
+      --primary: #0d4a36;
+      --primary-light: #16654a;
+      --primary-dark: #083324;
       --gold: #c59b27;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --border: #e2e8f0;
-      --text: #0f172a;
+      --gold-light: #fef9e7;
+      --text-main: #1e293b;
       --text-muted: #64748b;
-      --radius: 16px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-md: 0 10px 30px -4px rgba(6, 78, 59, 0.08);
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px -2px rgba(13, 74, 54, 0.08);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
     html { scroll-behavior: smooth; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
 
     .navbar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       border-bottom: 1px solid var(--border);
     }
     .nav-container {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.3rem;
-      box-shadow: 0 4px 10px rgba(6, 78, 59, 0.2);
-    }
-    .brand-title {
-      font-size: 1.12rem;
-      font-weight: 800;
-      color: var(--primary);
-      line-height: 1.2;
-    }
-    .brand-subtitle {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--gold);
-      font-weight: 700;
-    }
-
-    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .brand { display: flex; flex-direction: column; text-decoration: none; }
+    .brand-title { font-size: 1.15rem; font-weight: 700; color: var(--primary); letter-spacing: -0.2px; }
+    .brand-subtitle { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; gap: 20px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.9rem; font-weight: 500; transition: color 0.2s ease; }
     .nav-links a:hover { color: var(--primary); }
-
     .btn-donate-nav {
-      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      color: white;
+      background: var(--gold);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
       text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 700;
-      padding: 8px 18px;
-      border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+      transition: opacity 0.2s ease;
     }
+    .btn-donate-nav:hover { opacity: 0.9; }
 
     .hero {
-      background: radial-gradient(circle at 80% 20%, #065f46 0%, var(--primary-dark) 100%);
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       color: white;
       text-align: center;
-      padding: 60px 20px 50px;
-      position: relative;
+      padding: 56px 20px 48px;
     }
-    .hero-content { max-width: 760px; margin: 0 auto; }
-    .hero-bismillah { font-family: 'Amiri', serif; font-size: 1.7rem; color: #fde68a; margin-bottom: 8px; }
-    .hero h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
-    .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 24px; }
-    .hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .hero-pill {
+    .hero-bismillah { font-size: 1.4rem; color: var(--gold); margin-bottom: 12px; font-family: serif; letter-spacing: 1px; }
+    .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .hero p { font-size: 1.05rem; opacity: 0.9; max-width: 600px; margin: 0 auto 24px; }
+    .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: white;
-      text-decoration: none;
-      padding: 7px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.85rem;
-      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
     }
 
     .main-wrap {
-      max-width: 1120px;
-      margin: -28px auto 60px;
+      max-width: 1080px;
+      margin: -24px auto 40px;
       padding: 0 16px;
       display: flex;
       flex-direction: column;
@@ -130,70 +92,53 @@
 
     .next-prayer-banner {
       background: #ffffff;
-      border-radius: var(--radius);
-      padding: 22px 28px;
-      box-shadow: var(--shadow-md);
-      border: 1.5px solid #fde68a;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--gold);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
     }
-    .tag-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--accent);
-    }
-    .tag-live::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
-    }
-    .next-prayer-banner h2 { font-size: 1.9rem; font-weight: 800; color: var(--primary); }
-    .countdown-chip {
-      background: var(--accent-light);
-      border: 1px solid rgba(217, 119, 6, 0.3);
-      padding: 8px 18px;
-      border-radius: 12px;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #92400e;
+    .next-prayer-left .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); }
+    .next-prayer-left h2 { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .next-prayer-right { text-align: right; }
+    .countdown-timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #b45309;
+      background: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 155, 39, 0.25);
     }
 
-    .content-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
+    .content-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 28px; }
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 16px;
       padding: 28px;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
     }
-    .card-header {
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
       padding-bottom: 12px;
-      border-bottom: 2px solid #f1f5f9;
+      border-bottom: 2px solid var(--border);
     }
-    .card-title { font-size: 1.25rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-    .date-dropdown {
-      padding: 7px 12px;
+    .section-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+    .date-select {
+      padding: 6px 12px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: #ffffff;
       font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text);
+      color: var(--text-main);
       outline: none;
       cursor: pointer;
     }
@@ -211,120 +156,100 @@
     .prayer-table th:last-child, .prayer-table td:last-child { text-align: right; }
     .prayer-table td { padding: 14px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
     .prayer-table tr:last-child td { border-bottom: none; }
-    .prayer-title { font-weight: 700; color: var(--text); }
+    .prayer-name { font-weight: 700; color: var(--text-main); }
     .time-athan { font-weight: 600; color: #334155; }
-    .badge-iqamah {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: #d1fae5;
-      color: var(--primary-dark);
-      font-weight: 700;
-      font-size: 0.88rem;
-    }
+    .time-iqamah { font-weight: 700; color: var(--primary); }
+    .iqamah-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; background: #ecfdf5; font-size: 0.88rem; }
 
     .side-stack { display: flex; flex-direction: column; gap: 20px; }
-    .feature-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 22px;
+    .program-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    .feature-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .feature-pill {
+    .program-card h3 { font-size: 1.05rem; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .program-badge {
+      display: inline-block;
       font-size: 0.72rem;
-      font-weight: 700;
       text-transform: uppercase;
-      padding: 3px 8px;
+      font-weight: 700;
+      padding: 2px 8px;
       border-radius: 6px;
-      background: #e0f2fe;
-      color: #0369a1;
+      background: var(--gold-light);
+      color: #854d0e;
     }
-    .feature-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; }
-    .feature-action {
+    .program-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
+    .program-time { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; }
+
+    .btn-school-apply {
       display: block;
       text-align: center;
-      padding: 11px 16px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
-    .action-school { background: #0284c7; color: white; }
-    .action-donate { background: var(--accent); color: white; }
-
-    .gallery-section {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 28px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 16px;
-      margin-top: 18px;
-    }
-    .gallery-item {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      cursor: pointer;
-      background: #e2e8f0;
-      border: 1px solid var(--border);
-    }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      inset-inline: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+      background: #0284c7;
       color: white;
-      font-size: 0.82rem;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
       font-weight: 600;
-      padding: 16px 12px 8px;
+      font-size: 0.88rem;
+      transition: background 0.2s ease;
     }
+    .btn-school-apply:hover { background: #0369a1; }
 
-    .lightbox-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    .btn-donate-card {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: white;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-top: 10px;
+      transition: opacity 0.2s ease;
     }
-    .lightbox-modal.active { display: flex; }
-    .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 12px; }
-    .lightbox-close { position: absolute; top: 24px; right: 28px; color: white; font-size: 2rem; font-weight: 700; cursor: pointer; }
+    .btn-donate-card:hover { opacity: 0.92; }
+
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.92rem; }
+    .contact-item a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    .btn-action {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-top: 16px;
+      transition: background 0.2s ease;
+    }
+    .btn-action:hover { background: var(--primary-light); }
 
     footer {
       background: #ffffff;
       border-top: 1px solid var(--border);
       text-align: center;
-      padding: 32px 16px;
+      padding: 28px 16px;
       font-size: 0.85rem;
       color: var(--text-muted);
+      margin-top: 40px;
     }
 
     @media (max-width: 820px) {
       .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .next-prayer-banner { flex-direction: column; align-items: flex-start; }
-      .hero h1 { font-size: 1.8rem; }
+      .next-prayer-right { text-align: left; width: 100%; }
+      .countdown-timer { display: inline-block; }
+      .hero h1 { font-size: 1.7rem; }
     }
   </style>
 </head>
@@ -333,63 +258,60 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="#" class="brand">
-        <div class="brand-logo">🕌</div>
-        <div>
-          <div class="brand-title">Islamic Center of Lumberton</div>
-          <div class="brand-subtitle">A Place for Worship</div>
-        </div>
+        <span class="brand-title">Islamic Center of Lumberton</span>
+        <span class="brand-subtitle">A Place for Worship</span>
       </a>
-      <div class="nav-actions">
+      <div class="nav-right">
         <ul class="nav-links">
-          <li><a href="#prayers">Prayer Schedule</a></li>
+          <li><a href="#prayers">Prayer Times</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#photos">Photos</a></li>
-          <li><a href="#location">Directions</a></li>
+          <li><a href="#school">School</a></li>
+          <li><a href="#about">About & Location</a></li>
         </ul>
-        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav">Donate / Dues</a>
+        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav">Donate / Pay Dues</a>
       </div>
     </div>
   </nav>
 
   <header class="hero">
-    <div class="hero-content">
-      <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-      <h1>Islamic Center of Lumberton</h1>
-      <p>Serving the Muslim community of Lumberton, Robeson County, and surrounding areas.</p>
-      <div class="hero-pills">
-        <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" class="hero-pill">
-          📍 104 S. Chestnut St, Lumberton, NC
-        </a>
-        <a href="tel:19108023212" class="hero-pill">
-          📞 (910) 802-3212
-        </a>
-        <a href="#photos" class="hero-pill">
-          📷 Mosque Photos
-        </a>
-      </div>
+    <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <h1>Islamic Center of Lumberton</h1>
+    <p>Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+    <div class="hero-badges">
+      <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" class="hero-badge">
+        📍 104 South Chestnut St, Lumberton, NC
+      </a>
+      <a href="tel:19108023212" class="hero-badge">
+        📞 (910) 802-3212
+      </a>
+      <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="hero-badge" style="background: var(--gold); border-color: transparent; font-weight: 600;">
+        🤲 Support the Masjid
+      </a>
     </div>
   </header>
 
   <main class="main-wrap">
 
     <section class="next-prayer-banner">
-      <div>
-        <div class="tag-live">Next Prayer</div>
+      <div class="next-prayer-left">
+        <div class="tag">Upcoming Prayer</div>
         <h2 id="nextPrayerName">--</h2>
-        <div style="font-size: 0.92rem; color: var(--text-muted); margin-top: 4px;" id="nextPrayerTime">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;" id="nextPrayerTime">--</div>
       </div>
-      <div class="countdown-chip" id="countdownText">Calculating...</div>
+      <div class="next-prayer-right">
+        <div class="countdown-timer" id="countdownText">Calculating...</div>
+      </div>
     </section>
 
     <div class="content-grid">
 
-      <section class="card" id="prayers">
-        <div class="card-header">
+      <section class="section-card" id="prayers">
+        <div class="section-header">
           <div>
-            <h2 class="card-title">Prayer Timetable</h2>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Official Lumberton, NC schedule</p>
+            <h2 class="section-title">Prayer Schedule</h2>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Lumberton, NC Timetable</p>
           </div>
-          <select id="dateSelector" class="date-dropdown" onchange="renderTimes(this.value)"></select>
+          <select id="dateSelector" class="date-select" onchange="renderTimes(this.value)"></select>
         </div>
 
         <table class="prayer-table">
@@ -406,98 +328,84 @@
 
       <div class="side-stack">
 
-        <div class="feature-card" style="border: 1.5px solid #fcd34d; background: #fffefb;">
-          <h3>
-            <span>🤲 Support the Mosque</span>
-            <span class="feature-pill" style="background: #fef3c7; color: #92400e;">Online</span>
-          </h3>
-          <p>Help maintain the mosque and community programs. Fulfill membership dues or general donations safely online.</p>
-          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="feature-action action-donate">
+        <div class="program-card" style="border: 2px solid var(--gold); background: #fffefb;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🤲 Membership & Donations</h3>
+            <span class="program-badge">Online</span>
+          </div>
+          <p style="margin-bottom: 6px;">Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.</p>
+          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-card">
             Pay Dues & Donate on Givebutter
           </a>
         </div>
 
-        <div class="feature-card" id="services">
-          <h3>
-            <span>📚 Al-Noor Islamic School</span>
-            <span class="feature-pill">Enrollment Open</span>
-          </h3>
-          <p>Weekend Quran memorization, Arabic language, and Islamic studies for youth.</p>
-          <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 12px;">Sat & Sun: 10:00 AM – Dhuhr • $100/mo</div>
-          <a href="school.html" target="_blank" rel="noopener noreferrer" class="feature-action action-school">
-            Apply / Register Student →
+        <div class="program-card" id="school">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>📚 Al-Noor Islamic School</h3>
+            <span class="program-badge" style="background:#e0f2fe; color:#0369a1;">Registration Open</span>
+          </div>
+          <p>Weekend Quran, Arabic reading, and Islamic values classes for children and youth.</p>
+          <div class="program-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
+          <!-- Opens the school registration form in a new tab -->
+          <a href="school.html" target="_blank" rel="noopener noreferrer" class="btn-school-apply">
+            Apply / Register for School →
           </a>
         </div>
 
-        <div class="feature-card">
-          <h3>
-            <span>🕌 Congregational Services</span>
-            <span class="feature-pill" style="background:#ecfdf5; color:#065f46;">Regular</span>
-          </h3>
-          <p style="margin-bottom: 6px;"><strong>Jumu'ah Prayer:</strong> Khutbah at 1:00 PM (All Year)</p>
-          <p style="margin-bottom: 6px;"><strong>Eid Prayers:</strong> 8:00 AM for both Eids</p>
-          <p style="margin-bottom: 0;"><strong>Five Daily Prayers:</strong> Held daily in congregation</p>
+        <div class="program-card" id="services">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🕌 Jumu'ah Prayer</h3>
+            <span class="program-badge">All Year</span>
+          </div>
+          <p>Weekly Friday congregational prayer and khutbah.</p>
+          <div class="program-time" style="margin-bottom:0;">Khutbah Starts: 1:00 PM</div>
+        </div>
+
+        <div class="program-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🌙 Eid Prayers</h3>
+            <span class="program-badge">Both Eids</span>
+          </div>
+          <p>Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
+          <div class="program-time" style="margin-bottom:0;">Prayer Starts: 8:00 AM</div>
+        </div>
+
+        <div class="program-card" id="about">
+          <h3>📍 Mosque Information</h3>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <span>📌</span>
+              <div>
+                <strong>Address:</strong><br>
+                104 South Chestnut St.<br>
+                Lumberton, NC 28358
+              </div>
+            </li>
+            <li class="contact-item">
+              <span>📞</span>
+              <div>
+                <strong>Phone / WhatsApp:</strong><br>
+                <a href="tel:19108023212">(910) 802-3212</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span>🌐</span>
+              <div>
+                <strong>Facebook:</strong><br>
+                <a href="https://www.facebook.com/IslamicCenterofLumberton" target="_blank" rel="noopener noreferrer">@IslamicCenterofLumberton</a>
+              </div>
+            </li>
+          </ul>
+          <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" class="btn-action">
+            Get Driving Directions
+          </a>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Mosque Photos -->
-    <section class="gallery-section" id="photos">
-      <div class="card-header" style="margin-bottom: 6px;">
-        <div>
-          <h2 class="card-title">Mosque & Community Photos</h2>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Click any photo to view full size</p>
-        </div>
-        <a href="https://www.google.com/maps/place/Islamic+Center+of+Lumberton/@34.6186358,-79.0118837,17z" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.88rem; font-weight: 700; text-decoration: none;">
-          Open on Google Maps ↗
-        </a>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80', 'Mosque Entrance')">
-          <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=600&q=80" alt="Mosque Exterior" loading="lazy" />
-          <div class="gallery-caption">Mosque Exterior & Facade</div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80', 'Prayer Hall')">
-          <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80" alt="Prayer Hall" loading="lazy" />
-          <div class="gallery-caption">Main Prayer Hall</div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Classroom')">
-          <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=600&q=80" alt="Quran Class" loading="lazy" />
-          <div class="gallery-caption">Quran & Class Area</div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80', 'Gathering Hall')">
-          <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=600&q=80" alt="Community Hall" loading="lazy" />
-          <div class="gallery-caption">Community Gathering Space</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Location & Directions -->
-    <section class="card" id="location">
-      <h2 class="card-title" style="margin-bottom: 12px;">Visit & Contact Us</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;">
-        <div>
-          <div style="font-weight: 700; color: var(--text);">📍 104 South Chestnut St, Lumberton, NC 28358</div>
-          <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Phone / WhatsApp: <a href="tel:19108023212" style="color: var(--primary); font-weight: 600;">(910) 802-3212</a></div>
-        </div>
-        <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" rel="noopener noreferrer" class="feature-action action-donate" style="width: auto; padding: 10px 24px;">
-          Get Driving Directions ↗
-        </a>
-      </div>
-    </section>
-
   </main>
-
-  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightboxImg" class="lightbox-img" src="" alt="Mosque Large View" onclick="event.stopPropagation()" />
-  </div>
 
   <footer>
     <p>© 2026 Islamic Center of Lumberton. All rights reserved.</p>
@@ -583,10 +491,10 @@
 
       tbody.innerHTML = prayers.map(p => `
         <tr>
-          <td class="prayer-title">${p.name}</td>
+          <td class="prayer-name">${p.name}</td>
           <td class="time-athan">${to12Hr(p.athan)}</td>
           <td class="time-iqamah">
-            ${p.iqamah === "-" ? "-" : `<span class="badge-iqamah">${to12Hr(p.iqamah)}</span>`}
+            ${p.iqamah === "-" ? "-" : `<span class="iqamah-badge">${to12Hr(p.iqamah)}</span>`}
           </td>
         </tr>
       `).join("");
@@ -598,7 +506,7 @@
       let entry = scheduleData.find(d => d.date === todayStr);
 
       if (!entry) {
-        document.getElementById("nextPrayerName").innerText = "Schedule Completed";
+        document.getElementById("nextPrayerName").innerText = "Schedule Out of Range";
         document.getElementById("nextPrayerTime").innerText = "Timetable active Sep 12 – Oct 11";
         document.getElementById("countdownText").innerText = "--";
         return;
@@ -627,7 +535,7 @@
 
       if (!upcoming) {
         document.getElementById("nextPrayerName").innerText = "Fajr (Tomorrow)";
-        document.getElementById("nextPrayerTime").innerText = "All prayers completed for today";
+        document.getElementById("nextPrayerTime").innerText = "Completed for today";
         document.getElementById("countdownText").innerText = "--";
         return;
       }
@@ -641,22 +549,6 @@
       document.getElementById("nextPrayerTime").innerText = `Athan at ${to12Hr(upcoming.time)}`;
       document.getElementById("countdownText").innerText = `in ${hours}h ${mins}m ${secs}s`;
     }
-
-    function openLightbox(src, alt) {
-      const modal = document.getElementById("lightbox");
-      const img = document.getElementById("lightboxImg");
-      img.src = src;
-      img.alt = alt;
-      modal.classList.add("active");
-    }
-
-    function closeLightbox() {
-      document.getElementById("lightbox").classList.remove("active");
-    }
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLightbox();
-    });
 
     initDropdown();
     setInterval(updateCountdown, 1000);
