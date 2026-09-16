@@ -23,17 +23,27 @@
     body { background-color: var(--bg); color: var(--text); padding: 24px 16px; display: flex; justify-content: center; }
     .container { width: 100%; max-width: 650px; }
     
-    .back-link {
+    .back-nav {
+      margin-bottom: 18px;
+    }
+    .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 8px;
+      background: #ffffff;
       color: var(--primary);
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      cursor: pointer;
     }
-    .back-link:hover { text-decoration: underline; }
+    .back-btn:hover {
+      background: #f1f5f9;
+    }
 
     .card { background: var(--card); border-radius: 16px; padding: 30px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
     .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
@@ -101,7 +111,9 @@
 </head>
 <body>
   <div class="container">
-    <a href="index.html" class="back-link">← Return to Mosque Home Page</a>
+    <div class="back-nav">
+      <a href="./" class="back-btn">← Return to Mosque Home Page</a>
+    </div>
     
     <div class="card">
       <div id="formSection">
