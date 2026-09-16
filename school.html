@@ -23,14 +23,12 @@
       --radius: 16px;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
       --shadow-md: 0 10px 30px -4px rgba(6, 78, 59, 0.08);
-      --shadow-lg: 0 20px 40px -6px rgba(6, 78, 59, 0.12);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-    /* Top Navigation Bar */
     .navbar {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
@@ -38,7 +36,6 @@
       top: 0;
       z-index: 100;
       border-bottom: 1px solid var(--border);
-      transition: all 0.2s;
     }
     .nav-container {
       max-width: 1120px;
@@ -80,23 +77,9 @@
       font-weight: 700;
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
     .nav-links a:hover { color: var(--primary); }
 
     .btn-donate-nav {
@@ -108,74 +91,34 @@
       padding: 8px 18px;
       border-radius: 999px;
       box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
-      transition: transform 0.15s, box-shadow 0.15s;
     }
-    .btn-donate-nav:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35); }
 
-    /* Hero Section with Pattern Overlay */
     .hero {
       background: radial-gradient(circle at 80% 20%, #065f46 0%, var(--primary-dark) 100%);
       color: white;
       text-align: center;
       padding: 60px 20px 50px;
       position: relative;
-      overflow: hidden;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-size: 24px 24px;
-      opacity: 0.7;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .hero-bismillah {
-      font-family: 'Amiri', serif;
-      font-size: 1.7rem;
-      color: #fde68a;
-      margin-bottom: 8px;
-    }
-    .hero h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      font-size: 1.05rem;
-      opacity: 0.9;
-      margin-bottom: 24px;
-    }
-    .hero-pills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
+    .hero-content { max-width: 760px; margin: 0 auto; }
+    .hero-bismillah { font-family: 'Amiri', serif; font-size: 1.7rem; color: #fde68a; margin-bottom: 8px; }
+    .hero h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 24px; }
+    .hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     .hero-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
       color: white;
       text-decoration: none;
       padding: 7px 16px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 500;
-      transition: background 0.2s;
     }
-    .hero-pill:hover { background: rgba(255, 255, 255, 0.2); }
 
-    /* Main Container */
     .main-wrap {
       max-width: 1120px;
       margin: -28px auto 60px;
@@ -183,11 +126,8 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
-      position: relative;
-      z-index: 10;
     }
 
-    /* Live Upcoming Prayer Banner */
     .next-prayer-banner {
       background: #ffffff;
       border-radius: var(--radius);
@@ -218,11 +158,7 @@
       background: #22c55e;
       box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
     }
-    .next-prayer-banner h2 {
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
+    .next-prayer-banner h2 { font-size: 1.9rem; font-weight: 800; color: var(--primary); }
     .countdown-chip {
       background: var(--accent-light);
       border: 1px solid rgba(217, 119, 6, 0.3);
@@ -233,13 +169,7 @@
       color: #92400e;
     }
 
-    /* Layout Grid */
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 28px;
-    }
-
+    .content-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
     .card {
       background: var(--card);
       border-radius: var(--radius);
@@ -247,7 +177,6 @@
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--border);
     }
-
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -256,14 +185,7 @@
       padding-bottom: 12px;
       border-bottom: 2px solid #f1f5f9;
     }
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .card-title { font-size: 1.25rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
     .date-dropdown {
       padding: 7px 12px;
       border-radius: 8px;
@@ -276,11 +198,7 @@
       cursor: pointer;
     }
 
-    /* Table Design */
-    .prayer-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    .prayer-table { width: 100%; border-collapse: collapse; }
     .prayer-table th {
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -291,19 +209,10 @@
       text-align: left;
     }
     .prayer-table th:last-child, .prayer-table td:last-child { text-align: right; }
-    .prayer-table td {
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.95rem;
-    }
+    .prayer-table td { padding: 14px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
     .prayer-table tr:last-child td { border-bottom: none; }
-    .prayer-table tr.active-row {
-      background: #ecfdf5;
-      font-weight: 700;
-    }
     .prayer-title { font-weight: 700; color: var(--text); }
     .time-athan { font-weight: 600; color: #334155; }
-    .time-iqamah { font-weight: 700; color: var(--primary); }
     .badge-iqamah {
       display: inline-block;
       padding: 4px 10px;
@@ -314,9 +223,7 @@
       font-size: 0.88rem;
     }
 
-    /* Side Stack */
     .side-stack { display: flex; flex-direction: column; gap: 20px; }
-
     .feature-card {
       background: var(--card);
       border-radius: var(--radius);
@@ -342,11 +249,7 @@
       background: #e0f2fe;
       color: #0369a1;
     }
-    .feature-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
+    .feature-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; }
     .feature-action {
       display: block;
       text-align: center;
@@ -355,14 +258,10 @@
       font-weight: 700;
       font-size: 0.9rem;
       text-decoration: none;
-      transition: opacity 0.2s;
     }
     .action-school { background: #0284c7; color: white; }
-    .action-school:hover { background: #0369a1; }
     .action-donate { background: var(--accent); color: white; }
-    .action-donate:hover { opacity: 0.92; }
 
-    /* Photo Gallery Section */
     .gallery-section {
       background: var(--card);
       border-radius: var(--radius);
@@ -384,17 +283,9 @@
       cursor: pointer;
       background: #e2e8f0;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .gallery-item:hover img { transform: scale(1.05); }
     .gallery-caption {
       position: absolute;
       bottom: 0;
@@ -404,21 +295,8 @@
       font-size: 0.82rem;
       font-weight: 600;
       padding: 16px 12px 8px;
-      opacity: 0.95;
     }
-    .maps-gallery-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--primary);
-      font-size: 0.88rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 12px;
-    }
-    .maps-gallery-link:hover { text-decoration: underline; }
 
-    /* Lightbox Modal */
     .lightbox-modal {
       display: none;
       position: fixed;
@@ -428,30 +306,11 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      cursor: zoom-out;
     }
-    .lightbox-modal.active {
-      display: flex;
-    }
-    .lightbox-img {
-      max-width: 90vw;
-      max-height: 85vh;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      cursor: default;
-    }
-    .lightbox-close {
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      color: white;
-      font-size: 2rem;
-      font-weight: 700;
-      cursor: pointer;
-      line-height: 1;
-    }
+    .lightbox-modal.active { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 12px; }
+    .lightbox-close { position: absolute; top: 24px; right: 28px; color: white; font-size: 2rem; font-weight: 700; cursor: pointer; }
 
-    /* Footer */
     footer {
       background: #ffffff;
       border-top: 1px solid var(--border);
@@ -471,7 +330,6 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="#" class="brand">
@@ -488,14 +346,11 @@
           <li><a href="#photos">Photos</a></li>
           <li><a href="#location">Directions</a></li>
         </ul>
-        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav">
-          Donate / Dues
-        </a>
+        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav">Donate / Dues</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Header -->
   <header class="hero">
     <div class="hero-content">
       <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
@@ -515,10 +370,8 @@
     </div>
   </header>
 
-  <!-- Main Portal -->
   <main class="main-wrap">
 
-    <!-- Active Upcoming Prayer Alert -->
     <section class="next-prayer-banner">
       <div>
         <div class="tag-live">Next Prayer</div>
@@ -530,7 +383,6 @@
 
     <div class="content-grid">
 
-      <!-- Left: Prayer Schedule -->
       <section class="card" id="prayers">
         <div class="card-header">
           <div>
@@ -552,14 +404,12 @@
         </table>
       </section>
 
-      <!-- Right: Services, School, and Info -->
       <div class="side-stack">
 
-        <!-- Online Donation Card -->
         <div class="feature-card" style="border: 1.5px solid #fcd34d; background: #fffefb;">
           <h3>
             <span>🤲 Support the Mosque</span>
-            <span class="feature-pill" style="background: #fef3c7; color: #92400e;">Tax Deductible</span>
+            <span class="feature-pill" style="background: #fef3c7; color: #92400e;">Online</span>
           </h3>
           <p>Help maintain the mosque and community programs. Fulfill membership dues or general donations safely online.</p>
           <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="feature-action action-donate">
@@ -567,7 +417,6 @@
           </a>
         </div>
 
-        <!-- School Registration Card -->
         <div class="feature-card" id="services">
           <h3>
             <span>📚 Al-Noor Islamic School</span>
@@ -580,7 +429,6 @@
           </a>
         </div>
 
-        <!-- Jumu'ah & Eid Details -->
         <div class="feature-card">
           <h3>
             <span>🕌 Congregational Services</span>
@@ -588,46 +436,42 @@
           </h3>
           <p style="margin-bottom: 6px;"><strong>Jumu'ah Prayer:</strong> Khutbah at 1:00 PM (All Year)</p>
           <p style="margin-bottom: 6px;"><strong>Eid Prayers:</strong> 8:00 AM for both Eids</p>
-          <p style="margin-bottom: 0;"><strong>Five Daily Prayers:</strong> Held in congregation daily</p>
+          <p style="margin-bottom: 0;"><strong>Five Daily Prayers:</strong> Held daily in congregation</p>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Mosque Photos Section -->
+    <!-- Mosque Photos -->
     <section class="gallery-section" id="photos">
       <div class="card-header" style="margin-bottom: 6px;">
         <div>
           <h2 class="card-title">Mosque & Community Photos</h2>
           <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Click any photo to view full size</p>
         </div>
-        <a href="https://www.google.com/maps/place/Islamic+Center+of+Lumberton/@34.6186358,-79.0118837,17z" target="_blank" rel="noopener noreferrer" class="maps-gallery-link">
+        <a href="https://www.google.com/maps/place/Islamic+Center+of+Lumberton/@34.6186358,-79.0118837,17z" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-size: 0.88rem; font-weight: 700; text-decoration: none;">
           Open on Google Maps ↗
         </a>
       </div>
 
       <div class="gallery-grid">
-        <!-- Exterior View -->
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80', 'Mosque Exterior Entrance')">
+        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80', 'Mosque Entrance')">
           <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=600&q=80" alt="Mosque Exterior" loading="lazy" />
           <div class="gallery-caption">Mosque Exterior & Facade</div>
         </div>
 
-        <!-- Main Prayer Hall -->
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80', 'Main Prayer Hall & Mihrab')">
+        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80', 'Prayer Hall')">
           <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80" alt="Prayer Hall" loading="lazy" />
           <div class="gallery-caption">Main Prayer Hall</div>
         </div>
 
-        <!-- Quran & Education Classrooms -->
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Al-Noor Islamic School Class Area')">
-          <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=600&q=80" alt="Quran Class Area" loading="lazy" />
+        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Classroom')">
+          <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=600&q=80" alt="Quran Class" loading="lazy" />
           <div class="gallery-caption">Quran & Class Area</div>
         </div>
 
-        <!-- Community & Gathering Space -->
-        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80', 'Community Gathering Hall')">
+        <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80', 'Gathering Hall')">
           <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=600&q=80" alt="Community Hall" loading="lazy" />
           <div class="gallery-caption">Community Gathering Space</div>
         </div>
@@ -637,9 +481,6 @@
     <!-- Location & Directions -->
     <section class="card" id="location">
       <h2 class="card-title" style="margin-bottom: 12px;">Visit & Contact Us</h2>
-      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 18px;">
-        Located downtown in Lumberton, NC. All visitors and worshippers are warmly welcomed.
-      </p>
       <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;">
         <div>
           <div style="font-weight: 700; color: var(--text);">📍 104 South Chestnut St, Lumberton, NC 28358</div>
@@ -653,10 +494,9 @@
 
   </main>
 
-  <!-- Image Lightbox Modal -->
   <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
     <span class="lightbox-close">&times;</span>
-    <img id="lightboxImg" class="lightbox-img" src="" alt="Mosque Enlarge" onclick="event.stopPropagation()" />
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Mosque Large View" onclick="event.stopPropagation()" />
   </div>
 
   <footer>
@@ -802,7 +642,6 @@
       document.getElementById("countdownText").innerText = `in ${hours}h ${mins}m ${secs}s`;
     }
 
-    // Lightbox functions
     function openLightbox(src, alt) {
       const modal = document.getElementById("lightbox");
       const img = document.getElementById("lightboxImg");
@@ -815,7 +654,6 @@
       document.getElementById("lightbox").classList.remove("active");
     }
 
-    // ESC key closes modal
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
     });
