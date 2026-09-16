@@ -140,12 +140,19 @@
     }
     .section-title { font-size: 1.16rem; font-weight: 700; color: var(--primary); }
 
+    /* Side-by-Side Month & Day Selectors */
+    .selectors-wrap {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
     .date-select {
-      padding: 5px 10px;
+      padding: 5px 8px;
       border-radius: 6px;
       border: 1px solid var(--border);
       background: #ffffff;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       color: var(--text-main);
       outline: none;
       cursor: pointer;
@@ -235,7 +242,7 @@
     }
     .btn-school-toggle:hover { background: var(--primary-light); }
 
-    /* Inline Embedded School Form */
+    /* Inline Form */
     #schoolFormContainer {
       display: none;
       background: #ffffff;
@@ -290,7 +297,7 @@
       cursor: pointer;
     }
 
-    /* On-Page Monthly Timesheet Section */
+    /* On-Page Monthly Sheet */
     .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: center; margin-top: 8px; }
     .sheet-table th, .sheet-table td { padding: 6px 4px; border: 1px solid var(--border); }
     .sheet-table th { background: #f1f5f9; color: var(--primary); font-size: 0.74rem; text-transform: uppercase; }
@@ -408,14 +415,20 @@
     <!-- Content Grid -->
     <div class="content-grid">
 
-      <!-- Left Column: Daily Table -->
+      <!-- Left Column: Daily Table with Month & Day Selectors -->
       <section class="section-card" id="dailyScheduleCard">
         <div class="section-header">
           <div>
             <h2 class="section-title">Prayer Schedule</h2>
             <p style="font-size: 0.8rem; color: var(--text-muted);">Lumberton, NC Timetable</p>
           </div>
-          <select id="dateSelector" class="date-select" onchange="renderTimes(this.value)"></select>
+          
+          <div class="selectors-wrap">
+            <!-- 1. Select Month -->
+            <select id="scheduleMonthSelect" class="date-select" onchange="onMonthSelectChanged()"></select>
+            <!-- 2. Select Day (Limited to end of that month) -->
+            <select id="scheduleDaySelect" class="date-select" onchange="renderTimes(this.value)"></select>
+          </div>
         </div>
 
         <table class="prayer-table">
@@ -454,7 +467,6 @@
           <p>Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.</p>
           <div class="program-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
           
-          <!-- Directly opens the registration form right on this page -->
           <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm()">
             ✍️ Apply & Register for School (Opens Form) ↓
           </button>
@@ -509,7 +521,7 @@
 
     </div>
 
-    <!-- DIRECT INLINE STUDENT REGISTRATION FORM (With the Tuition Link Inside) -->
+    <!-- Embedded Registration Form -->
     <section id="schoolFormContainer">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
         <div>
@@ -572,7 +584,6 @@
           <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
         </div>
 
-        <!-- Monthly Tuition Payment Pre-Configured INSIDE The Form -->
         <div class="tuition-box-in">
           <strong style="color:var(--primary); font-size:0.98rem;">💳 School Tuition ($100 / Month)</strong>
           <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
@@ -585,7 +596,7 @@
       </form>
     </section>
 
-    <!-- ON-PAGE MONTHLY TIMETABLE (Directly Visible On The Front End) -->
+    <!-- On-Page Monthly Timetable -->
     <section class="section-card" id="monthlyScheduleCard">
       <div class="section-header">
         <div>
@@ -596,12 +607,6 @@
           <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
           <button type="button" class="btn-print-page" onclick="window.print()">🖨️ Print / Save PDF</button>
         </div>
-      </div>
-
-      <div style="text-align:center; margin-bottom:8px; display:none;" id="printHeaderOnly">
-        <h2 style="color:var(--primary); font-size:1.3rem;">Islamic Center of Lumberton</h2>
-        <p style="font-size:0.85rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-        <h3 id="sheetMonthTitlePrint" style="color:var(--gold); margin-top:2px; font-size:1.05rem;">--</h3>
       </div>
 
       <div style="overflow-x:auto;">
@@ -703,23 +708,60 @@
       return `${y}-${m}-${day}`;
     }
 
-    function initDropdown() {
-      const selector = document.getElementById("dateSelector");
-      selector.innerHTML = "";
-      const today = new Date();
-      const todayStr = formatYMD(today);
+    // Initialize Month & Day Dropdowns
+    function initSelectors() {
+      const monthSel = document.getElementById("scheduleMonthSelect");
+      monthSel.innerHTML = "";
+      const now = new Date();
 
-      for (let i = 0; i < 180; i++) {
-        const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i);
+      // Show current month + next 5 months
+      for (let i = 0; i < 6; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+        const opt = document.createElement("option");
+        opt.value = `${d.getFullYear()}-${d.getMonth()}`;
+        opt.textContent = d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        monthSel.appendChild(opt);
+      }
+
+      // Default to current month
+      monthSel.value = `${now.getFullYear()}-${now.getMonth()}`;
+      populateDayDropdown(monthSel.value, formatYMD(now));
+    }
+
+    function onMonthSelectChanged() {
+      const monthKey = document.getElementById("scheduleMonthSelect").value;
+      populateDayDropdown(monthKey);
+    }
+
+    function populateDayDropdown(monthKey, preferredYMD = null) {
+      const [year, month] = monthKey.split("-").map(Number);
+      const daySel = document.getElementById("scheduleDaySelect");
+      daySel.innerHTML = "";
+
+      // Total days in the chosen month
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      let defaultYMD = "";
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const d = new Date(year, month, day);
         const ymd = formatYMD(d);
         const opt = document.createElement("option");
         opt.value = ymd;
-        opt.textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-        selector.appendChild(opt);
+        opt.textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        daySel.appendChild(opt);
+
+        if (preferredYMD && ymd === preferredYMD) {
+          defaultYMD = ymd;
+        }
       }
 
-      selector.value = todayStr;
-      renderTimes(todayStr);
+      // If preferred date exists in this month (e.g. today), select it, otherwise select day 1
+      if (!defaultYMD) {
+        defaultYMD = formatYMD(new Date(year, month, 1));
+      }
+
+      daySel.value = defaultYMD;
+      renderTimes(defaultYMD);
     }
 
     function renderTimes(ymd) {
@@ -809,10 +851,6 @@
 
     function renderMonthlyTable(ymKey) {
       const [year, month] = ymKey.split("-").map(Number);
-      const titleDate = new Date(year, month, 1);
-      const monthTitle = titleDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-      document.getElementById("sheetMonthTitlePrint").textContent = monthTitle;
-
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const tbody = document.getElementById("sheetTableBody");
       let html = "";
@@ -843,7 +881,7 @@
       }
     }
 
-    initDropdown();
+    initSelectors();
     initMonthPicker();
     setInterval(updateCountdown, 1000);
     updateCountdown();
