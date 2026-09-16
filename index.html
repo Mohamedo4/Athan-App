@@ -49,7 +49,7 @@
     .nav-container {
       max-width: 1080px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -76,6 +76,12 @@
       font-weight: 600;
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .nav-links {
       display: flex;
       gap: 20px;
@@ -92,6 +98,21 @@
 
     .nav-links a:hover {
       color: var(--primary);
+    }
+
+    .btn-donate-nav {
+      background: var(--gold);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-donate-nav:hover {
+      opacity: 0.9;
     }
 
     /* Hero Section */
@@ -269,10 +290,6 @@
       border-bottom: none;
     }
 
-    .prayer-table tr.active-row {
-      background: #f0fdf4;
-    }
-
     .prayer-name {
       font-weight: 700;
       color: var(--text-main);
@@ -300,7 +317,7 @@
     .side-stack {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     .program-card {
@@ -341,9 +358,45 @@
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-main);
+      margin-bottom: 12px;
     }
 
-    /* Info Grid */
+    .btn-school-apply {
+      display: block;
+      text-align: center;
+      background: #0284c7;
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: background 0.2s ease;
+    }
+
+    .btn-school-apply:hover {
+      background: #0369a1;
+    }
+
+    .btn-donate-card {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: white;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-top: 10px;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-donate-card:hover {
+      opacity: 0.92;
+    }
+
+    /* Contact List */
     .contact-list {
       list-style: none;
       display: flex;
@@ -433,12 +486,15 @@
         <span class="brand-title">Islamic Center of Lumberton</span>
         <span class="brand-subtitle">A Place for Worship</span>
       </a>
-      <ul class="nav-links">
-        <li><a href="#prayers">Prayer Times</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#school">School</a></li>
-        <li><a href="#about">About & Location</a></li>
-      </ul>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#prayers">Prayer Times</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#school">School</a></li>
+          <li><a href="#about">About & Location</a></li>
+        </ul>
+        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav">Donate / Pay Dues</a>
+      </div>
     </div>
   </nav>
 
@@ -453,6 +509,9 @@
       </a>
       <a href="tel:19108023212" class="hero-badge">
         📞 (910) 802-3212
+      </a>
+      <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="hero-badge" style="background: var(--gold); border-color: transparent; font-weight: 600;">
+        🤲 Support the Masjid
       </a>
     </div>
   </header>
@@ -497,8 +556,34 @@
         </table>
       </section>
 
-      <!-- Right: Services & Programs -->
+      <!-- Right: Services, School, Donations & Contact -->
       <div class="side-stack">
+
+        <!-- Online Dues & Donations Card -->
+        <div class="program-card" style="border: 2px solid var(--gold); background: #fffefb;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🤲 Membership & Donations</h3>
+            <span class="program-badge">Online</span>
+          </div>
+          <p style="margin-bottom: 6px;">Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.</p>
+          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-card">
+            Pay Dues & Donate on Givebutter
+          </a>
+        </div>
+
+        <!-- Weekend School Card with Application Action -->
+        <div class="program-card" id="school">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>📚 Al-Noor Islamic School</h3>
+            <span class="program-badge" style="background:#e0f2fe; color:#0369a1;">Registration Open</span>
+          </div>
+          <p>Weekend Quran, Arabic reading, and Islamic values classes for children and youth.</p>
+          <div class="program-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
+          <a href="mailto:info@islamiccenteroflumberton.org?subject=Al-Noor%20Islamic%20School%20Student%20Registration&body=Assalamu%20Alaikum%2C%0A%0AI%20would%20like%20to%20register%20my%20child%28ren%29%20for%20Al-Noor%20Islamic%20School.%0A%0AParent%20Name%3A%0APhone%20Number%3A%0AStudent%20Name(s)%20and%20Age(s)%3A%0A%0AJazakum%20Allahu%20Khairan." 
+             class="btn-school-apply">
+            Apply / Register for School
+          </a>
+        </div>
 
         <!-- Jumu'ah Card -->
         <div class="program-card" id="services">
@@ -506,28 +591,18 @@
             <h3>🕌 Jumu'ah Prayer</h3>
             <span class="program-badge">All Year</span>
           </div>
-          <p>Friday congregational prayer with sermon and khutbah.</p>
-          <div class="program-time">Khutbah Starts: 1:00 PM</div>
+          <p>Weekly Friday congregational prayer and khutbah.</p>
+          <div class="program-time" style="margin-bottom:0;">Khutbah Starts: 1:00 PM</div>
         </div>
 
         <!-- Eid Card -->
         <div class="program-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <h3>🌙 Eid Prayers</h3>
-            <span class="program-badge">Eid al-Fitr & Eid al-Adha</span>
+            <span class="program-badge">Both Eids</span>
           </div>
-          <p>Congregational prayers for both Eids.</p>
-          <div class="program-time">Prayer Starts: 8:00 AM</div>
-        </div>
-
-        <!-- Weekend School Card -->
-        <div class="program-card" id="school">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <h3>📚 Al-Noor Islamic School</h3>
-            <span class="program-badge" style="background:#e0f2fe; color:#0369a1;">Enrollment Open</span>
-          </div>
-          <p>Weekend Quran, Arabic, and Islamic studies classes for children and youth.</p>
-          <div class="program-time">Sat & Sun: 10:00 AM – Dhuhr</div>
+          <p>Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
+          <div class="program-time" style="margin-bottom:0;">Prayer Starts: 8:00 AM</div>
         </div>
 
         <!-- About & Contact Card -->
@@ -553,7 +628,7 @@
               <span>🌐</span>
               <div>
                 <strong>Facebook:</strong><br>
-                <a href="https://www.facebook.com/IslamicCenterofLumberton" target="_blank">@IslamicCenterofLumberton</a>
+                <a href="https://www.facebook.com/IslamicCenterofLumberton" target="_blank" rel="noopener noreferrer">@IslamicCenterofLumberton</a>
               </div>
             </li>
           </ul>
@@ -653,7 +728,7 @@
       tbody.innerHTML = prayers.map(p => `
         <tr>
           <td class="prayer-name">${p.name}</td>
-          <td class="time-athan">${to12Hr(p.athan)}</td>
+          <td class="time-than">${to12Hr(p.athan)}</td>
           <td class="time-iqamah">
             ${p.iqamah === "-" ? "-" : `<span class="iqamah-badge">${to12Hr(p.iqamah)}</span>`}
           </td>
