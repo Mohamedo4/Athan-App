@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al-Noor Islamic School - Student Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #064e3b;
+      --primary-light: #047857;
+      --gold: #c59b27;
+      --gold-light: #fef3c7;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px 16px; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 650px; }
+    
+    .back-nav {
+      margin-bottom: 18px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .card { background: var(--card); border-radius: 16px; padding: 30px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+    .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
+    .bismillah { color: var(--gold); font-size: 1.35rem; font-family: 'Amiri', serif; margin-bottom: 6px; }
+    h1 { color: var(--primary); font-size: 1.6rem; font-weight: 800; }
+    .sub { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+    
+    .info-banner { background: var(--gold-light); border: 1px solid rgba(197,155,39,0.3); border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; color: #78350f; margin-bottom: 20px; line-height: 1.5; }
+    
+    .tuition-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .tuition-info h3 { color: var(--primary); font-size: 1.05rem; font-weight: 700; }
+    .tuition-info p { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
+    .tuition-rate { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+    .tuition-rate span { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+    .section-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin: 20px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #f1f5f9; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 6px; }
+    .required { color: #dc2626; }
+    input, select, textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; color: var(--text); }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(6,78,59,0.1); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
+
+    .pay-tuition-action {
+      background: #fafaf9;
+      border: 1px solid #e7e5e4;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0 12px;
+      text-align: center;
+    }
+    .pay-tuition-action h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; }
+    .pay-tuition-action p { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 14px; }
+    .btn-pay-tuition {
+      display: inline-block;
+      background: #d97706;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    .btn-submit:hover { background: var(--primary-light); }
+
+    .success-box { display: none; text-align: center; padding: 30px 16px; }
+    .success-box h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 10px; }
+    .success-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
+    @media (max-width: 600px) { .row-2, .row-3 { grid-template-columns: 1fr; } .tuition-box { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-nav">
+      <a href="./" class="back-btn">← Return to Mosque Home Page</a>
+    </div>
+    
+    <div class="card">
+      <div id="formSection">
+        <div class="header">
+          <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+          <h1>Al-Noor Islamic School</h1>
+          <p class="sub">Islamic Center of Lumberton • Student Registration</p>
+        </div>
+
+        <div class="info-banner">
+          📅 <strong>Classes:</strong> Saturdays & Sundays, 10:00 AM – Dhuhr Prayer<br>
+          📍 <strong>Location:</strong> 104 South Chestnut St, Lumberton, NC 28358
+        </div>
+
+        <div class="tuition-box">
+          <div class="tuition-info">
+            <h3>Monthly School Tuition</h3>
+            <p>Quran recitation, Arabic reading & Islamic curriculum</p>
+          </div>
+          <div class="tuition-rate">$100 <span>/ month</span></div>
+        </div>
+
+        <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
+          <div class="section-title">1. Parent / Guardian Information</div>
+          <div class="row-2">
+            <div class="form-group">
+              <label>Parent Full Name <span class="required">*</span></label>
+              <input type="text" name="Parent_Name" required placeholder="Parent name" />
+            </div>
+            <div class="form-group">
+              <label>Phone / WhatsApp <span class="required">*</span></label>
+              <input type="tel" name="Parent_Phone" required placeholder="(910) 000-0000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" name="Parent_Email" required placeholder="parent@example.com" />
+          </div>
+
+          <div class="section-title">2. Student Details</div>
+          <div class="row-3">
+            <div class="form-group">
+              <label>Child Full Name <span class="required">*</span></label>
+              <input type="text" name="Student_Name" required placeholder="Child's full name" />
+            </div>
+            <div class="form-group">
+              <label>Age / Grade <span class="required">*</span></label>
+              <input type="text" name="Student_Age_Grade" required placeholder="e.g. 8 yrs / 3rd" />
+            </div>
+            <div class="form-group">
+              <label>Gender <span class="required">*</span></label>
+              <select name="Student_Gender" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Proficiency in Arabic & Quran <span class="required">*</span></label>
+            <select name="Arabic_Proficiency" required>
+              <option value="" disabled selected>Select Current Level</option>
+              <option value="Beginner (Learning letters / sounds)">Beginner (Learning letters / sounds)</option>
+              <option value="Intermediate (Reads simple words / Qaida)">Intermediate (Reads simple words / Qaida)</option>
+              <option value="Quran Reader (Reads from the Mushaf)">Quran Reader (Reads from the Mushaf)</option>
+              <option value="Advanced (Fluent with Tajweed)">Advanced (Fluent with Tajweed)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Additional Notes or Allergies</label>
+            <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
+          </div>
+
+          <div class="pay-tuition-action">
+            <h3>💳 Pay Monthly Tuition ($100)</h3>
+            <p>You can pay your child's monthly tuition directly via Givebutter.</p>
+            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+              Pay $100 Monthly Tuition via Givebutter →
+            </a>
+          </div>
+
+          <button type="submit" class="btn-submit">Submit Registration Application</button>
+        </form>
+      </div>
+
+      <div id="successSection" class="success-box">
+        <h2>🎉 Registration Submitted!</h2>
+        <p>Jazakum Allahu Khairan! Your child's registration has been received for <strong>Al-Noor Islamic School</strong>. The administration will contact you shortly.</p>
+        <div class="pay-tuition-action">
+          <h3>Ready to finalize tuition?</h3>
+          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-pay-tuition">
+            Pay $100 Monthly Tuition via Givebutter →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit');
+      btn.innerText = "Submitting...";
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          document.getElementById('formSection').style.display = 'none';
+          document.getElementById('successSection').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('Could not submit form. Please call the center directly at (910) 802-3212.');
+          btn.innerText = "Submit Registration Application";
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('Network error. Please try again.');
+        btn.innerText = "Submit Registration Application";
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
