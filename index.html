@@ -1,230 +1,719 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#123b35">
-  <title>Islamic Center of Lumberton | Prayer Times</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Islamic Center of Lumberton</title>
   <style>
     :root {
-      --ink: #172521;
-      --muted: #71807a;
-      --green: #123b35;
-      --green-light: #e8f1ed;
-      --gold: #c69b42;
-      --paper: #f4f2eb;
-      --line: #dde3df;
-      --white: #fff;
+      --primary: #0d4a36;
+      --primary-light: #16654a;
+      --primary-dark: #083324;
+      --gold: #c59b27;
+      --gold-light: #fef9e7;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px -2px rgba(13, 74, 54, 0.08);
     }
 
-    * { box-sizing: border-box; }
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      min-width: 320px;
-      color: var(--ink);
-      background: var(--paper);
-      font-family: Georgia, 'Times New Roman', serif;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
-    a { color: inherit; }
-    .page { width: min(100% - 32px, 760px); margin: 0 auto; padding: 28px 0 40px; }
-    .masthead {
-      position: relative;
-      overflow: hidden;
-      padding: 34px 30px 30px;
-      color: var(--white);
-      background: var(--green);
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.2px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      text-align: center;
+      padding: 56px 20px 48px;
+    }
+
+    .hero-bismillah {
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: "Amiri", "Traditional Arabic", serif;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* Main Container */
+    .main-wrap {
+      max-width: 1080px;
+      margin: -24px auto 40px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Next Prayer Banner */
+    .next-prayer-banner {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .next-prayer-left .tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .next-prayer-left h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .next-prayer-right {
+      text-align: right;
+    }
+
+    .countdown-timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #b45309;
+      background: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 155, 39, 0.25);
+    }
+
+    /* Grid Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 28px;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Date Selector */
+    .date-select {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Prayer Table */
+    .prayer-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .prayer-table th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      background: #f8fafc;
+      text-align: left;
+    }
+
+    .prayer-table th:last-child,
+    .prayer-table td:last-child {
+      text-align: right;
+    }
+
+    .prayer-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .prayer-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .prayer-table tr.active-row {
+      background: #f0fdf4;
+    }
+
+    .prayer-name {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .time-athan {
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .time-iqamah {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .iqamah-badge {
+      display: inline-block;
+      padding: 3px 8px;
       border-radius: 6px;
-      box-shadow: 0 18px 40px rgba(18, 59, 53, .16);
+      background: #ecfdf5;
+      font-size: 0.88rem;
     }
-    .masthead::after {
-      content: '';
-      position: absolute;
-      right: -40px;
-      bottom: -78px;
-      width: 220px;
-      height: 220px;
-      border: 1px solid rgba(198, 155, 66, .5);
-      border-radius: 50%;
-      box-shadow: 0 0 0 22px rgba(198, 155, 66, .08), 0 0 0 44px rgba(198, 155, 66, .05);
+
+    /* Side Cards */
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
-    .eyebrow { margin: 0 0 12px; color: #e5c878; font: 700 11px/1.2 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
-    h1 { max-width: 540px; margin: 0; font-size: clamp(2rem, 7vw, 3.5rem); line-height: .98; font-weight: 400; }
-    .address { margin: 18px 0 0; color: #d6e2dc; font: 14px/1.6 Arial, sans-serif; }
-    .phone { display: inline-block; margin-top: 4px; color: #e5c878; text-decoration: none; }
-    .content { display: grid; gap: 16px; margin-top: 16px; }
-    .panel { padding: 23px; background: var(--white); border: 1px solid rgba(18, 59, 53, .08); border-radius: 6px; }
-    .next { display: flex; align-items: center; justify-content: space-between; gap: 18px; background: var(--green-light); border-left: 5px solid var(--gold); }
-    .label { margin: 0 0 5px; color: var(--muted); font: 700 11px/1.2 Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-    .next h2 { margin: 0; color: var(--green); font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 400; }
-    .countdown { color: #9b7026; font: 700 14px/1.4 Arial, sans-serif; text-align: right; white-space: nowrap; }
-    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
-    .section-head h2 { margin: 0; font-size: 1.35rem; font-weight: 400; }
-    select { max-width: 58%; padding: 9px 30px 9px 10px; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 4px; font: 13px Arial, sans-serif; }
-    table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; }
-    th { padding: 0 0 10px; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: .12em; text-align: left; text-transform: uppercase; }
-    th:not(:first-child), td:not(:first-child) { text-align: right; }
-    td { padding: 14px 0; border-bottom: 1px solid #edf0ed; font-size: 15px; }
-    tr:last-child td { border-bottom: 0; padding-bottom: 0; }
-    td:first-child { font-weight: 700; }
-    .athan { color: var(--ink); }
-    .iqamah { color: var(--green); font-weight: 700; }
-    .details { display: grid; gap: 0; }
-    .detail { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px dashed var(--line); font: 13px/1.4 Arial, sans-serif; }
-    .detail:last-of-type { border-bottom: 0; }
-    .detail strong { color: var(--ink); }
-    .detail span:last-child { color: var(--muted); text-align: right; }
-    .donate { display: block; margin-top: 17px; padding: 14px; color: var(--white); background: #b27c27; border-radius: 4px; font: 700 13px Arial, sans-serif; text-align: center; text-decoration: none; transition: background .2s ease, transform .2s ease; }
-    .donate:hover { background: #96651c; transform: translateY(-1px); }
-    @media (max-width: 520px) {
-      .page { width: min(100% - 20px, 760px); padding-top: 10px; }
-      .masthead, .panel { padding: 21px; }
-      .next { align-items: flex-start; flex-direction: column; }
-      .countdown { text-align: left; }
-      .section-head { align-items: flex-start; flex-direction: column; }
-      select { max-width: 100%; width: 100%; }
-      .detail { align-items: flex-start; flex-direction: column; gap: 3px; }
-      .detail span:last-child { text-align: left; }
+
+    .program-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .program-card h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .program-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--gold-light);
+      color: #854d0e;
+    }
+
+    .program-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .program-time {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Info Grid */
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+
+    .contact-item a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-action {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-top: 16px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-light);
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 820px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .next-prayer-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .next-prayer-right {
+        text-align: left;
+        width: 100%;
+      }
+      .countdown-timer {
+        display: inline-block;
+      }
+      .hero h1 {
+        font-size: 1.7rem;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <header class="masthead">
-      <p class="eyebrow">Prayer timetable · Lumberton, NC</p>
-      <h1>Islamic Center<br>of Lumberton</h1>
-      <p class="address">104 South Chestnut St, Lumberton, NC 28358<br><a class="phone" href="tel:+19108023212">(910) 802-3212</a></p>
-    </header>
 
-    <div class="content">
-      <section class="panel next" aria-live="polite">
-        <div><p class="label">Next prayer</p><h2 id="nextPrayerName">Calculating...</h2></div>
-        <div id="countdownText" class="countdown">Please wait</div>
-      </section>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <span class="brand-title">Islamic Center of Lumberton</span>
+        <span class="brand-subtitle">A Place for Worship</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#prayers">Prayer Times</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#school">School</a></li>
+        <li><a href="#about">About & Location</a></li>
+      </ul>
+    </div>
+  </nav>
 
-      <section class="panel">
-        <div class="section-head">
-          <h2 id="selectedDateLabel">Today's times</h2>
-          <label>
-            <span class="sr-only">Choose a date</span>
-            <select id="dateSelector" aria-label="Choose a date"></select>
-          </label>
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <h1>Islamic Center of Lumberton</h1>
+    <p>Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+    <div class="hero-badges">
+      <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" class="hero-badge">
+        📍 104 South Chestnut St, Lumberton, NC
+      </a>
+      <a href="tel:19108023212" class="hero-badge">
+        📞 (910) 802-3212
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-wrap">
+
+    <!-- Live Next Prayer Highlight -->
+    <section class="next-prayer-banner">
+      <div class="next-prayer-left">
+        <div class="tag">Upcoming Prayer</div>
+        <h2 id="nextPrayerName">--</h2>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;" id="nextPrayerTime">--</div>
+      </div>
+      <div class="next-prayer-right">
+        <div class="countdown-timer" id="countdownText">Calculating...</div>
+      </div>
+    </section>
+
+    <!-- Two-column Section -->
+    <div class="content-grid">
+
+      <!-- Left: Prayer Times Table -->
+      <section class="section-card" id="prayers">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Prayer Schedule</h2>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Lumberton, NC Timetable</p>
+          </div>
+          <select id="dateSelector" class="date-select" onchange="renderTimes(this.value)"></select>
         </div>
-        <table>
-          <thead><tr><th>Prayer</th><th>Athan</th><th>Iqamah</th></tr></thead>
+
+        <table class="prayer-table">
+          <thead>
+            <tr>
+              <th>Prayer</th>
+              <th>Athan</th>
+              <th style="text-align: right;">Iqamah</th>
+            </tr>
+          </thead>
           <tbody id="tableBody"></tbody>
         </table>
       </section>
 
-      <section class="panel details" aria-label="Center information">
-        <div class="detail"><strong>Jumu'ah khutbah</strong><span>1:00 PM · all year</span></div>
-        <div class="detail"><strong>Eid prayers</strong><span>8:00 AM</span></div>
-        <div class="detail"><strong>Al-Noor Islamic School</strong><span>Sat &amp; Sun, 10:00 AM – Dhuhr</span></div>
-        <a class="donate" href="https://givebutter.com/NfHi51" target="_blank" rel="noopener noreferrer">Donate &amp; pay dues online</a>
-      </section>
+      <!-- Right: Services & Programs -->
+      <div class="side-stack">
+
+        <!-- Jumu'ah Card -->
+        <div class="program-card" id="services">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🕌 Jumu'ah Prayer</h3>
+            <span class="program-badge">All Year</span>
+          </div>
+          <p>Friday congregational prayer with sermon and khutbah.</p>
+          <div class="program-time">Khutbah Starts: 1:00 PM</div>
+        </div>
+
+        <!-- Eid Card -->
+        <div class="program-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>🌙 Eid Prayers</h3>
+            <span class="program-badge">Eid al-Fitr & Eid al-Adha</span>
+          </div>
+          <p>Congregational prayers for both Eids.</p>
+          <div class="program-time">Prayer Starts: 8:00 AM</div>
+        </div>
+
+        <!-- Weekend School Card -->
+        <div class="program-card" id="school">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3>📚 Al-Noor Islamic School</h3>
+            <span class="program-badge" style="background:#e0f2fe; color:#0369a1;">Enrollment Open</span>
+          </div>
+          <p>Weekend Quran, Arabic, and Islamic studies classes for children and youth.</p>
+          <div class="program-time">Sat & Sun: 10:00 AM – Dhuhr</div>
+        </div>
+
+        <!-- About & Contact Card -->
+        <div class="program-card" id="about">
+          <h3>📍 Mosque Information</h3>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <span>📌</span>
+              <div>
+                <strong>Address:</strong><br>
+                104 South Chestnut St.<br>
+                Lumberton, NC 28358
+              </div>
+            </li>
+            <li class="contact-item">
+              <span>📞</span>
+              <div>
+                <strong>Phone / WhatsApp:</strong><br>
+                <a href="tel:19108023212">(910) 802-3212</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span>🌐</span>
+              <div>
+                <strong>Facebook:</strong><br>
+                <a href="https://www.facebook.com/IslamicCenterofLumberton" target="_blank">@IslamicCenterofLumberton</a>
+              </div>
+            </li>
+          </ul>
+          <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton+NC+28358" target="_blank" class="btn-action">
+            Get Driving Directions
+          </a>
+        </div>
+
+      </div>
+
     </div>
+
   </main>
+
+  <footer>
+    <p>© 2026 Islamic Center of Lumberton. All rights reserved.</p>
+    <p style="margin-top: 4px; font-size: 0.78rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+  </footer>
 
   <script>
     const scheduleData = [
-      ['2026-09-12', 1, '05:47', '06:56', '13:14', '16:46', '19:30', '20:39'],
-      ['2026-09-13', 2, '05:48', '06:56', '13:14', '16:45', '19:28', '20:37'],
-      ['2026-09-14', 3, '05:49', '06:57', '13:13', '16:44', '19:27', '20:36'],
-      ['2026-09-15', 4, '05:50', '06:58', '13:13', '16:43', '19:25', '20:34'],
-      ['2026-09-16', 5, '05:50', '06:59', '13:13', '16:42', '19:24', '20:33'],
-      ['2026-09-17', 6, '05:51', '06:59', '13:12', '16:41', '19:23', '20:31'],
-      ['2026-09-18', 7, '05:52', '07:00', '13:12', '16:41', '19:21', '20:30'],
-      ['2026-09-19', 8, '05:53', '07:01', '13:11', '16:40', '19:20', '20:28'],
-      ['2026-09-20', 9, '05:54', '07:01', '13:11', '16:39', '19:18', '20:27'],
-      ['2026-09-21', 10, '05:54', '07:02', '13:11', '16:38', '19:17', '20:25'],
-      ['2026-09-22', 11, '05:55', '07:03', '13:10', '16:37', '19:15', '20:24'],
-      ['2026-09-23', 12, '05:56', '07:04', '13:10', '16:36', '19:14', '20:22'],
-      ['2026-09-24', 13, '05:57', '07:04', '13:10', '16:35', '19:13', '20:21'],
-      ['2026-09-25', 14, '05:57', '07:05', '13:09', '16:34', '19:11', '20:19'],
-      ['2026-09-26', 15, '05:58', '07:06', '13:09', '16:33', '19:10', '20:18'],
-      ['2026-09-27', 16, '05:59', '07:06', '13:09', '16:32', '19:08', '20:16'],
-      ['2026-09-28', 17, '06:00', '07:07', '13:08', '16:31', '19:07', '20:15'],
-      ['2026-09-29', 18, '06:01', '07:08', '13:08', '16:30', '19:06', '20:13'],
-      ['2026-09-30', 19, '06:01', '07:09', '13:08', '16:29', '19:04', '20:12'],
-      ['2026-10-01', 20, '06:02', '07:09', '13:07', '16:28', '19:03', '20:11'],
-      ['2026-10-02', 21, '06:03', '07:10', '13:07', '16:28', '19:01', '20:09'],
-      ['2026-10-03', 22, '06:04', '07:11', '13:07', '16:27', '19:00', '20:08'],
-      ['2026-10-04', 23, '06:04', '07:12', '13:06', '16:26', '18:59', '20:06'],
-      ['2026-10-05', 24, '06:05', '07:12', '13:06', '16:25', '18:57', '20:05'],
-      ['2026-10-06', 25, '06:06', '07:13', '13:06', '16:24', '18:56', '20:04'],
-      ['2026-10-07', 26, '06:07', '07:14', '13:05', '16:23', '18:54', '20:02'],
-      ['2026-10-08', 27, '06:07', '07:15', '13:05', '16:22', '18:53', '20:01'],
-      ['2026-10-09', 28, '06:08', '07:15', '13:05', '16:21', '18:52', '20:00'],
-      ['2026-10-10', 29, '06:09', '07:16', '13:05', '16:20', '18:50', '19:58'],
-      ['2026-10-11', 30, '06:10', '07:17', '13:04', '16:19', '18:49', '19:57']
-    ].map(([date, hijri, fajr, sunrise, dhuhr, asr, maghrib, isha]) => ({ date, hijri, fajr, sunrise, dhuhr, asr, maghrib, isha }));
+      { date: "2026-09-12", hijri: 1, fajr: "05:47", sunrise: "06:56", dhuhr: "13:14", asr: "16:46", maghrib: "19:30", isha: "20:39" },
+      { date: "2026-09-13", hijri: 2, fajr: "05:48", sunrise: "06:56", dhuhr: "13:14", asr: "16:45", maghrib: "19:28", isha: "20:37" },
+      { date: "2026-09-14", hijri: 3, fajr: "05:49", sunrise: "06:57", dhuhr: "13:13", asr: "16:44", maghrib: "19:27", isha: "20:36" },
+      { date: "2026-09-15", hijri: 4, fajr: "05:50", sunrise: "06:58", dhuhr: "13:13", asr: "16:43", maghrib: "19:25", isha: "20:34" },
+      { date: "2026-09-16", hijri: 5, fajr: "05:50", sunrise: "06:59", dhuhr: "13:13", asr: "16:42", maghrib: "19:24", isha: "20:33" },
+      { date: "2026-09-17", hijri: 6, fajr: "05:51", sunrise: "06:59", dhuhr: "13:12", asr: "16:41", maghrib: "19:23", isha: "20:31" },
+      { date: "2026-09-18", hijri: 7, fajr: "05:52", sunrise: "07:00", dhuhr: "13:12", asr: "16:41", maghrib: "19:21", isha: "20:30" },
+      { date: "2026-09-19", hijri: 8, fajr: "05:53", sunrise: "07:01", dhuhr: "13:11", asr: "16:40", maghrib: "19:20", isha: "20:28" },
+      { date: "2026-09-20", hijri: 9, fajr: "05:54", sunrise: "07:01", dhuhr: "13:11", asr: "16:39", maghrib: "19:18", isha: "20:27" },
+      { date: "2026-09-21", hijri: 10, fajr: "05:54", sunrise: "07:02", dhuhr: "13:11", asr: "16:38", maghrib: "19:17", isha: "20:25" },
+      { date: "2026-09-22", hijri: 11, fajr: "05:55", sunrise: "07:03", dhuhr: "13:10", asr: "16:37", maghrib: "19:15", isha: "20:24" },
+      { date: "2026-09-23", hijri: 12, fajr: "05:56", sunrise: "07:04", dhuhr: "13:10", asr: "16:36", maghrib: "19:14", isha: "20:22" },
+      { date: "2026-09-24", hijri: 13, fajr: "05:57", sunrise: "07:04", dhuhr: "13:10", asr: "16:35", maghrib: "19:13", isha: "20:21" },
+      { date: "2026-09-25", hijri: 14, fajr: "05:57", sunrise: "07:05", dhuhr: "13:09", asr: "16:34", maghrib: "19:11", isha: "20:19" },
+      { date: "2026-09-26", hijri: 15, fajr: "05:58", sunrise: "07:06", dhuhr: "13:09", asr: "16:33", maghrib: "19:10", isha: "20:18" },
+      { date: "2026-09-27", hijri: 16, fajr: "05:59", sunrise: "07:06", dhuhr: "13:09", asr: "16:32", maghrib: "19:08", isha: "20:16" },
+      { date: "2026-09-28", hijri: 17, fajr: "06:00", sunrise: "07:07", dhuhr: "13:08", asr: "16:31", maghrib: "19:07", isha: "20:15" },
+      { date: "2026-09-29", hijri: 18, fajr: "06:01", sunrise: "07:08", dhuhr: "13:08", asr: "16:30", maghrib: "19:06", isha: "20:13" },
+      { date: "2026-09-30", hijri: 19, fajr: "06:01", sunrise: "07:09", dhuhr: "13:08", asr: "16:29", maghrib: "19:04", isha: "20:12" },
+      { date: "2026-10-01", hijri: 20, fajr: "06:02", sunrise: "07:09", dhuhr: "13:07", asr: "16:28", maghrib: "19:03", isha: "20:11" },
+      { date: "2026-10-02", hijri: 21, fajr: "06:03", sunrise: "07:10", dhuhr: "13:07", asr: "16:28", maghrib: "19:01", isha: "20:09" },
+      { date: "2026-10-03", hijri: 22, fajr: "06:04", sunrise: "07:11", dhuhr: "13:07", asr: "16:27", maghrib: "19:00", isha: "20:08" },
+      { date: "2026-10-04", hijri: 23, fajr: "06:04", sunrise: "07:12", dhuhr: "13:06", asr: "16:26", maghrib: "18:59", isha: "20:06" },
+      { date: "2026-10-05", hijri: 24, fajr: "06:05", sunrise: "07:12", dhuhr: "13:06", asr: "16:25", maghrib: "18:57", isha: "20:05" },
+      { date: "2026-10-06", hijri: 25, fajr: "06:06", sunrise: "07:13", dhuhr: "13:06", asr: "16:24", maghrib: "18:56", isha: "20:04" },
+      { date: "2026-10-07", hijri: 26, fajr: "06:07", sunrise: "07:14", dhuhr: "13:05", asr: "16:23", maghrib: "18:54", isha: "20:02" },
+      { date: "2026-10-08", hijri: 27, fajr: "06:07", sunrise: "07:15", dhuhr: "13:05", asr: "16:22", maghrib: "18:53", isha: "20:01" },
+      { date: "2026-10-09", hijri: 28, fajr: "06:08", sunrise: "07:15", dhuhr: "13:05", asr: "16:21", maghrib: "18:52", isha: "20:00" },
+      { date: "2026-10-10", hijri: 29, fajr: "06:09", sunrise: "07:16", dhuhr: "13:05", asr: "16:20", maghrib: "18:50", isha: "19:58" },
+      { date: "2026-10-11", hijri: 30, fajr: "06:10", sunrise: "07:17", dhuhr: "13:04", asr: "16:19", maghrib: "18:49", isha: "19:57" }
+    ];
 
-    const prayerNames = { fajr: 'Fajr', sunrise: 'Sunrise', dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha' };
-    const selector = document.getElementById('dateSelector');
-    const tableBody = document.getElementById('tableBody');
-
-    function localDateKey(date = new Date()) {
-      return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(date);
+    function to12Hr(time24) {
+      let [h, m] = time24.split(":").map(Number);
+      const suffix = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12;
+      return `${h}:${m.toString().padStart(2, "0")} ${suffix}`;
     }
 
-    function to12Hour(time) {
-      const [hours, minutes] = time.split(':').map(Number);
-      return `${hours % 12 || 12}:${String(minutes).padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
+    function addMinutes(time24, mins) {
+      let [h, m] = time24.split(":").map(Number);
+      const date = new Date(2000, 0, 1, h, m + mins);
+      return date.toTimeString().substring(0, 5);
     }
 
-    function addMinutes(time, minutes) {
-      const [hours, mins] = time.split(':').map(Number);
-      const total = hours * 60 + mins + minutes;
-      return `${String(Math.floor(total / 60) % 24).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+    function initDropdown() {
+      const selector = document.getElementById("dateSelector");
+      const todayIso = new Date().toISOString().split("T")[0];
+      let defaultDate = scheduleData[0].date;
+
+      scheduleData.forEach(row => {
+        const opt = document.createElement("option");
+        opt.value = row.date;
+        opt.textContent = `${row.date} (Rabi' ${row.hijri})`;
+        if (row.date === todayIso) defaultDate = row.date;
+        selector.appendChild(opt);
+      });
+
+      selector.value = defaultDate;
+      renderTimes(defaultDate);
     }
 
-    function renderTimes(date) {
-      const entry = scheduleData.find(row => row.date === date) || scheduleData[0];
-      document.getElementById('selectedDateLabel').textContent = date === localDateKey() ? "Today's times" : `${entry.date} · Rabi' ${entry.hijri}`;
+    function renderTimes(dateStr) {
+      const entry = scheduleData.find(d => d.date === dateStr) || scheduleData[0];
+      const tbody = document.getElementById("tableBody");
+
       const prayers = [
-        ['fajr', 20], ['sunrise', null], ['dhuhr', 15], ['asr', 15], ['maghrib', 15], ['isha', 15]
+        { name: "Fajr", athan: entry.fajr, iqamah: addMinutes(entry.fajr, 20) },
+        { name: "Sunrise", athan: entry.sunrise, iqamah: "-" },
+        { name: "Dhuhr", athan: entry.dhuhr, iqamah: addMinutes(entry.dhuhr, 15) },
+        { name: "Asr", athan: entry.asr, iqamah: addMinutes(entry.asr, 15) },
+        { name: "Maghrib", athan: entry.maghrib, iqamah: addMinutes(entry.maghrib, 15) },
+        { name: "Isha", athan: entry.isha, iqamah: addMinutes(entry.isha, 15) }
       ];
-      tableBody.innerHTML = prayers.map(([key, offset]) => `<tr><td>${prayerNames[key]}</td><td class="athan">${to12Hour(entry[key])}</td><td class="iqamah">${offset === null ? '-' : to12Hour(addMinutes(entry[key], offset))}</td></tr>`).join('');
+
+      tbody.innerHTML = prayers.map(p => `
+        <tr>
+          <td class="prayer-name">${p.name}</td>
+          <td class="time-athan">${to12Hr(p.athan)}</td>
+          <td class="time-iqamah">
+            ${p.iqamah === "-" ? "-" : `<span class="iqamah-badge">${to12Hr(p.iqamah)}</span>`}
+          </td>
+        </tr>
+      `).join("");
     }
 
     function updateCountdown() {
       const now = new Date();
-      const entry = scheduleData.find(row => row.date === localDateKey(now));
+      const todayStr = now.toISOString().split("T")[0];
+      let entry = scheduleData.find(d => d.date === todayStr);
+
       if (!entry) {
-        document.getElementById('nextPrayerName').textContent = 'Schedule out of range';
-        document.getElementById('countdownText').textContent = 'Please update timetable data';
+        document.getElementById("nextPrayerName").innerText = "Schedule Out of Range";
+        document.getElementById("nextPrayerTime").innerText = "Timetable active Sep 12 – Oct 11";
+        document.getElementById("countdownText").innerText = "--";
         return;
       }
-      const current = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(now);
-      const upcoming = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].map(key => ({ key, time: entry[key] })).find(item => item.time > current);
+
+      const prayerTimes = [
+        { name: "Fajr", time: entry.fajr },
+        { name: "Dhuhr", time: entry.dhuhr },
+        { name: "Asr", time: entry.asr },
+        { name: "Maghrib", time: entry.maghrib },
+        { name: "Isha", time: entry.isha }
+      ];
+
+      let upcoming = null;
+      let upcomingDate = null;
+
+      for (const p of prayerTimes) {
+        const [h, m] = p.time.split(":").map(Number);
+        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+        if (target > now) {
+          upcoming = p;
+          upcomingDate = target;
+          break;
+        }
+      }
+
       if (!upcoming) {
-        document.getElementById('nextPrayerName').textContent = 'Fajr tomorrow';
-        document.getElementById('countdownText').textContent = 'Completed for today';
+        document.getElementById("nextPrayerName").innerText = "Fajr (Tomorrow)";
+        document.getElementById("nextPrayerTime").innerText = "Completed for today";
+        document.getElementById("countdownText").innerText = "--";
         return;
       }
-      const [hours, minutes] = upcoming.time.split(':').map(Number);
-      const target = new Date(now);
-      target.setHours(hours, minutes, 0, 0);
-      const diff = Math.max(0, target - now);
-      const totalSeconds = Math.floor(diff / 1000);
-      const hoursLeft = Math.floor(totalSeconds / 3600);
-      const minutesLeft = Math.floor((totalSeconds % 3600) / 60);
-      const secondsLeft = totalSeconds % 60;
-      document.getElementById('nextPrayerName').textContent = prayerNames[upcoming.key];
-      document.getElementById('countdownText').textContent = `in ${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+
+      const diff = upcomingDate - now;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("nextPrayerName").innerText = upcoming.name;
+      document.getElementById("nextPrayerTime").innerText = `Athan at ${to12Hr(upcoming.time)}`;
+      document.getElementById("countdownText").innerText = `in ${hours}h ${mins}m ${secs}s`;
     }
 
-    const today = localDateKey();
-    scheduleData.forEach(entry => {
-      const option = document.createElement('option');
-      option.value = entry.date;
-      option.textContent = `${entry.date} · Rabi' ${entry.hijri}`;
-      selector.appendChild(option);
-    });
-    selector.value = scheduleData.some(entry => entry.date === today) ? today : scheduleData[0].date;
-    selector.addEventListener('change', event => renderTimes(event.target.value));
-    renderTimes(selector.value);
-    updateCountdown();
+    initDropdown();
     setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
-</html> 
+</html>
