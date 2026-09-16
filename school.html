@@ -26,15 +26,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      line-height: 1.45;
-    }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); color: var(--text-main); line-height: 1.45; }
 
     /* Navbar */
     .navbar {
@@ -55,50 +48,14 @@
       align-items: center;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-    }
+    .brand { display: flex; flex-direction: column; text-decoration: none; }
+    .brand-title { font-size: 1.12rem; font-weight: 700; color: var(--primary); }
+    .brand-subtitle { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gold); font-weight: 600; }
 
-    .brand-title {
-      font-size: 1.12rem;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: -0.2px;
-    }
-
-    .brand-subtitle {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.1px;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-main);
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-links { display: flex; gap: 16px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.88rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--primary); }
 
     .btn-donate-nav {
       background: var(--gold);
@@ -108,11 +65,6 @@
       font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .btn-donate-nav:hover {
-      opacity: 0.9;
     }
 
     /* Hero Section */
@@ -128,30 +80,12 @@
       color: var(--gold);
       margin-bottom: 4px;
       font-family: "Amiri", "Traditional Arabic", serif;
-      letter-spacing: 1px;
     }
 
-    .hero h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
+    .hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+    .hero p { font-size: 0.98rem; opacity: 0.9; max-width: 600px; margin: 0 auto 12px; }
 
-    .hero p {
-      font-size: 0.98rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto 12px;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-
+    .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -189,25 +123,8 @@
       gap: 10px;
     }
 
-    .next-prayer-left .tag {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .next-prayer-left h2 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--primary);
-      line-height: 1.1;
-    }
-
-    .next-prayer-right {
-      text-align: right;
-    }
-
+    .next-prayer-left .tag { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); }
+    .next-prayer-left h2 { font-size: 1.75rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
     .countdown-timer {
       font-size: 1.25rem;
       font-weight: 700;
@@ -218,7 +135,7 @@
       border: 1px solid rgba(197, 155, 39, 0.25);
     }
 
-    /* Grid Layout */
+    /* Content Grid */
     .content-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr;
@@ -240,13 +157,12 @@
       margin-bottom: 10px;
       padding-bottom: 8px;
       border-bottom: 1.5px solid var(--border);
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .section-title {
-      font-size: 1.18rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
+    .section-title { font-size: 1.18rem; font-weight: 700; color: var(--primary); }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
 
     .date-select {
       padding: 5px 10px;
@@ -259,12 +175,23 @@
       cursor: pointer;
     }
 
-    /* Prayer Table */
-    .prayer-table {
-      width: 100%;
-      border-collapse: collapse;
+    .btn-pdf-modal {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .btn-pdf-modal:hover { background: #bae6fd; }
 
+    /* Prayer Table */
+    .prayer-table { width: 100%; border-collapse: collapse; }
     .prayer-table th {
       font-size: 0.72rem;
       text-transform: uppercase;
@@ -274,37 +201,12 @@
       background: #f8fafc;
       text-align: left;
     }
-
-    .prayer-table th:last-child,
-    .prayer-table td:last-child {
-      text-align: right;
-    }
-
-    .prayer-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.92rem;
-    }
-
-    .prayer-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .prayer-name {
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .time-athan {
-      font-weight: 600;
-      color: #334155;
-    }
-
-    .time-iqamah {
-      font-weight: 700;
-      color: var(--primary);
-    }
-
+    .prayer-table th:last-child, .prayer-table td:last-child { text-align: right; }
+    .prayer-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+    .prayer-table tr:last-child td { border-bottom: none; }
+    .prayer-name { font-weight: 700; color: var(--text-main); }
+    .time-athan { font-weight: 600; color: #334155; }
+    .time-iqamah { font-weight: 700; color: var(--primary); }
     .iqamah-badge {
       display: inline-block;
       padding: 2px 7px;
@@ -314,12 +216,7 @@
     }
 
     /* Side Cards */
-    .side-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    .side-stack { display: flex; flex-direction: column; gap: 12px; }
     .program-card {
       background: #ffffff;
       border-radius: 12px;
@@ -327,7 +224,6 @@
       border: 1px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
-
     .program-card h3 {
       font-size: 1rem;
       color: var(--primary);
@@ -336,7 +232,6 @@
       align-items: center;
       gap: 6px;
     }
-
     .program-badge {
       display: inline-block;
       font-size: 0.7rem;
@@ -347,19 +242,8 @@
       background: var(--gold-light);
       color: #854d0e;
     }
-
-    .program-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .program-time {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 6px;
-    }
+    .program-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px; }
+    .program-time { font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
 
     .btn-donate-card {
       display: block;
@@ -372,13 +256,7 @@
       font-weight: 700;
       font-size: 0.9rem;
       margin-top: 6px;
-      transition: opacity 0.2s ease;
     }
-
-    .btn-donate-card:hover {
-      opacity: 0.92;
-    }
-
     .btn-tuition-card {
       display: block;
       text-align: center;
@@ -390,39 +268,11 @@
       font-weight: 700;
       font-size: 0.9rem;
       margin-top: 6px;
-      transition: background 0.2s ease;
     }
 
-    .btn-tuition-card:hover {
-      background: #0369a1;
-    }
-
-    /* Contact List */
-    .contact-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.88rem;
-    }
-
-    .contact-item a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .contact-item a:hover {
-      text-decoration: underline;
-    }
-
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.88rem; }
+    .contact-item a { color: var(--primary); text-decoration: none; font-weight: 500; }
     .btn-action {
       display: inline-block;
       width: 100%;
@@ -435,14 +285,61 @@
       font-weight: 600;
       font-size: 0.9rem;
       margin-top: 10px;
-      transition: background 0.2s ease;
     }
 
-    .btn-action:hover {
-      background: var(--primary-light);
+    /* Modal Timesheet Viewer */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 12px;
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .btn-print {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .close-modal {
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
     }
 
-    /* Footer */
+    .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: center; }
+    .sheet-table th, .sheet-table td { padding: 6px 4px; border: 1px solid var(--border); }
+    .sheet-table th { background: #f1f5f9; color: var(--primary); font-size: 0.74rem; text-transform: uppercase; }
+
     footer {
       background: #ffffff;
       border-top: 1px solid var(--border);
@@ -454,26 +351,18 @@
     }
 
     @media (max-width: 820px) {
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-links {
-        display: none;
-      }
-      .next-prayer-banner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .next-prayer-right {
-        text-align: left;
-        width: 100%;
-      }
-      .countdown-timer {
-        display: inline-block;
-      }
-      .hero h1 {
-        font-size: 1.6rem;
-      }
+      .content-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .next-prayer-banner { flex-direction: column; align-items: flex-start; }
+      .next-prayer-right { text-align: left; width: 100%; }
+      .hero h1 { font-size: 1.6rem; }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      #printableArea, #printableArea * { visibility: visible; }
+      #printableArea { position: absolute; left: 0; top: 0; width: 100%; padding: 10px; }
+      .no-print { display: none !important; }
     }
   </style>
 </head>
@@ -531,17 +420,20 @@
       </div>
     </section>
 
-    <!-- Two-column Section -->
+    <!-- Content Grid -->
     <div class="content-grid">
 
-      <!-- Left: Prayer Times Table -->
+      <!-- Left: Prayer Schedule -->
       <section class="section-card" id="prayers">
         <div class="section-header">
           <div>
             <h2 class="section-title">Prayer Schedule</h2>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Lumberton, NC Timetable (Calculated Schedule)</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Lumberton, NC Timetable</p>
           </div>
-          <select id="dateSelector" class="date-select" onchange="renderTimes(this.value)"></select>
+          <div class="header-actions">
+            <select id="dateSelector" class="date-select" onchange="renderTimes(this.value)"></select>
+            <button type="button" class="btn-pdf-modal" onclick="openMonthSheet()">📄 Monthly Sheet / PDF</button>
+          </div>
         </div>
 
         <table class="prayer-table">
@@ -635,38 +527,74 @@
 
   </main>
 
+  <!-- Printable Monthly Sheet Modal -->
+  <div id="pdfModal" class="modal-overlay" onclick="closeMonthSheet()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-head no-print">
+        <div>
+          <h3 style="color:var(--primary); font-size:1.15rem;">Monthly Prayer Timesheet</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Select month to view or print as PDF</p>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
+          <button type="button" class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <button type="button" class="close-modal" onclick="closeMonthSheet()">&times;</button>
+        </div>
+      </div>
+
+      <div id="printableArea">
+        <div style="text-align:center; margin-bottom:14px;">
+          <h2 style="color:var(--primary); font-size:1.4rem;">Islamic Center of Lumberton</h2>
+          <p style="font-size:0.85rem; color:#475569;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+          <h3 id="sheetMonthTitle" style="color:var(--gold); margin-top:4px; font-size:1.1rem;">--</h3>
+          <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Fajr Iqamah: 20 min after Athan • Dhuhr, Asr, Maghrib, Isha Iqamah: 15 min after Athan</p>
+        </div>
+
+        <table class="sheet-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Fajr</th>
+              <th>Sunrise</th>
+              <th>Dhuhr</th>
+              <th>Asr</th>
+              <th>Maghrib</th>
+              <th>Isha</th>
+            </tr>
+          </thead>
+          <tbody id="sheetTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>© 2026 Islamic Center of Lumberton. All rights reserved.</p>
     <p style="margin-top: 4px; font-size: 0.76rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
   </footer>
 
   <script>
-    // Lumberton, NC Mosque Coordinates
     const LAT = 34.61662;
     const LNG = -79.00830;
-    const FAJR_ANGLE = 15.0; // ISNA standard
+    const FAJR_ANGLE = 15.0;
     const ISHA_ANGLE = 15.0;
 
     const rad = deg => (deg * Math.PI) / 180;
     const deg = rad => (rad * 180) / Math.PI;
 
-    // Astronomical sun calculations
-    function calculateDayTimes(date) {
-      const startOfYear = new Date(date.getFullYear(), 0, 0);
+    function calculateDayTimes(year, monthIndex, day) {
+      const date = new Date(year, monthIndex, day);
+      const startOfYear = new Date(year, 0, 0);
       const diff = date - startOfYear;
       const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-      // Equation of time and declination
       const B = (360 / 365) * (dayOfYear - 81);
-      const eot = 9.87 * Math.sin(rad(2 * B)) - 7.53 * Math.cos(rad(B)) - 1.5 * Math.sin(rad(B)); // in minutes
-      const decl = 23.45 * Math.sin(rad((360 / 365) * (dayOfYear - 81))); // in degrees
+      const eot = 9.87 * Math.sin(rad(2 * B)) - 7.53 * Math.cos(rad(B)) - 1.5 * Math.sin(rad(B));
+      const decl = 23.45 * Math.sin(rad((360 / 365) * (dayOfYear - 81)));
 
-      // Solar noon (Dhuhr)
-      // Timezone offset for Lumberton in hours (detects daylight saving automatically)
       const tzOffsetHours = -date.getTimezoneOffset() / 60;
       const solarNoonMinutes = 720 - 4 * LNG - eot + tzOffsetHours * 60;
 
-      // Hour angle calculation helper
       function getHourAngle(altitude) {
         const cosHA = (Math.sin(rad(altitude)) - Math.sin(rad(LAT)) * Math.sin(rad(decl))) /
                       (Math.cos(rad(LAT)) * Math.cos(rad(decl)));
@@ -674,22 +602,13 @@
         return deg(Math.acos(cosHA));
       }
 
-      // Sunrise & Sunset (center of sun at -0.833 degrees)
       const haSun = getHourAngle(-0.833);
-      const sunriseMin = solarNoonMinutes - (haSun * 4);
-      const sunsetMin = solarNoonMinutes + (haSun * 4);
-
-      // Fajr (-15 deg) & Isha (-15 deg)
       const haFajr = getHourAngle(-FAJR_ANGLE);
       const haIsha = getHourAngle(-ISHA_ANGLE);
-      const fajrMin = solarNoonMinutes - (haFajr * 4);
-      const ishaMin = solarNoonMinutes + (haIsha * 4);
 
-      // Asr (Standard Shafi'i/Hanbali/Maliki: shadow = object + noon shadow)
       const noonAltitude = 90 - LAT + decl;
       const asrAltitude = deg(Math.atan(1 / (1 + Math.tan(rad(90 - noonAltitude)))));
       const haAsr = getHourAngle(asrAltitude);
-      const asrMin = solarNoonMinutes + (haAsr * 4);
 
       function minToHHMM(m) {
         let total = Math.round(m);
@@ -699,12 +618,12 @@
       }
 
       return {
-        fajr: minToHHMM(fajrMin),
-        sunrise: minToHHMM(sunriseMin),
-        dhuhr: minToHHMM(solarNoonMinutes + 2), // +2 mins safety buffer
-        asr: minToHHMM(asrMin),
-        maghrib: minToHHMM(sunsetMin + 2),     // +2 mins safety buffer
-        isha: minToHHMM(ishaMin)
+        fajr: minToHHMM(solarNoonMinutes - (haFajr * 4)),
+        sunrise: minToHHMM(solarNoonMinutes - (haSun * 4)),
+        dhuhr: minToHHMM(solarNoonMinutes + 2),
+        asr: minToHHMM(solarNoonMinutes + (haAsr * 4)),
+        maghrib: minToHHMM(solarNoonMinutes + (haSun * 4) + 2),
+        isha: minToHHMM(solarNoonMinutes + (haIsha * 4))
       };
     }
 
@@ -721,53 +640,45 @@
       return date.toTimeString().substring(0, 5);
     }
 
-    // Generate schedule automatically for the next 180 days (6 months)
-    const scheduleCache = {};
-
-    function getScheduleForDate(dateStr) {
-      if (scheduleCache[dateStr]) return scheduleCache[dateStr];
-      const parts = dateStr.split("-").map(Number);
-      const d = new Date(parts[0], parts[1] - 1, parts[2]);
-      const times = calculateDayTimes(d);
-      scheduleCache[dateStr] = { date: dateStr, ...times };
-      return scheduleCache[dateStr];
+    function formatYMD(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
     }
 
     function initDropdown() {
       const selector = document.getElementById("dateSelector");
+      selector.innerHTML = "";
       const today = new Date();
-      const todayIso = today.toISOString().split("T")[0];
+      const todayStr = formatYMD(today);
 
-      // Populate dropdown for next 180 days
+      // Generate the next 180 days across upcoming months
       for (let i = 0; i < 180; i++) {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        const iso = d.toISOString().split("T")[0];
+        const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i);
+        const ymd = formatYMD(d);
         const opt = document.createElement("option");
-        opt.value = iso;
-        const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-        opt.textContent = d.toLocaleDateString('en-US', options);
+        opt.value = ymd;
+        opt.textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
         selector.appendChild(opt);
       }
 
-      selector.value = todayIso;
-      renderTimes(todayIso);
+      selector.value = todayStr;
+      renderTimes(todayStr);
     }
 
-    function renderTimes(dateStr) {
-      const entry = getScheduleForDate(dateStr);
+    function renderTimes(ymd) {
+      const [y, m, d] = ymd.split("-").map(Number);
+      const times = calculateDayTimes(y, m - 1, d);
       const tbody = document.getElementById("tableBody");
 
-      // Follows official mosque board:
-      // Fajr Iqamah: 20 Minutes
-      // Dhuhr, Asr, Maghrib, Isha Iqamah: 15 Minutes
       const prayers = [
-        { name: "Fajr", athan: entry.fajr, iqamah: addMinutes(entry.fajr, 20) },
-        { name: "Sunrise", athan: entry.sunrise, iqamah: "-" },
-        { name: "Dhuhr", athan: entry.dhuhr, iqamah: addMinutes(entry.dhuhr, 15) },
-        { name: "Asr", athan: entry.asr, iqamah: addMinutes(entry.asr, 15) },
-        { name: "Maghrib", athan: entry.maghrib, iqamah: addMinutes(entry.maghrib, 15) },
-        { name: "Isha", athan: entry.isha, iqamah: addMinutes(entry.isha, 15) }
+        { name: "Fajr", athan: times.fajr, iqamah: addMinutes(times.fajr, 20) },
+        { name: "Sunrise", athan: times.sunrise, iqamah: "-" },
+        { name: "Dhuhr", athan: times.dhuhr, iqamah: addMinutes(times.dhuhr, 15) },
+        { name: "Asr", athan: times.asr, iqamah: addMinutes(times.asr, 15) },
+        { name: "Maghrib", athan: times.maghrib, iqamah: addMinutes(times.maghrib, 15) },
+        { name: "Isha", athan: times.isha, iqamah: addMinutes(times.isha, 15) }
       ];
 
       tbody.innerHTML = prayers.map(p => `
@@ -783,23 +694,24 @@
 
     function updateCountdown() {
       const now = new Date();
-      const todayStr = now.toISOString().split("T")[0];
-      const entry = getScheduleForDate(todayStr);
+      const ymd = formatYMD(now);
+      const [y, m, d] = ymd.split("-").map(Number);
+      const todayTimes = calculateDayTimes(y, m - 1, d);
 
       const prayerTimes = [
-        { name: "Fajr", time: entry.fajr },
-        { name: "Dhuhr", time: entry.dhuhr },
-        { name: "Asr", time: entry.asr },
-        { name: "Maghrib", time: entry.maghrib },
-        { name: "Isha", time: entry.isha }
+        { name: "Fajr", time: todayTimes.fajr },
+        { name: "Dhuhr", time: todayTimes.dhuhr },
+        { name: "Asr", time: todayTimes.asr },
+        { name: "Maghrib", time: todayTimes.maghrib },
+        { name: "Isha", time: todayTimes.isha }
       ];
 
       let upcoming = null;
       let upcomingDate = null;
 
       for (const p of prayerTimes) {
-        const [h, m] = p.time.split(":").map(Number);
-        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+        const [h, min] = p.time.split(":").map(Number);
+        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, min);
         if (target > now) {
           upcoming = p;
           upcomingDate = target;
@@ -808,14 +720,11 @@
       }
 
       if (!upcoming) {
-        // Next prayer is tomorrow's Fajr
-        const tomorrow = new Date(now);
-        tomorrow.setDate(now.getDate() + 1);
-        const tmrwStr = tomorrow.toISOString().split("T")[0];
-        const tmrwEntry = getScheduleForDate(tmrwStr);
-        const [h, m] = tmrwEntry.fajr.split(":").map(Number);
-        upcoming = { name: "Fajr (Tomorrow)", time: tmrwEntry.fajr };
-        upcomingDate = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), h, m);
+        const tmrw = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const tmrwTimes = calculateDayTimes(tmrw.getFullYear(), tmrw.getMonth(), tmrw.getDate());
+        const [h, min] = tmrwTimes.fajr.split(":").map(Number);
+        upcoming = { name: "Fajr (Tomorrow)", time: tmrwTimes.fajr };
+        upcomingDate = new Date(tmrw.getFullYear(), tmrw.getMonth(), tmrw.getDate(), h, min);
       }
 
       const diff = upcomingDate - now;
@@ -828,7 +737,60 @@
       document.getElementById("countdownText").innerText = `in ${hours}h ${mins}m ${secs}s`;
     }
 
+    // Monthly Sheet & PDF generation
+    function initMonthPicker() {
+      const picker = document.getElementById("monthPicker");
+      picker.innerHTML = "";
+      const now = new Date();
+
+      // Next 6 full months
+      for (let i = 0; i < 6; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+        const opt = document.createElement("option");
+        opt.value = `${d.getFullYear()}-${d.getMonth()}`;
+        opt.textContent = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        picker.appendChild(opt);
+      }
+      renderMonthlyTable(picker.value);
+    }
+
+    function renderMonthlyTable(ymKey) {
+      const [year, month] = ymKey.split("-").map(Number);
+      const titleDate = new Date(year, month, 1);
+      document.getElementById("sheetMonthTitle").textContent = titleDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const tbody = document.getElementById("sheetTableBody");
+      let html = "";
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const t = calculateDayTimes(year, month, day);
+        const curDate = new Date(year, month, day);
+        const dayLabel = curDate.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' });
+
+        html += `<tr>
+          <td style="font-weight:600;">${dayLabel}</td>
+          <td>${to12Hr(t.fajr)}</td>
+          <td style="color:#64748b;">${to12Hr(t.sunrise)}</td>
+          <td>${to12Hr(t.dhuhr)}</td>
+          <td>${to12Hr(t.asr)}</td>
+          <td>${to12Hr(t.maghrib)}</td>
+          <td>${to12Hr(t.isha)}</td>
+        </tr>`;
+      }
+      tbody.innerHTML = html;
+    }
+
+    function openMonthSheet() {
+      document.getElementById("pdfModal").classList.add("active");
+    }
+
+    function closeMonthSheet() {
+      document.getElementById("pdfModal").classList.remove("active");
+    }
+
     initDropdown();
+    initMonthPicker();
     setInterval(updateCountdown, 1000);
     updateCountdown();
   </script>
