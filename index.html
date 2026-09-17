@@ -1372,22 +1372,63 @@
       document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
     }
 
-    function downloadTimetableImage() {
+    async function downloadTimetableImage() {
       const target = document.getElementById("printableCaptureCard");
       const ymKey = document.getElementById("monthPicker").value;
       const btn = document.querySelector(".btn-save-mobile");
+      const originalText = btn.innerText;
       btn.innerText = "⏳ Generating...";
 
-      html2canvas(target, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
-        btn.innerText = "📥 Save Timetable (Photos / Files)";
-        const link = document.createElement("a");
-        link.download = `Lumberton_Prayer_Times_${ymKey}.png`;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      }).catch(err => {
-        btn.innerText = "📥 Save Timetable (Photos / Files)";
-        alert("Please take a screenshot of this view to save it to your Photos.");
-      });
+      try {
+        const canvas = await html2canvas(target, { scale: 2, backgroundColor: "#ffffff", useCORS: true });
+        
+        canvas.toBlob(async (blob) => {
+          btn.innerText = originalText;
+          if (!blob) {
+            alert("Could not generate image file. Please take a screenshot.");
+            return;
+          }
+
+          const file = new File([blob], `Lumberton_Prayer_Times_${ymKey}.png`, { type: "image/png" });
+
+          // 1. Native iOS Share Sheet (Opens "Save Image", "Save to Files", AirDrop)
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                files: [file],
+                title: "Lumberton Prayer Timetable",
+                text: "Monthly prayer timetable for Islamic Center of Lumberton"
+              });
+              return;
+            } catch (shareErr) {
+              if (shareErr.name === "AbortError") return; // User dismissed share sheet
+            }
+          }
+
+          // 2. Fallback: Display image in overlay so user can touch & hold "Save Image"
+          let previewContainer = document.getElementById("mobileImagePreview");
+          if (!previewContainer) {
+            previewContainer = document.createElement("div");
+            previewContainer.id = "mobileImagePreview";
+            previewContainer.style.cssText = "margin-top:16px; text-align:center; background:#f1f5f9; padding:12px; border-radius:10px;";
+            document.getElementById("standalonePrintView").insertBefore(previewContainer, target);
+          }
+
+          const imgUrl = URL.createObjectURL(blob);
+          previewContainer.innerHTML = `
+            <p style="font-size:13px; font-weight:bold; color:#0d4a36; margin-bottom:8px;">
+              👇 Press and hold the image below, then tap <strong>"Save to Photos"</strong>:
+            </p>
+            <img src="${imgUrl}" style="max-width:100%; border:1px solid #ccc; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);" />
+          `;
+          previewContainer.scrollIntoView({ behavior: "smooth" });
+
+        }, "image/png");
+
+      } catch (err) {
+        btn.innerText = originalText;
+        alert("Please take a screenshot of the schedule on your screen.");
+      }
     }
 
     function toggleSchoolForm() {
