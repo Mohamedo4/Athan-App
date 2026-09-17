@@ -582,7 +582,9 @@
               <span class="program-badge" id="t-badge-eids">Both Eids</span>
             </div>
             <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
-            <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
+            <div class="program-time" style="margin-bottom:2px;" id="t-eid-takbeerat">Takbeerat Starts: 7:30 AM</div>
+            <div class="program-time" style="margin-bottom:2px;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
+            <div class="program-time" style="margin-bottom:0; font-size:0.86rem; color:var(--text-muted);" id="t-eid-khutbah">Khutbah Starts right after prayer</div>
           </div>
 
           <!-- 3. Mosque Information & Driving Directions -->
@@ -946,7 +948,9 @@
         eidTitle: "🌙 Eid Prayers",
         badgeEids: "Both Eids",
         eidDesc: "Congregational prayers for Eid al-Fitr and Eid al-Adha.",
+        eidTakbeerat: "Takbeerat Starts: 7:30 AM",
         eidTime: "Prayer Starts: 8:00 AM",
+        eidKhutbah: "Khutbah Starts right after prayer",
         infoTitle: "📍 Mosque Information",
         addrLabel: "Address:",
         phoneLabel: "Phone / WhatsApp:",
@@ -1022,7 +1026,9 @@
         eidTitle: "🌙 صلاة العيدين",
         badgeEids: "الفطر والأضحى",
         eidDesc: "صلاة عيد الفطر وعيد الأضحى المبارك مع جموع المصلين.",
+        eidTakbeerat: "تبدأ التكبيرات: 7:30 صباحاً",
         eidTime: "تبدأ الصلاة: 8:00 صباحاً",
+        eidKhutbah: "تبدأ الخطبة مباشرة بعد الصلاة",
         infoTitle: "📍 معلومات المسجد",
         addrLabel: "العنوان:",
         phoneLabel: "الهاتف / واتساب:",
@@ -1125,7 +1131,11 @@
       document.getElementById("t-eid-title").innerText = t.eidTitle;
       document.getElementById("t-badge-eids").innerText = t.badgeEids;
       document.getElementById("t-eid-desc").innerText = t.eidDesc;
+      const eidTakbeeratEl = document.getElementById("t-eid-takbeerat");
+      if (eidTakbeeratEl) eidTakbeeratEl.innerText = t.eidTakbeerat;
       document.getElementById("t-eid-time").innerText = t.eidTime;
+      const eidKhutbahEl = document.getElementById("t-eid-khutbah");
+      if (eidKhutbahEl) eidKhutbahEl.innerText = t.eidKhutbah;
       document.getElementById("t-info-title").innerText = t.infoTitle;
       document.getElementById("t-addr-label").innerText = t.addrLabel;
       document.getElementById("t-phone-label").innerText = t.phoneLabel;
@@ -2028,7 +2038,9 @@ EOFcat << 'EOF' > index.html
               <span class="program-badge" id="t-badge-eids">Both Eids</span>
             </div>
             <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
-            <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
+            <div class="program-time" style="margin-bottom:2px;" id="t-eid-takbeerat">Takbeerat Starts: 7:30 AM</div>
+            <div class="program-time" style="margin-bottom:2px;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
+            <div class="program-time" style="margin-bottom:0; font-size:0.86rem; color:var(--text-muted);" id="t-eid-khutbah">Khutbah Starts right after prayer</div>
           </div>
 
           <!-- 3. Mosque Information & Driving Directions -->
@@ -2392,7 +2404,9 @@ EOFcat << 'EOF' > index.html
         eidTitle: "🌙 Eid Prayers",
         badgeEids: "Both Eids",
         eidDesc: "Congregational prayers for Eid al-Fitr and Eid al-Adha.",
+        eidTakbeerat: "Takbeerat Starts: 7:30 AM",
         eidTime: "Prayer Starts: 8:00 AM",
+        eidKhutbah: "Khutbah Starts right after prayer",
         infoTitle: "📍 Mosque Information",
         addrLabel: "Address:",
         phoneLabel: "Phone / WhatsApp:",
@@ -2468,7 +2482,9 @@ EOFcat << 'EOF' > index.html
         eidTitle: "🌙 صلاة العيدين",
         badgeEids: "الفطر والأضحى",
         eidDesc: "صلاة عيد الفطر وعيد الأضحى المبارك مع جموع المصلين.",
+        eidTakbeerat: "تبدأ التكبيرات: 7:30 صباحاً",
         eidTime: "تبدأ الصلاة: 8:00 صباحاً",
+        eidKhutbah: "تبدأ الخطبة مباشرة بعد الصلاة",
         infoTitle: "📍 معلومات المسجد",
         addrLabel: "العنوان:",
         phoneLabel: "الهاتف / واتساب:",
@@ -2571,7 +2587,11 @@ EOFcat << 'EOF' > index.html
       document.getElementById("t-eid-title").innerText = t.eidTitle;
       document.getElementById("t-badge-eids").innerText = t.badgeEids;
       document.getElementById("t-eid-desc").innerText = t.eidDesc;
+      const eidTakbeeratEl = document.getElementById("t-eid-takbeerat");
+      if (eidTakbeeratEl) eidTakbeeratEl.innerText = t.eidTakbeerat;
       document.getElementById("t-eid-time").innerText = t.eidTime;
+      const eidKhutbahEl = document.getElementById("t-eid-khutbah");
+      if (eidKhutbahEl) eidKhutbahEl.innerText = t.eidKhutbah;
       document.getElementById("t-info-title").innerText = t.infoTitle;
       document.getElementById("t-addr-label").innerText = t.addrLabel;
       document.getElementById("t-phone-label").innerText = t.phoneLabel;
