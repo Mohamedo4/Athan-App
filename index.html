@@ -50,9 +50,10 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.45; transition: background-color 0.2s, color 0.2s; -webkit-text-size-adjust: 100%; }
 
-    body.in-print-view #mainAppView { display: none !important; }
-    #standalonePrintView { display: none; padding: 14px; background: #ffffff; color: #000000; min-height: 100vh; }
-    body.in-print-view #standalonePrintView { display: block !important; }
+    /* Normal view vs Mobile Print/Save view */
+    body.in-mobile-print-view #mainAppView { display: none !important; }
+    #mobilePrintView { display: none; padding: 14px; background: #ffffff; color: #000000; min-height: 100vh; }
+    body.in-mobile-print-view #mobilePrintView { display: block !important; }
 
     /* Navbar */
     .navbar {
@@ -228,7 +229,7 @@
     .prayer-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
     .prayer-table tr:last-child td { border-bottom: none; }
     .prayer-name { font-weight: 700; color: var(--text-main); }
-    .time-athan { font-weight: 600; color: var(--text-main); }
+    .time-than { font-weight: 600; color: var(--text-main); }
     .badge-iqamah {
       display: inline-block;
       padding: 2px 7px;
@@ -396,8 +397,8 @@
       margin-top: 16px;
     }
 
-    /* Print View specific styles */
-    .print-ctrl-bar {
+    /* Mobile Print / Save View specific styles */
+    .mobile-print-bar {
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -407,27 +408,27 @@
       border-radius: 10px;
       border: 1px solid #cbd5e1;
     }
-    .print-ctrl-btns {
+    .mobile-print-btns {
       display: flex;
       gap: 10px;
       justify-content: center;
       flex-wrap: wrap;
     }
-    .btn-print-action {
+    .btn-save-mobile {
       background: #0d4a36;
       color: #fff;
       border: none;
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
     }
-    .btn-back-action {
+    .btn-back-mobile {
       background: #64748b;
       color: #fff;
       border: none;
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.9rem;
@@ -456,9 +457,9 @@
     }
 
     @media print {
-      body.in-print-view { background: #ffffff !important; padding: 0 !important; }
-      #mainAppView, .print-ctrl-bar { display: none !important; }
-      #standalonePrintView { display: block !important; padding: 0 !important; }
+      body { background: white !important; color: black !important; margin: 0 !important; }
+      .navbar, .hero, .next-prayer-banner, .side-stack, #dailyScheduleCard, footer, .no-print, .mobile-print-bar { display: none !important; }
+      #monthlyScheduleCard { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; }
       .sheet-table { min-width: 100% !important; font-size: 10px !important; }
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
     }
@@ -723,7 +724,7 @@
           </div>
           <div class="no-print" style="display:flex; gap:10px; align-items:center;">
             <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
-            <button type="button" class="btn-print-page" onclick="enterPrintView()" id="t-btn-print">🖨️ Print / Save PDF</button>
+            <button type="button" class="btn-print-page" onclick="handlePrintClick()" id="t-btn-print">🖨️ Print / Save PDF</button>
           </div>
         </div>
 
@@ -754,23 +755,22 @@
 
   </div>
 
-  <!-- STANDALONE PRINT & IMAGE/PDF SAVE VIEW -->
-  <div id="standalonePrintView">
-    <div class="print-ctrl-bar">
-      <div class="print-ctrl-btns">
-        <button class="btn-print-action" onclick="downloadTimetableImage()">📥 Save Timetable (Photos / Files)</button>
-        <button class="btn-print-action" style="background:#0284c7;" onclick="window.print()">🖨️ Native Print (Safari)</button>
-        <button class="btn-back-action" onclick="exitPrintView()">← Return to App</button>
+  <!-- MOBILE-ONLY PRINT & SAVE SCREEN -->
+  <div id="mobilePrintView">
+    <div class="mobile-print-bar">
+      <div class="mobile-print-btns">
+        <button class="btn-save-mobile" onclick="downloadTimetableImage()">📥 Save Timetable (Photos / Files)</button>
+        <button class="btn-back-mobile" onclick="exitMobilePrintView()">← Return to App</button>
       </div>
-      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;" id="saveHelpText">Tap "Save Timetable" to download an official high-resolution image to your device or Files.</p>
+      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;">Tap "Save Timetable" to download an official high-resolution image to your Photos or Files.</p>
     </div>
 
-    <!-- Printable & Capturable Sheet -->
-    <div id="printableCaptureCard" style="background:#ffffff; padding:16px 8px; max-width:800px; margin:0 auto;">
+    <!-- Clean Capturable Card -->
+    <div id="printableCaptureCard" style="background:#ffffff; padding:12px 6px; max-width:800px; margin:0 auto;">
       <div style="text-align:center; margin-bottom:12px;">
         <h2 style="font-size:1.35rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
         <p style="font-size:0.8rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-        <h3 id="printViewMonthTitle" style="font-size:1.1rem; color:#c59b27; margin:6px 0 2px;">--</h3>
+        <h3 id="mobilePrintMonthTitle" style="font-size:1.1rem; color:#c59b27; margin:6px 0 2px;">--</h3>
         <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
       </div>
       <div style="overflow-x:auto;">
@@ -786,14 +786,26 @@
               <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Isha</th>
             </tr>
           </thead>
-          <tbody id="printViewTableBody"></tbody>
+          <tbody id="mobilePrintTableBody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
   <script>
+    // EXACT OFFICIAL LUMBERTON TIMETABLE TABLE
     const officialTable = {
+      "2026-09-01": { fajr: "05:38", sunrise: "06:49", dhuhr: "13:18", asr: "16:53", maghrib: "19:45", isha: "20:54" },
+      "2026-09-02": { fajr: "05:38", sunrise: "06:50", dhuhr: "13:18", asr: "16:53", maghrib: "19:43", isha: "20:53" },
+      "2026-09-03": { fajr: "05:39", sunrise: "06:51", dhuhr: "13:17", asr: "16:52", maghrib: "19:42", isha: "20:51" },
+      "2026-09-04": { fajr: "05:40", sunrise: "06:51", dhuhr: "13:17", asr: "16:51", maghrib: "19:40", isha: "20:49" },
+      "2026-09-05": { fajr: "05:41", sunrise: "06:52", dhuhr: "13:17", asr: "16:50", maghrib: "19:39", isha: "20:48" },
+      "2026-09-06": { fajr: "05:42", sunrise: "06:53", dhuhr: "13:16", asr: "16:49", maghrib: "19:37", isha: "20:46" },
+      "2026-09-07": { fajr: "05:43", sunrise: "06:54", dhuhr: "13:16", asr: "16:49", maghrib: "19:36", isha: "20:45" },
+      "2026-09-08": { fajr: "05:44", sunrise: "06:54", dhuhr: "13:15", asr: "16:48", maghrib: "19:35", isha: "20:43" },
+      "2026-09-09": { fajr: "05:45", sunrise: "06:55", dhuhr: "13:15", asr: "16:47", maghrib: "19:33", isha: "20:42" },
+      "2026-09-10": { fajr: "05:46", sunrise: "06:56", dhuhr: "13:15", asr: "16:46", maghrib: "19:32", isha: "20:40" },
+      "2026-09-11": { fajr: "05:46", sunrise: "06:57", dhuhr: "13:14", asr: "16:45", maghrib: "19:30", isha: "20:38" },
       "2026-09-12": { fajr: "05:47", sunrise: "06:56", dhuhr: "13:14", asr: "16:46", maghrib: "19:30", isha: "20:39" },
       "2026-09-13": { fajr: "05:48", sunrise: "06:56", dhuhr: "13:14", asr: "16:45", maghrib: "19:28", isha: "20:37" },
       "2026-09-14": { fajr: "05:49", sunrise: "06:57", dhuhr: "13:13", asr: "16:44", maghrib: "19:27", isha: "20:36" },
@@ -1328,30 +1340,42 @@
       tbody.innerHTML = html;
     }
 
-    function enterPrintView() {
+    // SMART PRINT DISPATCHER: Direct print on Desktop, isolated capture view on iPhone/Mobile
+    function handlePrintClick() {
+      const isMobileOrIOS = /iPad|iPhone|iPod|Android/.test(navigator.userAgent) || 
+                            window.navigator.standalone || 
+                            window.matchMedia("(max-width: 860px)").matches;
+
+      if (isMobileOrIOS) {
+        enterMobilePrintView();
+      } else {
+        window.print();
+      }
+    }
+
+    function enterMobilePrintView() {
       const ymKey = document.getElementById("monthPicker").value;
       const [year, month] = ymKey.split("-").map(Number);
       const titleDate = new Date(year, month, 1, 12, 0, 0);
       const locale = currentLang === "ar" ? "ar-EG" : "en-US";
       const monthTitle = titleDate.toLocaleDateString(locale, { month: "long", year: "numeric" });
 
-      document.getElementById("printViewMonthTitle").textContent = monthTitle;
-      document.getElementById("printViewTableBody").innerHTML = document.getElementById("sheetTableBody").innerHTML;
+      document.getElementById("mobilePrintMonthTitle").textContent = monthTitle;
+      document.getElementById("mobilePrintTableBody").innerHTML = document.getElementById("sheetTableBody").innerHTML;
 
-      document.body.classList.add("in-print-view");
+      document.body.classList.add("in-mobile-print-view");
       window.scrollTo(0, 0);
     }
 
-    function exitPrintView() {
-      document.body.classList.remove("in-print-view");
+    function exitMobilePrintView() {
+      document.body.classList.remove("in-mobile-print-view");
       document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
     }
 
-    // Direct in-app Capture: Works 100% inside iOS Home Screen PWA with zero redirects
     function downloadTimetableImage() {
       const target = document.getElementById("printableCaptureCard");
       const ymKey = document.getElementById("monthPicker").value;
-      const btn = document.querySelector(".btn-print-action");
+      const btn = document.querySelector(".btn-save-mobile");
       btn.innerText = "⏳ Generating...";
 
       html2canvas(target, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
@@ -1362,7 +1386,7 @@
         link.click();
       }).catch(err => {
         btn.innerText = "📥 Save Timetable (Photos / Files)";
-        alert("Could not generate image. You can take a screenshot of this view.");
+        alert("Please take a screenshot of this view to save it to your Photos.");
       });
     }
 
