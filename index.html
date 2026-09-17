@@ -751,7 +751,7 @@
   <!-- IN-PAGE NATIVE PRINT / PDF SHEET (100% Reliable on iPhone Home Screen WebApps) -->
   <div id="standalonePrintView">
     <div class="print-ctrl-bar">
-      <button class="btn-print-action" onclick="window.print()">🖨️ Open Print & PDF Sheet</button>
+      <button class="btn-print-action" onclick="triggerPrintOrSafari()">🖨️ Open Print & PDF Sheet</button>
       <button class="btn-back-action" onclick="exitPrintView()">← Return to App</button>
     </div>
     <div style="text-align:center; margin-bottom:12px;">
@@ -1314,7 +1314,6 @@
       tbody.innerHTML = html;
     }
 
-    // In-Page Print Mode (Works 100% in iOS Standalone WebApps)
     function enterPrintView() {
       const ymKey = document.getElementById("monthPicker").value;
       const [year, month] = ymKey.split("-").map(Number);
@@ -1328,10 +1327,21 @@
       document.body.classList.add("in-print-view");
       window.scrollTo(0, 0);
 
-      // Trigger native print dialog safely after DOM paint
-      setTimeout(() => {
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+      if (!isStandalone) {
+        setTimeout(() => { window.print(); }, 250);
+      }
+    }
+
+    function triggerPrintOrSafari() {
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+      if (isStandalone) {
+        // iOS standalone webapps disable window.print(). Open in native Safari to access print and PDF export.
+        const safariUrl = window.location.href.split("#")[0];
+        window.open(safariUrl, "_system");
+      } else {
         window.print();
-      }, 300);
+      }
     }
 
     function exitPrintView() {
