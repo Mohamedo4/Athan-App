@@ -176,7 +176,7 @@
     [data-theme="dark"] .countdown-timer { color: #fef08a; }
 
     /* Grid Layout */
-    .content-grid { display: grid; grid-template-columns: 1.32fr 1fr; gap: 14px; }
+    .content-grid { display: grid; grid-template-columns: 1.32fr 1fr; gap: 14px; align-items: start; }
     .section-card { scroll-margin-top: 75px; 
       background: var(--card-bg);
       border-radius: 12px;
@@ -225,18 +225,19 @@
     .prayer-table th:last-child, .prayer-table td:last-child { text-align: right; }
     [dir="rtl"] .prayer-table th:last-child, [dir="rtl"] .prayer-table td:last-child { text-align: left; }
 
-    .prayer-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+    .prayer-table th { font-size: 0.78rem; padding: 9px 10px; }
+    .prayer-table td { padding: 13px 10px; border-bottom: 1px solid var(--border); font-size: 1.05rem; }
     .prayer-table tr:last-child td { border-bottom: none; }
-    .prayer-name { font-weight: 700; color: var(--text-main); }
-    .time-athan { font-weight: 600; color: var(--text-main); }
+    .prayer-name { font-weight: 700; font-size: 1.08rem; color: var(--text-main); }
+    .time-athan { font-weight: 600; font-size: 1.05rem; color: var(--text-main); }
     .badge-iqamah {
       display: inline-block;
-      padding: 2px 7px;
-      border-radius: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
       background: var(--badge-bg);
       color: var(--badge-text);
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
     }
 
     /* Side Cards Stack */
