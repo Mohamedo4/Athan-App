@@ -50,7 +50,6 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.45; transition: background-color 0.2s, color 0.2s; -webkit-text-size-adjust: 100%; }
 
-    /* Normal view vs Mobile Print/Save view */
     body.in-mobile-print-view #mainAppView { display: none !important; }
     #mobilePrintView { display: none; padding: 14px; background: #ffffff; color: #000000; min-height: 100vh; }
     body.in-mobile-print-view #mobilePrintView { display: block !important; }
@@ -229,7 +228,7 @@
     .prayer-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
     .prayer-table tr:last-child td { border-bottom: none; }
     .prayer-name { font-weight: 700; color: var(--text-main); }
-    .time-than { font-weight: 600; color: var(--text-main); }
+    .time-athan { font-weight: 600; color: var(--text-main); }
     .badge-iqamah {
       display: inline-block;
       padding: 2px 7px;
@@ -240,7 +239,7 @@
       font-size: 0.85rem;
     }
 
-    /* Side Cards */
+    /* Side Cards Stack */
     .side-stack { display: flex; flex-direction: column; gap: 12px; }
     .program-card {
       background: var(--card-bg);
@@ -435,6 +434,7 @@
       cursor: pointer;
     }
 
+    /* Mobile re-ordering and stacking */
     @media (max-width: 860px) {
       .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -454,6 +454,13 @@
       .selectors-wrap { width: 100%; }
       .selectors-wrap .date-select { flex: 1; width: 100%; min-width: 0; }
       .form-row-2, .form-row-3 { grid-template-columns: 1fr; gap: 6px; }
+
+      /* User Requested Mobile Order: Mosque Info First, then Donations, then School */
+      #card-about { order: 1; }
+      #card-dues { order: 2; }
+      #card-school { order: 3; }
+      #card-jumuah { order: 4; }
+      #card-eid { order: 5; }
     }
 
     @media print {
@@ -562,11 +569,11 @@
           </div>
         </section>
 
-        <!-- Right Column: Services & School -->
+        <!-- Right Column: Services & School (Re-ordered via CSS on Mobile) -->
         <div class="side-stack" id="services">
 
-          <!-- Membership & Donations -->
-          <div class="program-card" style="border: 2px solid var(--gold);">
+          <!-- 1. Membership & Donations Card -->
+          <div class="program-card" id="card-dues" style="border: 2px solid var(--gold);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-dues-title">🤲 Membership & Donations</h3>
               <span class="program-badge" id="t-badge-online">Online</span>
@@ -577,8 +584,8 @@
             </a>
           </div>
 
-          <!-- Al-Noor Islamic School Card -->
-          <div class="program-card" id="school" style="border: 2px solid #0284c7;">
+          <!-- 2. Al-Noor Islamic School Card -->
+          <div class="program-card" id="card-school" style="border: 2px solid #0284c7;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
               <span class="program-badge" style="background:#e0f2fe; color:#0369a1;" id="t-badge-fee">$100 / Month</span>
@@ -591,8 +598,8 @@
             </button>
           </div>
 
-          <!-- Jumu'ah Card -->
-          <div class="program-card">
+          <!-- 3. Jumu'ah Card -->
+          <div class="program-card" id="card-jumuah">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
               <span class="program-badge" id="t-badge-all">All Year</span>
@@ -601,8 +608,8 @@
             <div class="program-time" style="margin-bottom:0;" id="t-jum-time">Khutbah Starts: 1:00 PM</div>
           </div>
 
-          <!-- Eid Card -->
-          <div class="program-card">
+          <!-- 4. Eid Card -->
+          <div class="program-card" id="card-eid">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-eid-title">🌙 Eid Prayers</h3>
               <span class="program-badge" id="t-badge-eids">Both Eids</span>
@@ -611,8 +618,8 @@
             <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
           </div>
 
-          <!-- About & Contact Card -->
-          <div class="program-card" id="about">
+          <!-- 5. Mosque Information Card -->
+          <div class="program-card" id="card-about">
             <h3 id="t-info-title">📍 Mosque Information</h3>
             <ul class="contact-list">
               <li class="contact-item">
@@ -755,40 +762,38 @@
 
   </div>
 
-  <!-- MOBILE-ONLY PRINT & SAVE SCREEN -->
+  <!-- MOBILE-ONLY FULL SHEET EXPORT SCREEN -->
   <div id="mobilePrintView">
     <div class="mobile-print-bar">
       <div class="mobile-print-btns">
-        <button class="btn-save-mobile" onclick="downloadTimetableImage()">📥 Save Timetable (Photos / Files)</button>
+        <button class="btn-save-mobile" onclick="downloadTimetableImage()">📥 Save Full Timetable (Photos / Files)</button>
         <button class="btn-back-mobile" onclick="exitMobilePrintView()">← Return to App</button>
       </div>
-      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;">Tap "Save Timetable" to download an official high-resolution image to your Photos or Files.</p>
+      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;" id="mobileHelpText">Saves all 7 columns (Date, Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) directly to your device.</p>
     </div>
 
-    <!-- Clean Capturable Card -->
-    <div id="printableCaptureCard" style="background:#ffffff; padding:12px 6px; max-width:800px; margin:0 auto;">
+    <!-- The container that will be captured in full width without horizontal clipping -->
+    <div id="printableCaptureCard" style="background:#ffffff; padding:18px 12px; width:700px; margin:0 auto;">
       <div style="text-align:center; margin-bottom:12px;">
-        <h2 style="font-size:1.35rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
-        <p style="font-size:0.8rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-        <h3 id="mobilePrintMonthTitle" style="font-size:1.1rem; color:#c59b27; margin:6px 0 2px;">--</h3>
+        <h2 style="font-size:1.45rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
+        <p style="font-size:0.85rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+        <h3 id="mobilePrintMonthTitle" style="font-size:1.15rem; color:#c59b27; margin:6px 0 2px;">--</h3>
         <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
       </div>
-      <div style="overflow-x:auto;">
-        <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center;">
-          <thead>
-            <tr>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Date</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Fajr</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Sunrise</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Dhuhr</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Asr</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Maghrib</th>
-              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Isha</th>
-            </tr>
-          </thead>
-          <tbody id="mobilePrintTableBody"></tbody>
-        </table>
-      </div>
+      <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center; min-width:100%;">
+        <thead>
+          <tr>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Date</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Fajr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Sunrise</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Dhuhr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Asr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Maghrib</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Isha</th>
+          </tr>
+        </thead>
+        <tbody id="mobilePrintTableBody"></tbody>
+      </table>
     </div>
   </div>
 
@@ -1340,7 +1345,7 @@
       tbody.innerHTML = html;
     }
 
-    // SMART PRINT DISPATCHER: Direct print on Desktop, isolated capture view on iPhone/Mobile
+    // Direct desktop print / mobile export controller
     function handlePrintClick() {
       const isMobileOrIOS = /iPad|iPhone|iPod|Android/.test(navigator.userAgent) || 
                             window.navigator.standalone || 
@@ -1372,6 +1377,7 @@
       document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
     }
 
+    // Full 7-column capture without horizontal cropping
     async function downloadTimetableImage() {
       const target = document.getElementById("printableCaptureCard");
       const ymKey = document.getElementById("monthPicker").value;
@@ -1380,8 +1386,19 @@
       btn.innerText = "⏳ Generating...";
 
       try {
-        const canvas = await html2canvas(target, { scale: 2, backgroundColor: "#ffffff", useCORS: true });
-        
+        // Force full rendered width so Maghrib and Isha are not cut off
+        const fullWidth = target.scrollWidth || 700;
+        const fullHeight = target.scrollHeight;
+
+        const canvas = await html2canvas(target, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true,
+          width: fullWidth,
+          height: fullHeight,
+          windowWidth: fullWidth
+        });
+
         canvas.toBlob(async (blob) => {
           btn.innerText = originalText;
           if (!blob) {
@@ -1391,7 +1408,7 @@
 
           const file = new File([blob], `Lumberton_Prayer_Times_${ymKey}.png`, { type: "image/png" });
 
-          // 1. Native iOS Share Sheet (Opens "Save Image", "Save to Files", AirDrop)
+          // 1. Native iOS Share Sheet (Opens "Save Image", "Save to Files")
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
               await navigator.share({
@@ -1401,17 +1418,17 @@
               });
               return;
             } catch (shareErr) {
-              if (shareErr.name === "AbortError") return; // User dismissed share sheet
+              if (shareErr.name === "AbortError") return;
             }
           }
 
-          // 2. Fallback: Display image in overlay so user can touch & hold "Save Image"
+          // 2. Fallback: Display complete image on screen so user can touch and hold
           let previewContainer = document.getElementById("mobileImagePreview");
           if (!previewContainer) {
             previewContainer = document.createElement("div");
             previewContainer.id = "mobileImagePreview";
             previewContainer.style.cssText = "margin-top:16px; text-align:center; background:#f1f5f9; padding:12px; border-radius:10px;";
-            document.getElementById("standalonePrintView").insertBefore(previewContainer, target);
+            document.getElementById("mobilePrintView").insertBefore(previewContainer, target);
           }
 
           const imgUrl = URL.createObjectURL(blob);
