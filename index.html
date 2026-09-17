@@ -253,39 +253,54 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
     .program-card h3 {
-      font-size: 1rem;
+      font-size: 1.18rem;
       color: var(--primary);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .program-badge {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
       background: var(--gold-light);
       color: var(--gold-text);
     }
-    .program-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px; }
-    .program-time { font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
-
+    .program-card p { 
+      font-size: 1.02rem; 
+      color: var(--text-muted); 
+      margin-bottom: 8px; 
+      line-height: 1.5;
+    }
+    .program-time { 
+      font-size: 1.05rem; 
+      font-weight: 700; 
+      color: var(--text-main); 
+      margin-bottom: 5px; 
+    }
+    .contact-item { 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 10px; 
+      font-size: 1.02rem; 
+      line-height: 1.5;
+    }
     .btn-donate-card {
       display: block;
       text-align: center;
       background: var(--gold);
       color: white !important;
       text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 6px;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-top: 8px;
     }
-
     .btn-school-toggle {
       display: block;
       width: 100%;
@@ -293,89 +308,14 @@
       background: #0284c7;
       color: white;
       border: none;
-      padding: 9px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-top: 10px;
       cursor: pointer;
     }
     .btn-school-toggle:hover { background: #0369a1; }
-
-    /* Inline Form */
-    #schoolFormContainer {
-      display: none;
-      background: var(--card-bg);
-      border: 2px solid var(--primary);
-      border-radius: 12px;
-      padding: 18px 14px;
-      margin-top: 10px;
-      box-shadow: var(--shadow);
-    }
-    #schoolFormContainer.active { display: block; }
-    
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-    .form-row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-    .form-group-in { margin-bottom: 10px; }
-    .form-group-in label { display: block; font-size: 0.83rem; font-weight: 600; margin-bottom: 3px; }
-    .form-group-in input, .form-group-in select, .form-group-in textarea {
-      width: 100%; padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; outline: none; background: var(--card-bg); color: var(--text-main);
-    }
-    .form-group-in input:focus, .form-group-in select:focus, .form-group-in textarea:focus {
-      border-color: var(--primary); box-shadow: 0 0 0 2px rgba(13,74,54,0.25);
-    }
-
-    .tuition-box-in {
-      background: var(--table-stripe);
-      border: 1.5px solid var(--primary);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin: 12px 0;
-      text-align: center;
-    }
-    .btn-tuition-in {
-      display: inline-block;
-      background: #d97706;
-      color: white;
-      text-decoration: none;
-      padding: 9px 18px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 6px;
-    }
-
-    .btn-submit-form {
-      width: 100%;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 11px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-
-    /* Monthly Sheet */
-    .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: center; margin-top: 8px; min-width: 500px; }
-    .sheet-table th, .sheet-table td { padding: 6px 4px; border: 1px solid var(--border); }
-    .sheet-table th { background: var(--table-stripe); color: var(--primary); font-size: 0.74rem; text-transform: uppercase; }
-
-    .btn-print-page {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.82rem;
-      cursor: pointer;
-    }
-
-    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
-    .contact-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.88rem; }
-    .contact-item a { color: var(--primary); text-decoration: none; font-weight: 500; }
     .btn-action {
       display: inline-block;
       width: 100%;
@@ -383,11 +323,11 @@
       background: var(--primary);
       color: white;
       text-decoration: none;
-      padding: 9px 14px;
+      padding: 12px 14px;
       border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-top: 10px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      margin-top: 12px;
     }
 
     footer {
@@ -588,7 +528,7 @@
             <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
             <div class="program-time" id="t-eid-takbeerat">Takbeerat Starts: 7:30 AM</div>
             <div class="program-time" id="t-eid-time">Prayer Starts: 8:00 AM</div>
-            <div class="program-time" style="margin-bottom:0; font-size:0.86rem; color:var(--text-muted);" id="t-eid-khutbah">Khutbah Starts right after prayer</div>
+            <div class="program-time" style="margin-bottom:0; font-size:0.98rem; color:var(--text-muted);" id="t-eid-khutbah">Khutbah Starts right after prayer</div>
           </div>
 
           <!-- 3. Mosque Information & Directions -->
