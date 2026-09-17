@@ -49,6 +49,11 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.45; transition: background-color 0.2s, color 0.2s; -webkit-text-size-adjust: 100%; }
 
+    /* Normal view vs Print view toggling */
+    body.in-print-view #mainAppView { display: none !important; }
+    #standalonePrintView { display: none; padding: 16px; background: #ffffff; color: #000000; min-height: 100vh; }
+    body.in-print-view #standalonePrintView { display: block !important; }
+
     /* Navbar */
     .navbar {
       background: var(--card-bg);
@@ -391,7 +396,38 @@
       margin-top: 16px;
     }
 
-    /* Responsive adjustments for phones (Vertical / Portrait) */
+    /* Print View specific styles */
+    .print-ctrl-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-print-action {
+      background: #0d4a36;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-back-action {
+      background: #64748b;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
     @media (max-width: 860px) {
       .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -414,299 +450,333 @@
     }
 
     @media print {
-      body { background: white !important; color: black !important; margin: 0 !important; }
-      .navbar, .hero, .next-prayer-banner, .side-stack, #dailyScheduleCard, footer, .no-print { display: none !important; }
-      #monthlyScheduleCard { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; }
-      .sheet-table { font-size: 10.5px !important; min-width: 100% !important; }
-      .sheet-table th, .sheet-table td { padding: 4px 2px !important; color: black !important; }
+      body.in-print-view { background: #ffffff !important; padding: 0 !important; }
+      #mainAppView, .print-ctrl-bar { display: none !important; }
+      #standalonePrintView { display: block !important; padding: 0 !important; }
+      .sheet-table { min-width: 100% !important; font-size: 10px !important; }
+      .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
     }
   </style>
-  
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#" class="brand">
-        <span class="brand-title" id="t-brand-title">Islamic Center of Lumberton</span>
-        <span class="brand-subtitle" id="t-brand-subtitle">A Place for Worship</span>
-      </a>
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="#prayers" id="t-nav-prayers">Prayer Times</a></li>
-          <li><a href="#monthlyScheduleCard" id="t-nav-monthly">Monthly Sheet</a></li>
-          <li><a href="#school" id="t-nav-school">School</a></li>
-          <li><a href="#about" id="t-nav-about">About & Location</a></li>
-        </ul>
+  <!-- MAIN APP CONTAINER -->
+  <div id="mainAppView">
 
-        <div class="nav-actions">
-          <button type="button" class="top-action-btn" onclick="toggleLanguage()" id="langBtn" title="Change Language">
-            🌐 العربية
-          </button>
-          <button type="button" class="top-action-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Dark/Light Mode">
-            🌙 Dark
-          </button>
-          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav" id="t-nav-donate">Donate / Pay Dues</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="brand">
+          <span class="brand-title" id="t-brand-title">Islamic Center of Lumberton</span>
+          <span class="brand-subtitle" id="t-brand-subtitle">A Place for Worship</span>
+        </a>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="#prayers" id="t-nav-prayers">Prayer Times</a></li>
+            <li><a href="#monthlyScheduleCard" id="t-nav-monthly">Monthly Sheet</a></li>
+            <li><a href="#school" id="t-nav-school">School</a></li>
+            <li><a href="#about" id="t-nav-about">About & Location</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <button type="button" class="top-action-btn" onclick="toggleLanguage()" id="langBtn" title="Change Language">
+              🌐 العربية
+            </button>
+            <button type="button" class="top-action-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Dark/Light Mode">
+              🌙 Dark
+            </button>
+            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav" id="t-nav-donate">Donate / Pay Dues</a>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Hero Header -->
-  <header class="hero">
-    <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-    <h1 id="t-hero-title">Islamic Center of Lumberton</h1>
-    <p id="t-hero-sub">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
-    <div class="hero-badges">
-      <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="hero-badge">
-        📍 104 South Chestnut St, Lumberton, NC
-      </a>
-      <a href="tel:19108023212" class="hero-badge">
-        📞 (910) 802-3212
-      </a>
-      <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="hero-badge" style="background: var(--gold); border-color: transparent; font-weight: 600;" id="t-hero-support">
-        🤲 Support the Masjid
-      </a>
-    </div>
-  </header>
-
-  <!-- Main Content Layout -->
-  <main class="main-wrap">
-
-    <!-- Live Next Prayer Highlight -->
-    <section class="next-prayer-banner">
-      <div class="next-prayer-left">
-        <div class="tag" id="t-upcoming-tag">Upcoming Prayer</div>
-        <h2 id="nextPrayerName">--</h2>
-        <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 2px;" id="nextPrayerTime">--</div>
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <h1 id="t-hero-title">Islamic Center of Lumberton</h1>
+      <p id="t-hero-sub">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+      <div class="hero-badges">
+        <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="hero-badge">
+          📍 104 South Chestnut St, Lumberton, NC
+        </a>
+        <a href="tel:19108023212" class="hero-badge">
+          📞 (910) 802-3212
+        </a>
+        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="hero-badge" style="background: var(--gold); border-color: transparent; font-weight: 600;" id="t-hero-support">
+          🤲 Support the Masjid
+        </a>
       </div>
-      <div class="next-prayer-right">
-        <div class="countdown-timer" id="countdownText">Calculating...</div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="main-wrap">
+
+      <!-- Live Next Prayer Highlight -->
+      <section class="next-prayer-banner">
+        <div class="next-prayer-left">
+          <div class="tag" id="t-upcoming-tag">Upcoming Prayer</div>
+          <h2 id="nextPrayerName">--</h2>
+          <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 2px;" id="nextPrayerTime">--</div>
+        </div>
+        <div class="next-prayer-right">
+          <div class="countdown-timer" id="countdownText">Calculating...</div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+
+        <!-- Left Column: Daily Table -->
+        <section class="section-card" id="dailyScheduleCard">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="t-table-title">Prayer Schedule</h2>
+              <p style="font-size: 0.8rem; color: var(--text-muted);" id="t-table-sub">Official Lumberton, NC Timetable</p>
+            </div>
+            
+            <div class="selectors-wrap">
+              <select id="scheduleMonthSelect" class="date-select" onchange="onMonthSelectChanged()"></select>
+              <select id="scheduleDaySelect" class="date-select" onchange="renderTimes(this.value)"></select>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="prayer-table">
+              <thead>
+                <tr>
+                  <th id="th-prayer">Prayer</th>
+                  <th id="th-athan">Athan</th>
+                  <th style="text-align: right;" id="th-iqamah">Iqamah</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Right Column: Services & School -->
+        <div class="side-stack" id="services">
+
+          <!-- Membership & Donations -->
+          <div class="program-card" style="border: 2px solid var(--gold);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <h3 id="t-dues-title">🤲 Membership & Donations</h3>
+              <span class="program-badge" id="t-badge-online">Online</span>
+            </div>
+            <p id="t-dues-desc">Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.</p>
+            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-card" id="t-dues-btn">
+              Pay Dues & Donate on Givebutter
+            </a>
+          </div>
+
+          <!-- Al-Noor Islamic School Card -->
+          <div class="program-card" id="school" style="border: 2px solid #0284c7;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
+              <span class="program-badge" style="background:#e0f2fe; color:#0369a1;" id="t-badge-fee">$100 / Month</span>
+            </div>
+            <p id="t-school-desc">Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.</p>
+            <div class="program-time" id="t-school-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
+            
+            <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm()" id="t-school-btn">
+              ✍️ Apply & Register for School (Opens Form) ↓
+            </button>
+          </div>
+
+          <!-- Jumu'ah Card -->
+          <div class="program-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
+              <span class="program-badge" id="t-badge-all">All Year</span>
+            </div>
+            <p id="t-jum-desc">Weekly Friday congregational prayer and khutbah.</p>
+            <div class="program-time" style="margin-bottom:0;" id="t-jum-time">Khutbah Starts: 1:00 PM</div>
+          </div>
+
+          <!-- Eid Card -->
+          <div class="program-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <h3 id="t-eid-title">🌙 Eid Prayers</h3>
+              <span class="program-badge" id="t-badge-eids">Both Eids</span>
+            </div>
+            <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
+            <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
+          </div>
+
+          <!-- About & Contact Card -->
+          <div class="program-card" id="about">
+            <h3 id="t-info-title">📍 Mosque Information</h3>
+            <ul class="contact-list">
+              <li class="contact-item">
+                <span>📌</span>
+                <div>
+                  <strong id="t-addr-label">Address:</strong><br>
+                  104 South Chestnut St.<br>
+                  Lumberton, NC 28358
+                </div>
+              </li>
+              <li class="contact-item">
+                <span>📞</span>
+                <div>
+                  <strong id="t-phone-label">Phone / WhatsApp:</strong><br>
+                  <a href="tel:19108023212">(910) 802-3212</a>
+                </div>
+              </li>
+            </ul>
+            <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-action" id="t-directions-btn">
+              Get Driving Directions
+            </a>
+          </div>
+
+        </div>
+
       </div>
-    </section>
 
-    <!-- Content Grid -->
-    <div class="content-grid">
+      <!-- Embedded Registration Form -->
+      <section id="schoolFormContainer">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
+          <div>
+            <h2 style="color:var(--primary); font-size:1.35rem; font-weight:800;" id="t-form-h2">Al-Noor Islamic School Registration</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted);" id="t-form-sub">Islamic Center of Lumberton • Student Enrollment Form</p>
+          </div>
+          <button type="button" onclick="toggleSchoolForm()" style="background:var(--table-stripe); color:var(--text-main); border:1px solid var(--border); padding:4px 10px; border-radius:6px; cursor:pointer; font-weight:700;">✕ <span id="t-close">Close</span></button>
+        </div>
 
-      <!-- Left Column: Daily Table with Month & Day Selectors -->
-      <section class="section-card" id="dailyScheduleCard">
+        <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
+          <h4 style="color:var(--primary); margin:8px 0 6px;" id="t-form-sec1">1. Parent / Guardian Information</h4>
+          <div class="form-row-2">
+            <div class="form-group-in">
+              <label id="t-lbl-parent">Parent Full Name *</label>
+              <input type="text" name="Parent_Name" required placeholder="Parent name" />
+            </div>
+            <div class="form-group-in">
+              <label id="t-lbl-phone">Phone / WhatsApp *</label>
+              <input type="tel" name="Parent_Phone" required placeholder="(910) 000-0000" />
+            </div>
+          </div>
+          <div class="form-group-in">
+            <label id="t-lbl-email">Email Address *</label>
+            <input type="email" name="Parent_Email" required placeholder="parent@example.com" />
+          </div>
+
+          <h4 style="color:var(--primary); margin:12px 0 6px;" id="t-form-sec2">2. Student Details</h4>
+          <div class="form-row-3">
+            <div class="form-group-in">
+              <label id="t-lbl-child">Child Full Name *</label>
+              <input type="text" name="Student_Name" required placeholder="Child's name" />
+            </div>
+            <div class="form-group-in">
+              <label id="t-lbl-age">Age / Grade *</label>
+              <input type="text" name="Student_Age_Grade" required placeholder="e.g. 8 yrs / 3rd" />
+            </div>
+            <div class="form-group-in">
+              <label id="t-lbl-gender">Gender *</label>
+              <select name="Student_Gender" required id="select-gender">
+                <option value="" disabled selected>Select</option>
+                <option value="Male" id="opt-male">Male</option>
+                <option value="Female" id="opt-female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group-in">
+            <label id="t-lbl-level">Proficiency in Arabic & Quran *</label>
+            <select name="Arabic_Proficiency" required id="select-level">
+              <option value="" disabled selected>Select Current Level</option>
+              <option value="Beginner (Learning letters / sounds)" id="opt-lvl1">Beginner (Learning letters / sounds)</option>
+              <option value="Intermediate (Reads simple words / Qaida)" id="opt-lvl2">Intermediate (Reads simple words / Qaida)</option>
+              <option value="Quran Reader (Reads from the Mushaf)" id="opt-lvl3">Quran Reader (Reads from the Mushaf)</option>
+              <option value="Advanced (Fluent with Tajweed)" id="opt-lvl4">Advanced (Fluent with Tajweed)</option>
+            </select>
+          </div>
+
+          <div class="form-group-in">
+            <label id="t-lbl-notes">Additional Notes or Allergies</label>
+            <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
+          </div>
+
+          <div class="tuition-box-in">
+            <strong style="color:var(--primary); font-size:0.98rem;" id="t-form-tuition-title">💳 School Tuition ($100 / Month)</strong>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;" id="t-form-tuition-sub">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
+            <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-tuition-in" id="t-form-tuition-btn">
+              Pay $100 Monthly Tuition on Givebutter →
+            </a>
+          </div>
+
+          <button type="submit" class="btn-submit-form" id="t-form-submit">Submit Registration Application</button>
+        </form>
+      </section>
+
+      <!-- On-Page Monthly Timetable -->
+      <section class="section-card" id="monthlyScheduleCard">
         <div class="section-header">
           <div>
-            <h2 class="section-title" id="t-table-title">Prayer Schedule</h2>
-            <p style="font-size: 0.8rem; color: var(--text-muted);" id="t-table-sub">Official Lumberton, NC Timetable</p>
+            <h2 class="section-title" id="t-month-table-title">Monthly Prayer Timesheet</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted);" id="t-month-table-sub">Official Lumberton, NC Timesheet • Fajr Iqamah (+20m), Others (+15m)</p>
           </div>
-          
-          <div class="selectors-wrap">
-            <select id="scheduleMonthSelect" class="date-select" onchange="onMonthSelectChanged()"></select>
-            <select id="scheduleDaySelect" class="date-select" onchange="renderTimes(this.value)"></select>
+          <div class="no-print" style="display:flex; gap:10px; align-items:center;">
+            <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
+            <button type="button" class="btn-print-page" onclick="enterPrintView()" id="t-btn-print">🖨️ Print / Save PDF</button>
           </div>
         </div>
 
-        <div class="table-container">
-          <table class="prayer-table">
+        <div style="overflow-x:auto;">
+          <table class="sheet-table">
             <thead>
               <tr>
-                <th id="th-prayer">Prayer</th>
-                <th id="th-athan">Athan</th>
-                <th style="text-align: right;" id="th-iqamah">Iqamah</th>
+                <th id="th-m-date">Date</th>
+                <th id="th-m-fajr">Fajr</th>
+                <th id="th-m-sunrise">Sunrise</th>
+                <th id="th-m-dhuhr">Dhuhr</th>
+                <th id="th-m-asr">Asr</th>
+                <th id="th-m-maghrib">Maghrib</th>
+                <th id="th-m-isha">Isha</th>
               </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="sheetTableBody"></tbody>
           </table>
         </div>
       </section>
 
-      <!-- Right Column: Services & School -->
-      <div class="side-stack" id="services">
+    </main>
 
-        <!-- Membership & Donations -->
-        <div class="program-card" style="border: 2px solid var(--gold);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <h3 id="t-dues-title">🤲 Membership & Donations</h3>
-            <span class="program-badge" id="t-badge-online">Online</span>
-          </div>
-          <p id="t-dues-desc">Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.</p>
-          <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-card" id="t-dues-btn">
-            Pay Dues & Donate on Givebutter
-          </a>
-        </div>
+    <footer>
+      <p id="t-footer-copy">© 2026 Islamic Center of Lumberton. All rights reserved.</p>
+      <p style="margin-top: 4px; font-size: 0.76rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+    </footer>
 
-        <!-- Al-Noor Islamic School Card -->
-        <div class="program-card" id="school" style="border: 2px solid #0284c7;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
-            <span class="program-badge" style="background:#e0f2fe; color:#0369a1;" id="t-badge-fee">$100 / Month</span>
-          </div>
-          <p id="t-school-desc">Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.</p>
-          <div class="program-time" id="t-school-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
-          
-          <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm()" id="t-school-btn">
-            ✍️ Apply & Register for School (Opens Form) ↓
-          </button>
-        </div>
+  </div>
 
-        <!-- Jumu'ah Card -->
-        <div class="program-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
-            <span class="program-badge" id="t-badge-all">All Year</span>
-          </div>
-          <p id="t-jum-desc">Weekly Friday congregational prayer and khutbah.</p>
-          <div class="program-time" style="margin-bottom:0;" id="t-jum-time">Khutbah Starts: 1:00 PM</div>
-        </div>
-
-        <!-- Eid Card -->
-        <div class="program-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <h3 id="t-eid-title">🌙 Eid Prayers</h3>
-            <span class="program-badge" id="t-badge-eids">Both Eids</span>
-          </div>
-          <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
-          <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
-        </div>
-
-        <!-- About & Contact Card -->
-        <div class="program-card" id="about">
-          <h3 id="t-info-title">📍 Mosque Information</h3>
-          <ul class="contact-list">
-            <li class="contact-item">
-              <span>📌</span>
-              <div>
-                <strong id="t-addr-label">Address:</strong><br>
-                104 South Chestnut St.<br>
-                Lumberton, NC 28358
-              </div>
-            </li>
-            <li class="contact-item">
-              <span>📞</span>
-              <div>
-                <strong id="t-phone-label">Phone / WhatsApp:</strong><br>
-                <a href="tel:19108023212">(910) 802-3212</a>
-              </div>
-            </li>
-          </ul>
-          <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-action" id="t-directions-btn">
-            Get Driving Directions
-          </a>
-        </div>
-
-      </div>
-
+  <!-- IN-PAGE NATIVE PRINT / PDF SHEET (100% Reliable on iPhone Home Screen WebApps) -->
+  <div id="standalonePrintView">
+    <div class="print-ctrl-bar">
+      <button class="btn-print-action" onclick="window.print()">🖨️ Open Print & PDF Sheet</button>
+      <button class="btn-back-action" onclick="exitPrintView()">← Return to App</button>
     </div>
-
-    <!-- Embedded Registration Form -->
-    <section id="schoolFormContainer">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
-        <div>
-          <h2 style="color:var(--primary); font-size:1.35rem; font-weight:800;" id="t-form-h2">Al-Noor Islamic School Registration</h2>
-          <p style="font-size:0.85rem; color:var(--text-muted);" id="t-form-sub">Islamic Center of Lumberton • Student Enrollment Form</p>
-        </div>
-        <button type="button" onclick="toggleSchoolForm()" style="background:var(--table-stripe); color:var(--text-main); border:1px solid var(--border); padding:4px 10px; border-radius:6px; cursor:pointer; font-weight:700;">✕ <span id="t-close">Close</span></button>
-      </div>
-
-      <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
-        <h4 style="color:var(--primary); margin:8px 0 6px;" id="t-form-sec1">1. Parent / Guardian Information</h4>
-        <div class="form-row-2">
-          <div class="form-group-in">
-            <label id="t-lbl-parent">Parent Full Name *</label>
-            <input type="text" name="Parent_Name" required placeholder="Parent name" />
-          </div>
-          <div class="form-group-in">
-            <label id="t-lbl-phone">Phone / WhatsApp *</label>
-            <input type="tel" name="Parent_Phone" required placeholder="(910) 000-0000" />
-          </div>
-        </div>
-        <div class="form-group-in">
-          <label id="t-lbl-email">Email Address *</label>
-          <input type="email" name="Parent_Email" required placeholder="parent@example.com" />
-        </div>
-
-        <h4 style="color:var(--primary); margin:12px 0 6px;" id="t-form-sec2">2. Student Details</h4>
-        <div class="form-row-3">
-          <div class="form-group-in">
-            <label id="t-lbl-child">Child Full Name *</label>
-            <input type="text" name="Student_Name" required placeholder="Child's name" />
-          </div>
-          <div class="form-group-in">
-            <label id="t-lbl-age">Age / Grade *</label>
-            <input type="text" name="Student_Age_Grade" required placeholder="e.g. 8 yrs / 3rd" />
-          </div>
-          <div class="form-group-in">
-            <label id="t-lbl-gender">Gender *</label>
-            <select name="Student_Gender" required id="select-gender">
-              <option value="" disabled selected>Select</option>
-              <option value="Male" id="opt-male">Male</option>
-              <option value="Female" id="opt-female">Female</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group-in">
-          <label id="t-lbl-level">Proficiency in Arabic & Quran *</label>
-          <select name="Arabic_Proficiency" required id="select-level">
-            <option value="" disabled selected>Select Current Level</option>
-            <option value="Beginner (Learning letters / sounds)" id="opt-lvl1">Beginner (Learning letters / sounds)</option>
-            <option value="Intermediate (Reads simple words / Qaida)" id="opt-lvl2">Intermediate (Reads simple words / Qaida)</option>
-            <option value="Quran Reader (Reads from the Mushaf)" id="opt-lvl3">Quran Reader (Reads from the Mushaf)</option>
-            <option value="Advanced (Fluent with Tajweed)" id="opt-lvl4">Advanced (Fluent with Tajweed)</option>
-          </select>
-        </div>
-
-        <div class="form-group-in">
-          <label id="t-lbl-notes">Additional Notes or Allergies</label>
-          <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
-        </div>
-
-        <div class="tuition-box-in">
-          <strong style="color:var(--primary); font-size:0.98rem;" id="t-form-tuition-title">💳 School Tuition ($100 / Month)</strong>
-          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;" id="t-form-tuition-sub">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
-          <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-tuition-in" id="t-form-tuition-btn">
-            Pay $100 Monthly Tuition on Givebutter →
-          </a>
-        </div>
-
-        <button type="submit" class="btn-submit-form" id="t-form-submit">Submit Registration Application</button>
-      </form>
-    </section>
-
-    <!-- On-Page Monthly Timetable -->
-    <section class="section-card" id="monthlyScheduleCard">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title" id="t-month-table-title">Monthly Prayer Timesheet</h2>
-          <p style="font-size:0.8rem; color:var(--text-muted);" id="t-month-table-sub">Official Lumberton, NC Timesheet • Fajr Iqamah (+20m), Others (+15m)</p>
-        </div>
-        <div class="no-print" style="display:flex; gap:10px; align-items:center;">
-          <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
-          <button type="button" class="btn-print-page" onclick="printMonthlySheet()" id="t-btn-print">🖨️ Print / Save PDF</button>
-        </div>
-      </div>
-
-      <div style="overflow-x:auto;">
-        <table class="sheet-table">
-          <thead>
-            <tr>
-              <th id="th-m-date">Date</th>
-              <th id="th-m-fajr">Fajr</th>
-              <th id="th-m-sunrise">Sunrise</th>
-              <th id="th-m-dhuhr">Dhuhr</th>
-              <th id="th-m-asr">Asr</th>
-              <th id="th-m-maghrib">Maghrib</th>
-              <th id="th-m-isha">Isha</th>
-            </tr>
-          </thead>
-          <tbody id="sheetTableBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <p id="t-footer-copy">© 2026 Islamic Center of Lumberton. All rights reserved.</p>
-    <p style="margin-top: 4px; font-size: 0.76rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-  </footer>
+    <div style="text-align:center; margin-bottom:12px;">
+      <h2 style="font-size:1.4rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
+      <p style="font-size:0.82rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+      <h3 id="printViewMonthTitle" style="font-size:1.15rem; color:#c59b27; margin:6px 0 2px;">--</h3>
+      <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center;">
+        <thead>
+          <tr>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Date</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Fajr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Sunrise</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Dhuhr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Asr</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Maghrib</th>
+            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Isha</th>
+          </tr>
+        </thead>
+        <tbody id="printViewTableBody"></tbody>
+      </table>
+    </div>
+  </div>
 
   <script>
     const officialTable = {
@@ -1244,53 +1314,29 @@
       tbody.innerHTML = html;
     }
 
-    function printMonthlySheet() {
+    // In-Page Print Mode (Works 100% in iOS Standalone WebApps)
+    function enterPrintView() {
       const ymKey = document.getElementById("monthPicker").value;
       const [year, month] = ymKey.split("-").map(Number);
       const titleDate = new Date(year, month, 1, 12, 0, 0);
       const locale = currentLang === "ar" ? "ar-EG" : "en-US";
       const monthTitle = titleDate.toLocaleDateString(locale, { month: "long", year: "numeric" });
-      const tableContent = document.querySelector("#monthlyScheduleCard .sheet-table").outerHTML;
 
-      const printHtml = `<!DOCTYPE html>
-<html lang="${currentLang}" dir="${currentLang === "ar" ? "rtl" : "ltr"}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${monthTitle} - Islamic Center of Lumberton</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 16px; margin: 0; background: #fff; color: #000; }
-    .header { text-align: center; margin-bottom: 12px; }
-    h2 { margin: 0; font-size: 18px; color: #0d4a36; }
-    p { margin: 3px 0; font-size: 11px; color: #444; }
-    h3 { margin: 4px 0; font-size: 15px; color: #c59b27; }
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 11px; text-align: center; }
-    th, td { border: 1px solid #777; padding: 5px 3px; }
-    th { background: #e2e8f0; font-weight: bold; }
-    .btn-bar { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
-    .btn-action { background: #0d4a36; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer; text-decoration: none; }
-    @media print { .btn-bar { display: none !important; } body { padding: 0; } }
-  </style>
-</head>
-<body>
-  <div class="btn-bar">
-    <button class="btn-action" onclick="window.print()">🖨️ ${currentLang === "ar" ? "طباعة / حفظ PDF" : "Print / Save PDF"}</button>
-    <button class="btn-action" style="background:#64748b;" onclick="window.history.back()">${currentLang === "ar" ? "رجوع" : "Go Back"}</button>
-  </div>
-  <div class="header">
-    <h2>Islamic Center of Lumberton</h2>
-    <p>104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-    <h3>${monthTitle}</h3>
-    <p>Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
-  </div>
-  ${tableContent}
-</body>
-</html>`;
+      document.getElementById("printViewMonthTitle").textContent = monthTitle;
+      document.getElementById("printViewTableBody").innerHTML = document.getElementById("sheetTableBody").innerHTML;
 
-      const blob = new Blob([printHtml], { type: "text/html;charset=utf-8" });
-      const blobUrl = URL.createObjectURL(blob);
-      window.location.href = blobUrl;
+      document.body.classList.add("in-print-view");
+      window.scrollTo(0, 0);
+
+      // Trigger native print dialog safely after DOM paint
+      setTimeout(() => {
+        window.print();
+      }, 300);
+    }
+
+    function exitPrintView() {
+      document.body.classList.remove("in-print-view");
+      document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
     }
 
     function toggleSchoolForm() {
