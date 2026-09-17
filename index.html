@@ -26,7 +26,6 @@
       --badge-text: #064e3b;
     }
 
-    /* Dark Mode Theme */
     [data-theme="dark"] {
       --primary: #10b981;
       --primary-light: #059669;
@@ -60,7 +59,7 @@
       border-bottom: 1px solid var(--border);
     }
     .nav-container {
-      max-width: 1060px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 8px 16px;
       display: flex;
@@ -71,7 +70,7 @@
     .brand-title { font-size: 1.12rem; font-weight: 700; color: var(--primary); }
     .brand-subtitle { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gold); font-weight: 600; }
 
-    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-links { display: flex; gap: 14px; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.88rem; font-weight: 500; }
     .nav-links a:hover { color: var(--primary); }
@@ -79,28 +78,34 @@
     .btn-donate-nav {
       background: var(--gold);
       color: #ffffff !important;
-      padding: 6px 14px;
+      padding: 6px 13px;
       border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    /* Controls: Theme & Lang buttons */
-    .btn-tool {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 5px 9px;
-      border-radius: 6px;
-      cursor: pointer;
       font-size: 0.84rem;
       font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Dedicated Top-Right Action Badges */
+    .top-action-btn {
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      background: var(--table-stripe);
+      color: var(--text-main);
+      border: 1.5px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
     }
-    .btn-tool:hover { background: var(--table-stripe); }
+    .top-action-btn:hover {
+      border-color: var(--primary);
+      background: var(--card-bg);
+    }
 
     /* Hero */
     .hero {
@@ -128,7 +133,7 @@
 
     /* Main Container */
     .main-wrap {
-      max-width: 1060px;
+      max-width: 1080px;
       margin: 12px auto 24px;
       padding: 0 14px;
       display: flex;
@@ -183,7 +188,6 @@
       gap: 8px;
     }
     .section-title { font-size: 1.16rem; font-weight: 700; color: var(--primary); }
-
     .selectors-wrap { display: flex; gap: 6px; align-items: center; }
 
     .date-select {
@@ -403,7 +407,7 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar with Top-Right Toggles -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="#" class="brand">
@@ -418,11 +422,16 @@
           <li><a href="#about" id="t-nav-about">About & Location</a></li>
         </ul>
 
-        <!-- Arabic / English Toggle -->
-        <button type="button" class="btn-tool" onclick="toggleLanguage()" id="langBtn">العربية</button>
-        <!-- Dark / Light Toggle -->
-        <button type="button" class="btn-tool" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+        <!-- Language Button (العربية / English) -->
+        <button type="button" class="top-action-btn" onclick="toggleLanguage()" id="langBtn" title="Change Language">
+          🌐 العربية
+        </button>
+        <!-- Dark / Light Toggle Button -->
+        <button type="button" class="top-action-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Dark/Light Mode">
+          🌙 Dark
+        </button>
 
+        <!-- Donate Button -->
         <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav" id="t-nav-donate">Donate / Pay Dues</a>
       </div>
     </div>
@@ -505,7 +514,7 @@
           </a>
         </div>
 
-        <!-- Al-Noor Islamic School Card -->
+        <!-- Al-Noor Islamic School Card with Direct Form Button -->
         <div class="program-card" id="school" style="border: 2px solid #0284c7;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
             <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
@@ -682,7 +691,6 @@
   </footer>
 
   <script>
-    // Exact verified Lumberton schedule
     const officialTable = {
       "2026-09-12": { fajr: "05:47", sunrise: "06:56", dhuhr: "13:14", asr: "16:46", maghrib: "19:30", isha: "20:39" },
       "2026-09-13": { fajr: "05:48", sunrise: "06:56", dhuhr: "13:14", asr: "16:45", maghrib: "19:28", isha: "20:37" },
@@ -793,7 +801,6 @@
       return `${y}-${m}-${day}`;
     }
 
-    // Translations Dictionary
     const i18n = {
       en: {
         brandTitle: "Islamic Center of Lumberton",
@@ -952,7 +959,8 @@
 
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
-      document.getElementById("themeBtn").innerText = theme === "dark" ? "☀️ Light" : "🌙 Dark";
+      const btn = document.getElementById("themeBtn");
+      if (btn) btn.innerHTML = theme === "dark" ? "☀️ Light" : "🌙 Dark";
       localStorage.setItem("theme", theme);
       currentTheme = theme;
     }
@@ -967,7 +975,8 @@
       const root = document.getElementById("rootHtml");
       root.setAttribute("lang", lang);
       root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
-      document.getElementById("langBtn").innerText = lang === "ar" ? "English" : "العربية";
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) langBtn.innerText = lang === "ar" ? "English" : "🌐 العربية";
 
       const t = i18n[lang];
       document.getElementById("t-brand-title").innerText = t.brandTitle;
@@ -1042,7 +1051,6 @@
       document.getElementById("th-m-isha").innerText = t.isha;
       document.getElementById("t-footer-copy").innerText = t.footerCopy;
 
-      // Re-render selectors and timetable labels
       initSelectors();
       initMonthPicker();
       updateCountdown();
@@ -1226,7 +1234,6 @@
       }
     }
 
-    // Startup configuration
     applyTheme(currentTheme);
     applyLanguage(currentLang);
     setInterval(updateCountdown, 1000);
