@@ -421,7 +421,7 @@
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; color: black !important; }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
 </head>
 <body>
 
@@ -1252,58 +1252,45 @@
       const monthTitle = titleDate.toLocaleDateString(locale, { month: "long", year: "numeric" });
       const tableContent = document.querySelector("#monthlyScheduleCard .sheet-table").outerHTML;
 
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+      const printHtml = `<!DOCTYPE html>
+<html lang="${currentLang}" dir="${currentLang === "ar" ? "rtl" : "ltr"}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${monthTitle} - Islamic Center of Lumberton</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 16px; margin: 0; background: #fff; color: #000; }
+    .header { text-align: center; margin-bottom: 12px; }
+    h2 { margin: 0; font-size: 18px; color: #0d4a36; }
+    p { margin: 3px 0; font-size: 11px; color: #444; }
+    h3 { margin: 4px 0; font-size: 15px; color: #c59b27; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 11px; text-align: center; }
+    th, td { border: 1px solid #777; padding: 5px 3px; }
+    th { background: #e2e8f0; font-weight: bold; }
+    .btn-bar { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
+    .btn-action { background: #0d4a36; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer; text-decoration: none; }
+    @media print { .btn-bar { display: none !important; } body { padding: 0; } }
+  </style>
+</head>
+<body>
+  <div class="btn-bar">
+    <button class="btn-action" onclick="window.print()">🖨️ ${currentLang === "ar" ? "طباعة / حفظ PDF" : "Print / Save PDF"}</button>
+    <button class="btn-action" style="background:#64748b;" onclick="window.history.back()">${currentLang === "ar" ? "رجوع" : "Go Back"}</button>
+  </div>
+  <div class="header">
+    <h2>Islamic Center of Lumberton</h2>
+    <p>104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+    <h3>${monthTitle}</h3>
+    <p>Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
+  </div>
+  ${tableContent}
+</body>
+</html>`;
 
-      // Create an off-screen clean element to render the PDF
-      const pdfContainer = document.createElement("div");
-      pdfContainer.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
-      pdfContainer.style.padding = "20px";
-      pdfContainer.style.background = "#ffffff";
-      pdfContainer.style.color = "#000000";
-      pdfContainer.style.fontFamily = "-apple-system, BlinkMacSystemFont, sans-serif";
-
-      pdfContainer.innerHTML = `
-        <div style="text-align:center; margin-bottom:12px;">
-          <h2 style="margin:0; font-size:18px; color:#0d4a36;">Islamic Center of Lumberton</h2>
-          <p style="margin:4px 0; font-size:12px; color:#333;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-          <h3 style="margin:6px 0; font-size:16px; color:#c59b27;">${monthTitle}</h3>
-          <p style="margin:2px 0; font-size:11px; color:#555;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
-        </div>
-        ${tableContent}
-      `;
-
-      // Apply clean black-and-white borders for PDF
-      const ths = pdfContainer.querySelectorAll("th");
-      const tds = pdfContainer.querySelectorAll("td");
-      ths.forEach(th => {
-        th.style.background = "#f1f5f9";
-        th.style.color = "#000";
-        th.style.border = "1px solid #999";
-        th.style.padding = "5px 3px";
-        th.style.fontSize = "10px";
-      });
-      tds.forEach(td => {
-        td.style.border = "1px solid #ccc";
-        td.style.padding = "5px 3px";
-        td.style.fontSize = "10px";
-        td.style.color = "#000";
-      });
-
-      // If running from iOS Home Screen app, generate actual PDF file directly
-      if (isStandalone || typeof html2pdf !== "undefined") {
-        const opt = {
-          margin:       0.3,
-          filename:     `Lumberton_Prayer_Times_${year}_${month + 1}.pdf`,
-          image:        { type: "jpeg", quality: 0.98 },
-          html2canvas:  { scale: 2, useCORS: true },
-          jsPDF:        { unit: "in", format: "letter", orientation: "portrait" }
-        };
-        html2pdf().set(opt).from(pdfContainer).save();
-        return;
-      }
-
-      // Fallback to standard browser print
-      window.print();
+      const blob = new Blob([printHtml], { type: "text/html;charset=utf-8" });
+      const blobUrl = URL.createObjectURL(blob);
+      window.location.href = blobUrl;
     }
 
     function toggleSchoolForm() {
