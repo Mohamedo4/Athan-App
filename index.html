@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {
       --primary: #0d4a36;
@@ -49,9 +50,8 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.45; transition: background-color 0.2s, color 0.2s; -webkit-text-size-adjust: 100%; }
 
-    /* Normal view vs Print view toggling */
     body.in-print-view #mainAppView { display: none !important; }
-    #standalonePrintView { display: none; padding: 16px; background: #ffffff; color: #000000; min-height: 100vh; }
+    #standalonePrintView { display: none; padding: 14px; background: #ffffff; color: #000000; min-height: 100vh; }
     body.in-print-view #standalonePrintView { display: block !important; }
 
     /* Navbar */
@@ -353,7 +353,7 @@
       cursor: pointer;
     }
 
-    /* On-Page Monthly Sheet */
+    /* Monthly Sheet */
     .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: center; margin-top: 8px; min-width: 500px; }
     .sheet-table th, .sheet-table td { padding: 6px 4px; border: 1px solid var(--border); }
     .sheet-table th { background: var(--table-stripe); color: var(--primary); font-size: 0.74rem; text-transform: uppercase; }
@@ -399,19 +399,25 @@
     /* Print View specific styles */
     .print-ctrl-bar {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 16px;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
       background: #f8fafc;
       padding: 12px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
     }
+    .print-ctrl-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
     .btn-print-action {
       background: #0d4a36;
       color: #fff;
       border: none;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.9rem;
@@ -421,7 +427,7 @@
       background: #64748b;
       color: #fff;
       border: none;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.9rem;
@@ -748,33 +754,41 @@
 
   </div>
 
-  <!-- IN-PAGE NATIVE PRINT / PDF SHEET (100% Reliable on iPhone Home Screen WebApps) -->
+  <!-- STANDALONE PRINT & IMAGE/PDF SAVE VIEW -->
   <div id="standalonePrintView">
     <div class="print-ctrl-bar">
-      <button class="btn-print-action" onclick="triggerPrintOrSafari()">🖨️ Open Print & PDF Sheet</button>
-      <button class="btn-back-action" onclick="exitPrintView()">← Return to App</button>
+      <div class="print-ctrl-btns">
+        <button class="btn-print-action" onclick="downloadTimetableImage()">📥 Save Timetable (Photos / Files)</button>
+        <button class="btn-print-action" style="background:#0284c7;" onclick="window.print()">🖨️ Native Print (Safari)</button>
+        <button class="btn-back-action" onclick="exitPrintView()">← Return to App</button>
+      </div>
+      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;" id="saveHelpText">Tap "Save Timetable" to download an official high-resolution image to your device or Files.</p>
     </div>
-    <div style="text-align:center; margin-bottom:12px;">
-      <h2 style="font-size:1.4rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
-      <p style="font-size:0.82rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-      <h3 id="printViewMonthTitle" style="font-size:1.15rem; color:#c59b27; margin:6px 0 2px;">--</h3>
-      <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
-    </div>
-    <div style="overflow-x:auto;">
-      <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center;">
-        <thead>
-          <tr>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Date</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Fajr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Sunrise</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Dhuhr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Asr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Maghrib</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0;">Isha</th>
-          </tr>
-        </thead>
-        <tbody id="printViewTableBody"></tbody>
-      </table>
+
+    <!-- Printable & Capturable Sheet -->
+    <div id="printableCaptureCard" style="background:#ffffff; padding:16px 8px; max-width:800px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:12px;">
+        <h2 style="font-size:1.35rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
+        <p style="font-size:0.8rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
+        <h3 id="printViewMonthTitle" style="font-size:1.1rem; color:#c59b27; margin:6px 0 2px;">--</h3>
+        <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center;">
+          <thead>
+            <tr>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Date</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Fajr</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Sunrise</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Dhuhr</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Asr</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Maghrib</th>
+              <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Isha</th>
+            </tr>
+          </thead>
+          <tbody id="printViewTableBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -1326,27 +1340,30 @@
 
       document.body.classList.add("in-print-view");
       window.scrollTo(0, 0);
-
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-      if (!isStandalone) {
-        setTimeout(() => { window.print(); }, 250);
-      }
-    }
-
-    function triggerPrintOrSafari() {
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-      if (isStandalone) {
-        // iOS standalone webapps disable window.print(). Open in native Safari to access print and PDF export.
-        const safariUrl = window.location.href.split("#")[0];
-        window.open(safariUrl, "_system");
-      } else {
-        window.print();
-      }
     }
 
     function exitPrintView() {
       document.body.classList.remove("in-print-view");
       document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Direct in-app Capture: Works 100% inside iOS Home Screen PWA with zero redirects
+    function downloadTimetableImage() {
+      const target = document.getElementById("printableCaptureCard");
+      const ymKey = document.getElementById("monthPicker").value;
+      const btn = document.querySelector(".btn-print-action");
+      btn.innerText = "⏳ Generating...";
+
+      html2canvas(target, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
+        btn.innerText = "📥 Save Timetable (Photos / Files)";
+        const link = document.createElement("a");
+        link.download = `Lumberton_Prayer_Times_${ymKey}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(err => {
+        btn.innerText = "📥 Save Timetable (Photos / Files)";
+        alert("Could not generate image. You can take a screenshot of this view.");
+      });
     }
 
     function toggleSchoolForm() {
