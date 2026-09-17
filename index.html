@@ -241,7 +241,7 @@
 
     /* Side Cards Stack */
     .side-stack { display: flex; flex-direction: column; gap: 12px; }
-    .program-card {
+    .program-card { scroll-margin-top: 75px; 
       background: var(--card-bg);
       border-radius: 12px;
       padding: 14px 16px;
@@ -565,7 +565,7 @@
         <div class="side-stack" id="services">
 
           <!-- 1. Jumu'ah Prayer -->
-          <div class="program-card" id="card-jumuah">
+          <div class="program-card" id="jumuah">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
               <span class="program-badge" id="t-badge-all">All Year</span>
@@ -576,7 +576,7 @@
           </div>
 
           <!-- 2. Eid Prayers -->
-          <div class="program-card" id="card-eid">
+          <div class="program-card" id="eid">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-eid-title">🌙 Eid Prayers</h3>
               <span class="program-badge" id="t-badge-eids">Both Eids</span>
@@ -588,7 +588,7 @@
           </div>
 
           <!-- 3. Mosque Information & Directions -->
-          <div class="program-card" id="card-about">
+          <div class="program-card" id="about">
             <h3 id="t-info-title">📍 Mosque Information</h3>
             <ul class="contact-list">
               <li class="contact-item">
@@ -613,7 +613,7 @@
           </div>
 
           <!-- 4. Membership & Donations -->
-          <div class="program-card" id="card-dues" style="border: 2px solid var(--gold);">
+          <div class="program-card" id="dues" style="border: 2px solid var(--gold);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-dues-title">🤲 Membership & Donations</h3>
               <span class="program-badge" id="t-badge-online">Online</span>
@@ -625,7 +625,7 @@
           </div>
 
           <!-- 5. Al-Noor Islamic School -->
-          <div class="program-card" id="card-school" style="border: 2px solid #0284c7;">
+          <div class="program-card" id="school" style="border: 2px solid #0284c7;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
               <span class="program-badge" style="background:#e0f2fe; color:#0369a1;" id="t-badge-fee">$100 / Month</span>
