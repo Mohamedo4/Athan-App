@@ -434,7 +434,7 @@
       cursor: pointer;
     }
 
-    /* Mobile re-ordering and stacking */
+    /* Exact Mobile Order (iPhone, Android & Samsung) */
     @media (max-width: 860px) {
       .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -455,12 +455,12 @@
       .selectors-wrap .date-select { flex: 1; width: 100%; min-width: 0; }
       .form-row-2, .form-row-3 { grid-template-columns: 1fr; gap: 6px; }
 
-      /* User Requested Mobile Order: Mosque Info First, then Donations, then School */
+      /* Mobile sequence: Mosque Info -> Jumuah -> Eid -> Membership & Donations -> School */
       #card-about { order: 1; }
-      #card-dues { order: 2; }
-      #card-school { order: 3; }
-      #card-jumuah { order: 4; }
-      #card-eid { order: 5; }
+      #card-jumuah { order: 2; }
+      #card-eid { order: 3; }
+      #card-dues { order: 4; }
+      #card-school { order: 5; }
     }
 
     @media print {
@@ -569,10 +569,10 @@
           </div>
         </section>
 
-        <!-- Right Column: Services & School (Re-ordered via CSS on Mobile) -->
+        <!-- Right Column: Services & School -->
         <div class="side-stack" id="services">
 
-          <!-- 1. Membership & Donations Card -->
+          <!-- Card 1 (Desktop) / Ordered on Mobile: Membership & Donations -->
           <div class="program-card" id="card-dues" style="border: 2px solid var(--gold);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-dues-title">🤲 Membership & Donations</h3>
@@ -584,7 +584,7 @@
             </a>
           </div>
 
-          <!-- 2. Al-Noor Islamic School Card -->
+          <!-- Card 2 (Desktop) / Ordered on Mobile: Al-Noor Islamic School -->
           <div class="program-card" id="card-school" style="border: 2px solid #0284c7;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
@@ -598,7 +598,7 @@
             </button>
           </div>
 
-          <!-- 3. Jumu'ah Card -->
+          <!-- Card 3 (Desktop) / Ordered on Mobile: Jumu'ah -->
           <div class="program-card" id="card-jumuah">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
@@ -608,7 +608,7 @@
             <div class="program-time" style="margin-bottom:0;" id="t-jum-time">Khutbah Starts: 1:00 PM</div>
           </div>
 
-          <!-- 4. Eid Card -->
+          <!-- Card 4 (Desktop) / Ordered on Mobile: Eid -->
           <div class="program-card" id="card-eid">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <h3 id="t-eid-title">🌙 Eid Prayers</h3>
@@ -618,7 +618,7 @@
             <div class="program-time" style="margin-bottom:0;" id="t-eid-time">Prayer Starts: 8:00 AM</div>
           </div>
 
-          <!-- 5. Mosque Information Card -->
+          <!-- Card 5 (Desktop) / Ordered on Mobile: Mosque Info & Driving Directions -->
           <div class="program-card" id="card-about">
             <h3 id="t-info-title">📍 Mosque Information</h3>
             <ul class="contact-list">
@@ -769,10 +769,9 @@
         <button class="btn-save-mobile" onclick="downloadTimetableImage()">📥 Save Full Timetable (Photos / Files)</button>
         <button class="btn-back-mobile" onclick="exitMobilePrintView()">← Return to App</button>
       </div>
-      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;" id="mobileHelpText">Saves all 7 columns (Date, Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) directly to your device.</p>
+      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;">Saves all 7 columns (Date, Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) directly to your device.</p>
     </div>
 
-    <!-- The container that will be captured in full width without horizontal clipping -->
     <div id="printableCaptureCard" style="background:#ffffff; padding:18px 12px; width:700px; margin:0 auto;">
       <div style="text-align:center; margin-bottom:12px;">
         <h2 style="font-size:1.45rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
@@ -809,7 +808,7 @@
       "2026-09-07": { fajr: "05:43", sunrise: "06:54", dhuhr: "13:16", asr: "16:49", maghrib: "19:36", isha: "20:45" },
       "2026-09-08": { fajr: "05:44", sunrise: "06:54", dhuhr: "13:15", asr: "16:48", maghrib: "19:35", isha: "20:43" },
       "2026-09-09": { fajr: "05:45", sunrise: "06:55", dhuhr: "13:15", asr: "16:47", maghrib: "19:33", isha: "20:42" },
-      "2026-09-10": { fajr: "05:46", sunrise: "06:56", dhuhr: "13:15", asr: "16:46", maghrib: "19:32", isha: "20:40" },
+      "2026-10-10": { fajr: "05:46", sunrise: "06:56", dhuhr: "13:15", asr: "16:46", maghrib: "19:32", isha: "20:40" },
       "2026-09-11": { fajr: "05:46", sunrise: "06:57", dhuhr: "13:14", asr: "16:45", maghrib: "19:30", isha: "20:38" },
       "2026-09-12": { fajr: "05:47", sunrise: "06:56", dhuhr: "13:14", asr: "16:46", maghrib: "19:30", isha: "20:39" },
       "2026-09-13": { fajr: "05:48", sunrise: "06:56", dhuhr: "13:14", asr: "16:45", maghrib: "19:28", isha: "20:37" },
@@ -1345,13 +1344,12 @@
       tbody.innerHTML = html;
     }
 
-    // Direct desktop print / mobile export controller
     function handlePrintClick() {
-      const isMobileOrIOS = /iPad|iPhone|iPod|Android/.test(navigator.userAgent) || 
-                            window.navigator.standalone || 
-                            window.matchMedia("(max-width: 860px)").matches;
+      const isMobileOrTablet = /iPad|iPhone|iPod|Android/i.test(navigator.userAgent) || 
+                                window.navigator.standalone || 
+                                window.matchMedia("(max-width: 860px)").matches;
 
-      if (isMobileOrIOS) {
+      if (isMobileOrTablet) {
         enterMobilePrintView();
       } else {
         window.print();
@@ -1377,7 +1375,7 @@
       document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
     }
 
-    // Full 7-column capture without horizontal cropping
+    // High-res complete width capture for Android, Samsung & iOS
     async function downloadTimetableImage() {
       const target = document.getElementById("printableCaptureCard");
       const ymKey = document.getElementById("monthPicker").value;
@@ -1386,7 +1384,6 @@
       btn.innerText = "⏳ Generating...";
 
       try {
-        // Force full rendered width so Maghrib and Isha are not cut off
         const fullWidth = target.scrollWidth || 700;
         const fullHeight = target.scrollHeight;
 
@@ -1406,9 +1403,10 @@
             return;
           }
 
-          const file = new File([blob], `Lumberton_Prayer_Times_${ymKey}.png`, { type: "image/png" });
+          const filename = `Lumberton_Prayer_Times_${ymKey}.png`;
+          const file = new File([blob], filename, { type: "image/png" });
 
-          // 1. Native iOS Share Sheet (Opens "Save Image", "Save to Files")
+          // 1. Native Mobile Share Sheet (iOS, Samsung Internet, Android Chrome)
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
               await navigator.share({
@@ -1422,23 +1420,13 @@
             }
           }
 
-          // 2. Fallback: Display complete image on screen so user can touch and hold
-          let previewContainer = document.getElementById("mobileImagePreview");
-          if (!previewContainer) {
-            previewContainer = document.createElement("div");
-            previewContainer.id = "mobileImagePreview";
-            previewContainer.style.cssText = "margin-top:16px; text-align:center; background:#f1f5f9; padding:12px; border-radius:10px;";
-            document.getElementById("mobilePrintView").insertBefore(previewContainer, target);
-          }
-
-          const imgUrl = URL.createObjectURL(blob);
-          previewContainer.innerHTML = `
-            <p style="font-size:13px; font-weight:bold; color:#0d4a36; margin-bottom:8px;">
-              👇 Press and hold the image below, then tap <strong>"Save to Photos"</strong>:
-            </p>
-            <img src="${imgUrl}" style="max-width:100%; border:1px solid #ccc; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);" />
-          `;
-          previewContainer.scrollIntoView({ behavior: "smooth" });
+          // 2. Android / Browser Direct Blob Download
+          const downloadLink = document.createElement("a");
+          downloadLink.download = filename;
+          downloadLink.href = URL.createObjectURL(blob);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
 
         }, "image/png");
 
