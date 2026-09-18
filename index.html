@@ -180,6 +180,18 @@
     }
     [data-theme="dark"] .countdown-timer { color: #fef08a; }
 
+    /* Mobile Quick Alert Bar */
+    #quickAlertBar {
+      background: var(--card-bg);
+      border: 1.5px solid var(--gold);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
     /* Grid Layout */
     .content-grid { display: grid; grid-template-columns: 1.32fr 1fr; gap: 14px; align-items: start; }
     .section-card {
@@ -562,7 +574,7 @@
 
     @media print {
       body { background: white !important; color: black !important; margin: 0 !important; }
-      .navbar, .hero, .next-prayer-banner, .side-stack, #prayers, footer, .no-print, .mobile-print-bar, #schoolFormContainer { display: none !important; }
+      .navbar, .hero, .next-prayer-banner, .side-stack, #prayers, footer, .no-print, .mobile-print-bar, #schoolFormContainer, #quickAlertBar { display: none !important; }
       #monthlyScheduleCard { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; }
       .sheet-table { min-width: 100% !important; font-size: 10px !important; }
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
@@ -639,7 +651,7 @@
       </section>
 
       <!-- Mobile Quick Alert Bar -->
-      <div id="quickAlertBar" style="background: var(--card-bg); border: 1.5px solid var(--gold); border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+      <div id="quickAlertBar">
         <div>
           <strong style="font-size: 0.95rem; color: var(--primary);">🔔 Prayer & Iqamah Alerts</strong>
           <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Get notified on your phone when Athan or Iqamah starts.</p>
@@ -1196,6 +1208,8 @@
 
     let currentLang = localStorage.getItem("lang") || "en";
     let currentTheme = localStorage.getItem("theme") || "light";
+    let notificationsEnabled = localStorage.getItem("prayerNotifications") === "true";
+    let lastNotifiedMinute = "";
 
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
@@ -1207,6 +1221,111 @@
 
     function toggleTheme() {
       applyTheme(currentTheme === "dark" ? "light" : "dark");
+    }
+
+    function updateNotifBtn() {
+      const btn = document.getElementById("notifBtn");
+      if (btn) {
+        if (notificationsEnabled) {
+          btn.innerHTML = "🔔 Alerts: On";
+          btn.style.borderColor = "var(--primary)";
+          btn.style.color = "var(--primary)";
+        } else {
+          btn.innerHTML = "🔕 Alerts: Off";
+          btn.style.borderColor = "var(--border)";
+          btn.style.color = "var(--text-muted)";
+        }
+      }
+      const bannerBtn = document.getElementById("bannerNotifBtn");
+      if (bannerBtn) {
+        bannerBtn.innerText = notificationsEnabled ? "✓ Active" : "Enable Alerts";
+        bannerBtn.style.background = notificationsEnabled ? "var(--primary)" : "var(--gold)";
+      }
+    }
+
+    async function toggleNotifications() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+
+      if (isIOS && !isStandalone) {
+        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to enable alerts.\n\n1. Tap the Share button (square with arrow up) at the bottom of Safari.\n2. Tap 'Add to Home Screen'.\n3. Open 'Lumberton Masjid' from your Home Screen and tap this button to turn on alerts!");
+        return;
+      }
+
+      if (!("Notification" in window)) {
+        alert("Notifications are not supported on this browser.");
+        return;
+      }
+
+      if (!notificationsEnabled) {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          notificationsEnabled = true;
+          localStorage.setItem("prayerNotifications", "true");
+          updateNotifBtn();
+          playAlertTone();
+          new Notification("Islamic Center of Lumberton", {
+            body: "Prayer and Iqamah alerts are now active!"
+          });
+        } else {
+          alert("Notification permission was denied in your browser settings.");
+        }
+      } else {
+        notificationsEnabled = false;
+        localStorage.setItem("prayerNotifications", "false");
+        updateNotifBtn();
+      }
+    }
+
+    function checkPrayerAlerts() {
+      if (!notificationsEnabled || Notification.permission !== "granted") return;
+
+      const now = new Date();
+      const currentYMD = formatYMD(now);
+      const currentHHMM = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+
+      if (lastNotifiedMinute === currentHHMM) return;
+
+      const times = getDayPrayerTimes(currentYMD);
+      const schedule = [
+        { name: "Fajr", athan: times.fajr, iqamah: addMinutes(times.fajr, 20) },
+        { name: "Dhuhr", athan: times.dhuhr, iqamah: addMinutes(times.dhuhr, 15) },
+        { name: "Asr", athan: times.asr, iqamah: addMinutes(times.asr, 15) },
+        { name: "Maghrib", athan: times.maghrib, iqamah: addMinutes(times.maghrib, 15) },
+        { name: "Isha", athan: times.isha, iqamah: addMinutes(times.isha, 15) }
+      ];
+
+      schedule.forEach(p => {
+        if (currentHHMM === p.athan) {
+          lastNotifiedMinute = currentHHMM;
+          playAlertTone();
+          new Notification(`🕌 Time for ${p.name} Athan`, {
+            body: `Athan is at ${to12Hr(p.athan)}. Iqamah will be at ${to12Hr(p.iqamah)}.`
+          });
+        } else if (currentHHMM === p.iqamah) {
+          lastNotifiedMinute = currentHHMM;
+          playAlertTone();
+          new Notification(`⏱️ ${p.name} Iqamah Time`, {
+            body: `Congregation prayer for ${p.name} is starting now (${to12Hr(p.iqamah)}).`
+          });
+        }
+      });
+    }
+
+    function playAlertTone() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.2);
+      } catch (e) {}
     }
 
     function applyLanguage(lang) {
@@ -1586,121 +1705,11 @@
       }
     }
 
-    /* NOTIFICATION & AUDIO ENGINE */
-    let notificationsEnabled = localStorage.getItem("prayerNotifications") === "true";
-    let lastNotifiedMinute = "";
-
-    function updateNotifBtn() {
-      const bannerBtn = document.getElementById("bannerNotifBtn");
-      if (bannerBtn) {
-        bannerBtn.innerText = notificationsEnabled ? "✓ Active" : "Enable Alerts";
-        bannerBtn.style.background = notificationsEnabled ? "var(--primary)" : "var(--gold)";
-      }
-      const btn = document.getElementById("notifBtn");
-      if (!btn) return;
-      if (notificationsEnabled) {
-        btn.innerHTML = "🔔 Alerts: On";
-        btn.style.borderColor = "var(--primary)";
-        btn.style.color = "var(--primary)";
-      } else {
-        btn.innerHTML = "🔕 Alerts: Off";
-        btn.style.borderColor = "var(--border)";
-        btn.style.color = "var(--text-muted)";
-      }
-    }
-
-    async function toggleNotifications() {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-
-      if (isIOS && !isStandalone) {
-        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to enable alerts.\n\n1. Tap the Share button (square with arrow up) at the bottom of Safari.\n2. Tap "Add to Home Screen".\n3. Open "Lumberton Masjid" from your Home Screen and tap this bell to turn on alerts!");
-        return;
-      }
-
-      if (!("Notification" in window)) {
-        alert("Notifications are not supported on this browser.");
-        return;
-      }
-
-      if (!notificationsEnabled) {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
-          notificationsEnabled = true;
-          localStorage.setItem("prayerNotifications", "true");
-          updateNotifBtn();
-          playAlertTone();
-          new Notification("Islamic Center of Lumberton", {
-            body: "Prayer and Iqamah alerts are now active!"
-          });
-        } else {
-          alert("Notification permission was denied in your browser settings.");
-        }
-      } else {
-        notificationsEnabled = false;
-        localStorage.setItem("prayerNotifications", "false");
-        updateNotifBtn();
-      }
-    }
-
-    function checkPrayerAlerts() {
-      if (!notificationsEnabled || Notification.permission !== "granted") return;
-
-      const now = new Date();
-      const currentYMD = formatYMD(now);
-      const currentHHMM = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-
-      if (lastNotifiedMinute === currentHHMM) return;
-
-      const times = getDayPrayerTimes(currentYMD);
-      const schedule = [
-        { name: "Fajr", athan: times.fajr, iqamah: addMinutes(times.fajr, 20) },
-        { name: "Dhuhr", athan: times.dhuhr, iqamah: addMinutes(times.dhuhr, 15) },
-        { name: "Asr", athan: times.asr, iqamah: addMinutes(times.asr, 15) },
-        { name: "Maghrib", athan: times.maghrib, iqamah: addMinutes(times.maghrib, 15) },
-        { name: "Isha", athan: times.isha, iqamah: addMinutes(times.isha, 15) }
-      ];
-
-      schedule.forEach(p => {
-        if (currentHHMM === p.athan) {
-          lastNotifiedMinute = currentHHMM;
-          playAlertTone();
-          new Notification(`🕌 Time for ${p.name} Athan`, {
-            body: `Athan is at ${to12Hr(p.athan)}. Iqamah will be at ${to12Hr(p.iqamah)}.`
-          });
-        } else if (currentHHMM === p.iqamah) {
-          lastNotifiedMinute = currentHHMM;
-          playAlertTone();
-          new Notification(`⏱️ ${p.name} Iqamah Time`, {
-            body: `Congregation prayer for ${p.name} is starting now (${to12Hr(p.iqamah)}).`
-          });
-        }
-      });
-    }
-
-    function playAlertTone() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (e) {}
-    }
-
     applyTheme(currentTheme);
     applyLanguage(currentLang);
     setInterval(updateCountdown, 1000);
     setInterval(checkPrayerAlerts, 10000);
-  </script>
 
-  <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").catch(() => {});
