@@ -177,12 +177,13 @@
 
     /* Grid Layout */
     .content-grid { display: grid; grid-template-columns: 1.32fr 1fr; gap: 14px; align-items: start; }
-    .section-card { scroll-margin-top: 75px; 
+    .section-card {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 16px 18px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      scroll-margin-top: 75px;
     }
 
     .section-header {
@@ -203,7 +204,8 @@
       border-radius: 7px;
       border: 1px solid var(--border);
       background: var(--card-bg);
-      font-size: 0.95rem; font-weight: 600;
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--text-main);
       outline: none;
       cursor: pointer;
@@ -212,27 +214,23 @@
     /* Prayer Table */
     .table-container { width: 100%; overflow-x: auto; }
     .prayer-table { width: 100%; border-collapse: collapse; min-width: 280px; }
-    .prayer-table th { 
-      font-size: 0.88rem; 
-      font-weight: 700; 
-      letter-spacing: 0.8px; 
-      padding: 10px 12px; 
+    .prayer-table th {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      padding: 10px 12px;
+      background: var(--table-stripe);
+      text-align: left;
     }
-    .prayer-table td { 
-      padding: 14px 12px; 
-      border-bottom: 1px solid var(--border); 
-    }
+    [dir="rtl"] .prayer-table th { text-align: right; }
+    .prayer-table th:last-child, .prayer-table td:last-child { text-align: right; }
+    [dir="rtl"] .prayer-table th:last-child, [dir="rtl"] .prayer-table td:last-child { text-align: left; }
+
+    .prayer-table td { padding: 14px 12px; border-bottom: 1px solid var(--border); }
     .prayer-table tr:last-child td { border-bottom: none; }
-    .prayer-name { 
-      font-weight: 800; 
-      font-size: 1.22rem; 
-      color: var(--text-main); 
-    }
-    .time-athan { 
-      font-weight: 700; 
-      font-size: 1.18rem; 
-      color: var(--text-main); 
-    }
+    .prayer-name { font-weight: 800; font-size: 1.22rem; color: var(--text-main); }
+    .time-athan { font-weight: 700; font-size: 1.18rem; color: var(--text-main); }
     .badge-iqamah {
       display: inline-block;
       padding: 5px 12px;
@@ -245,12 +243,13 @@
 
     /* Side Cards Stack */
     .side-stack { display: flex; flex-direction: column; gap: 12px; }
-    .program-card { scroll-margin-top: 75px; 
+    .program-card {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 14px 16px;
       border: 1px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      scroll-margin-top: 75px;
     }
     .program-card h3 {
       font-size: 1.18rem;
@@ -270,23 +269,23 @@
       background: var(--gold-light);
       color: var(--gold-text);
     }
-    .program-card p { 
-      font-size: 1.02rem; 
-      color: var(--text-muted); 
-      margin-bottom: 8px; 
+    .program-card p {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
       line-height: 1.5;
     }
-    .program-time { 
-      font-size: 1.05rem; 
-      font-weight: 700; 
-      color: var(--text-main); 
-      margin-bottom: 5px; 
+    .program-time {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 5px;
     }
-    .contact-item { 
-      display: flex; 
-      align-items: flex-start; 
-      gap: 10px; 
-      font-size: 1.02rem; 
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1.02rem;
       line-height: 1.5;
     }
     .btn-donate-card {
@@ -316,6 +315,7 @@
       cursor: pointer;
     }
     .btn-school-toggle:hover { background: #0369a1; }
+
     .btn-action {
       display: inline-block;
       width: 100%;
@@ -329,6 +329,161 @@
       font-size: 1.02rem;
       margin-top: 12px;
     }
+
+    /* Registration Container */
+    #schoolFormContainer {
+      display: none;
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-top: 14px;
+      box-shadow: 0 10px 28px -4px rgba(13, 74, 54, 0.15);
+      scroll-margin-top: 75px;
+    }
+    #schoolFormContainer.active {
+      display: block;
+    }
+
+    .form-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+    .btn-close-form {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1.5px solid #f87171;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-close-form:hover { background: #fecaca; }
+    [data-theme="dark"] .btn-close-form {
+      background: #450a0a;
+      color: #fca5a5;
+      border-color: #991b1b;
+    }
+
+    .form-sec-title {
+      color: var(--primary);
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin: 16px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+    .form-row-3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+    .form-group-in { margin-bottom: 12px; display: flex; flex-direction: column; }
+    .form-group-in label {
+      display: block;
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+    .form-group-in input, .form-group-in select, .form-group-in textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      background: var(--card-bg);
+      color: var(--text-main);
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group-in input:focus, .form-group-in select:focus, .form-group-in textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 74, 54, 0.2);
+    }
+
+    .tuition-box-in {
+      background: var(--table-stripe);
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      text-align: center;
+    }
+    .btn-tuition-in {
+      display: inline-block;
+      background: #d97706;
+      color: white;
+      text-decoration: none;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-top: 8px;
+    }
+
+    .form-actions-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-submit-form {
+      flex: 2;
+      min-width: 220px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-submit-form:hover { background: var(--primary-light); }
+
+    .btn-cancel-bottom {
+      flex: 1;
+      min-width: 120px;
+      background: var(--table-stripe);
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* Monthly Sheet */
+    .sheet-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: center; margin-top: 8px; min-width: 500px; }
+    .sheet-table th, .sheet-table td { padding: 6px 4px; border: 1px solid var(--border); }
+    .sheet-table th { background: var(--table-stripe); color: var(--primary); font-size: 0.74rem; text-transform: uppercase; }
+
+    .btn-print-page {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
 
     footer {
       background: var(--card-bg);
@@ -392,16 +547,17 @@
       .hero h1 { font-size: 1.65rem; }
       .hero-badges { flex-direction: column; align-items: center; }
       .hero-badge { width: 100%; max-width: 320px; justify-content: center; }
-      .section-card { scroll-margin-top: 75px;  padding: 14px 12px; }
+      .section-card { padding: 14px 12px; }
       .section-header { flex-direction: column; align-items: stretch; gap: 8px; }
       .selectors-wrap { width: 100%; }
       .selectors-wrap .date-select { flex: 1; width: 100%; min-width: 0; }
-      .form-row-2, .form-row-3 { grid-template-columns: 1fr; gap: 6px; }
+      .form-row-2, .form-row-3 { grid-template-columns: 1fr; gap: 10px; }
+      .form-actions-row { flex-direction: column; }
     }
 
     @media print {
       body { background: white !important; color: black !important; margin: 0 !important; }
-      .navbar, .hero, .next-prayer-banner, .side-stack, #dailyScheduleCard, footer, .no-print, .mobile-print-bar { display: none !important; }
+      .navbar, .hero, .next-prayer-banner, .side-stack, #prayers, footer, .no-print, .mobile-print-bar, #schoolFormContainer { display: none !important; }
       #monthlyScheduleCard { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; }
       .sheet-table { min-width: 100% !important; font-size: 10px !important; }
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
@@ -505,7 +661,7 @@
           </div>
         </section>
 
-        <!-- Right Column: Reordered into the exact requested sequence -->
+        <!-- Right Column: Reordered Sequence -->
         <div class="side-stack" id="services">
 
           <!-- 1. Jumu'ah Prayer -->
@@ -577,7 +733,7 @@
             <p id="t-school-desc">Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.</p>
             <div class="program-time" id="t-school-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
             
-            <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm()" id="t-school-btn">
+            <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm(true)" id="t-school-btn">
               ✍️ Apply & Register for School (Opens Form) ↓
             </button>
           </div>
@@ -586,22 +742,22 @@
 
       </div>
 
-      <!-- Embedded Registration Form -->
+      <!-- Expandable Registration Form -->
       <section id="schoolFormContainer">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
+        <div class="form-header-bar">
           <div>
-            <h2 style="color:var(--primary); font-size:1.35rem; font-weight:800;" id="t-form-h2">Al-Noor Islamic School Registration</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted);" id="t-form-sub">Islamic Center of Lumberton • Student Enrollment Form</p>
+            <h2 style="color:var(--primary); font-size:1.4rem; font-weight:800;" id="t-form-h2">Al-Noor Islamic School Registration</h2>
+            <p style="font-size:0.92rem; color:var(--text-muted); margin-top:2px;" id="t-form-sub">Islamic Center of Lumberton • Student Enrollment Form</p>
           </div>
-          <button type="button" onclick="toggleSchoolForm()" style="background:var(--table-stripe); color:var(--text-main); border:1px solid var(--border); padding:4px 10px; border-radius:6px; cursor:pointer; font-weight:700;">✕ <span id="t-close">Close</span></button>
+          <button type="button" class="btn-close-form" onclick="toggleSchoolForm(false)">✕ <span id="t-close">Close Form</span></button>
         </div>
 
         <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
-          <h4 style="color:var(--primary); margin:8px 0 6px;" id="t-form-sec1">1. Parent / Guardian Information</h4>
+          <h4 class="form-sec-title" id="t-form-sec1">1. Parent / Guardian Information</h4>
           <div class="form-row-2">
             <div class="form-group-in">
               <label id="t-lbl-parent">Parent Full Name *</label>
-              <input type="text" name="Parent_Name" required placeholder="Parent name" />
+              <input type="text" name="Parent_Name" required placeholder="e.g. Abdullah Khan" />
             </div>
             <div class="form-group-in">
               <label id="t-lbl-phone">Phone / WhatsApp *</label>
@@ -613,11 +769,11 @@
             <input type="email" name="Parent_Email" required placeholder="parent@example.com" />
           </div>
 
-          <h4 style="color:var(--primary); margin:12px 0 6px;" id="t-form-sec2">2. Student Details</h4>
+          <h4 class="form-sec-title" id="t-form-sec2">2. Student Details</h4>
           <div class="form-row-3">
             <div class="form-group-in">
               <label id="t-lbl-child">Child Full Name *</label>
-              <input type="text" name="Student_Name" required placeholder="Child's name" />
+              <input type="text" name="Student_Name" required placeholder="Child's full name" />
             </div>
             <div class="form-group-in">
               <label id="t-lbl-age">Age / Grade *</label>
@@ -626,7 +782,7 @@
             <div class="form-group-in">
               <label id="t-lbl-gender">Gender *</label>
               <select name="Student_Gender" required id="select-gender">
-                <option value="" disabled selected>Select</option>
+                <option value="" disabled selected>Select Gender</option>
                 <option value="Male" id="opt-male">Male</option>
                 <option value="Female" id="opt-female">Female</option>
               </select>
@@ -646,18 +802,21 @@
 
           <div class="form-group-in">
             <label id="t-lbl-notes">Additional Notes or Allergies</label>
-            <textarea name="Notes" rows="2" placeholder="Any medical or learning notes..."></textarea>
+            <textarea name="Notes" rows="3" placeholder="Any medical conditions, allergies, or special notes..."></textarea>
           </div>
 
           <div class="tuition-box-in">
-            <strong style="color:var(--primary); font-size:0.98rem;" id="t-form-tuition-title">💳 School Tuition ($100 / Month)</strong>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;" id="t-form-tuition-sub">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
+            <strong style="color:var(--primary); font-size:1.1rem;" id="t-form-tuition-title">💳 School Tuition ($100 / Month)</strong>
+            <p style="font-size:0.95rem; color:var(--text-muted); margin-top:4px;" id="t-form-tuition-sub">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
             <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-tuition-in" id="t-form-tuition-btn">
               Pay $100 Monthly Tuition on Givebutter →
             </a>
           </div>
 
-          <button type="submit" class="btn-submit-form" id="t-form-submit">Submit Registration Application</button>
+          <div class="form-actions-row">
+            <button type="submit" class="btn-submit-form" id="t-form-submit">Submit Registration Application</button>
+            <button type="button" class="btn-cancel-bottom" onclick="toggleSchoolForm(false)" id="t-cancel-bottom">Cancel & Close</button>
+          </div>
         </form>
       </section>
 
@@ -901,7 +1060,8 @@
         directionsBtn: "Get Driving Directions",
         formH2: "Al-Noor Islamic School Registration",
         formSub: "Islamic Center of Lumberton • Student Enrollment Form",
-        close: "Close",
+        close: "Close Form",
+        cancelBottom: "Cancel & Close",
         formSec1: "1. Parent / Guardian Information",
         lblParent: "Parent Full Name *",
         lblPhone: "Phone / WhatsApp *",
@@ -979,7 +1139,8 @@
         directionsBtn: "عرض الاتجاهات على الخريطة",
         formH2: "استمارة تسجيل مدرسة النور الإسلامية",
         formSub: "المركز الإسلامي في لومبرتون • تسجيل الطلاب",
-        close: "إغلاق",
+        close: "إغلاق النموذج",
+        cancelBottom: "إلغاء وإغلاق",
         formSec1: "1. بيانات ولي الأمر",
         lblParent: "اسم ولي الأمر كاملاً *",
         lblPhone: "رقم الهاتف / واتساب *",
@@ -1089,6 +1250,9 @@
       document.getElementById("t-form-h2").innerText = t.formH2;
       document.getElementById("t-form-sub").innerText = t.formSub;
       document.getElementById("t-close").innerText = t.close;
+      const cancelBottomEl = document.getElementById("t-cancel-bottom");
+      if (cancelBottomEl) cancelBottomEl.innerText = t.cancelBottom;
+
       document.getElementById("t-form-sec1").innerText = t.formSec1;
       document.getElementById("t-lbl-parent").innerText = t.lblParent;
       document.getElementById("t-lbl-phone").innerText = t.lblPhone;
@@ -1385,11 +1549,22 @@
       }
     }
 
-    function toggleSchoolForm() {
+    function toggleSchoolForm(shouldOpen) {
       const box = document.getElementById("schoolFormContainer");
-      box.classList.toggle("active");
-      if (box.classList.contains("active")) {
+      const isCurrentlyOpen = box.style.display === "block" || box.classList.contains("active");
+      const willOpen = (shouldOpen !== undefined) ? shouldOpen : !isCurrentlyOpen;
+
+      if (willOpen) {
+        box.style.display = "block";
+        box.classList.add("active");
         box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        box.style.display = "none";
+        box.classList.remove("active");
+        const schoolCard = document.getElementById("school");
+        if (schoolCard) {
+          schoolCard.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
 
