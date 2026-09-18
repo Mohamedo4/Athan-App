@@ -638,6 +638,15 @@
         </div>
       </section>
 
+      <!-- Mobile Quick Alert Bar -->
+      <div id="quickAlertBar" style="background: var(--card-bg); border: 1.5px solid var(--gold); border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+        <div>
+          <strong style="font-size: 0.95rem; color: var(--primary);">🔔 Prayer & Iqamah Alerts</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Get notified on your phone when Athan or Iqamah starts.</p>
+        </div>
+        <button type="button" onclick="toggleNotifications()" id="bannerNotifBtn" style="background: var(--gold); color: #ffffff; border: none; padding: 8px 14px; border-radius: 7px; font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap;">Enable Alerts</button>
+      </div>
+
       <!-- Content Grid -->
       <div class="content-grid">
 
@@ -1582,6 +1591,11 @@
     let lastNotifiedMinute = "";
 
     function updateNotifBtn() {
+      const bannerBtn = document.getElementById("bannerNotifBtn");
+      if (bannerBtn) {
+        bannerBtn.innerText = notificationsEnabled ? "✓ Active" : "Enable Alerts";
+        bannerBtn.style.background = notificationsEnabled ? "var(--primary)" : "var(--gold)";
+      }
       const btn = document.getElementById("notifBtn");
       if (!btn) return;
       if (notificationsEnabled) {
@@ -1684,6 +1698,14 @@
     applyLanguage(currentLang);
     setInterval(updateCountdown, 1000);
     setInterval(checkPrayerAlerts, 10000);
+  </script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
