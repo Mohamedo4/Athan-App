@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Islamic Center of Lumberton</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lumberton Masjid">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Mohamedo4/Athan-App/main/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1591,8 +1596,16 @@
     }
 
     async function toggleNotifications() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+
+      if (isIOS && !isStandalone) {
+        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to enable alerts.\n\n1. Tap the Share button (square with arrow up) at the bottom of Safari.\n2. Tap "Add to Home Screen".\n3. Open "Lumberton Masjid" from your Home Screen and tap this bell to turn on alerts!");
+        return;
+      }
+
       if (!("Notification" in window)) {
-        alert("This browser does not support notifications.");
+        alert("Notifications are not supported on this browser.");
         return;
       }
 
