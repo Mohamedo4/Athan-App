@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#083324" />
+      <stop offset="50%" stop-color="#0d4a36" />
+      <stop offset="100%" stop-color="#06261b" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#996515" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+
+  <!-- Subtle Islamic Geometric Accent Ring -->
+  <circle cx="256" cy="256" r="215" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.35" stroke-dasharray="8 6" />
+  <circle cx="256" cy="256" r="202" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.2" />
+
+  <!-- Crescent & Star Emblem at Top -->
+  <g transform="translate(256, 125) scale(0.65)" filter="url(#shadow)">
+    <path d="M 0 -35 A 35 35 0 1 1 -28 20 A 28 28 0 1 0 0 -35 Z" fill="url(#goldGrad)" transform="translate(-8, 0)" />
+    <polygon points="12,-16 16,-6 26,-6 18,2 21,12 12,6 3,12 6,2 -2,-6 8,-6" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Arabic Typography: المسجد (The Masjid) -->
+  <text x="256" y="325" 
+        font-family="Amiri, Scheherazade New, serif" 
+        font-size="128" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="url(#goldGrad)" 
+        filter="url(#shadow)">المسجد</text>
+
+  <!-- English Subtext -->
+  <text x="256" y="395" 
+        font-family="-apple-system, BlinkMacSystemFont, sans-serif" 
+        font-size="22" 
+        font-weight="700" 
+        letter-spacing="5" 
+        text-anchor="middle" 
+        fill="#fef08a" 
+        opacity="0.85">LUMBERTON</text>
+</svg>

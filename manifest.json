@@ -1,15 +1,15 @@
 {
   "name": "Islamic Center of Lumberton",
-  "short_name": "Lumberton Masjid",
+  "short_name": "\u0627\u0644\u0645\u0633\u062c\u062f",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#083324",
   "theme_color": "#0d4a36",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/Mohamedo4/Athan-App/main/favicon.ico",
-      "sizes": "192x192 512x512",
-      "type": "image/x-icon"
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ]
 }
