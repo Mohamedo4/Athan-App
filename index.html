@@ -582,6 +582,24 @@
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
     }
   </style>
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "4513a6de-6783-400c-bc88-4590fae7c576",
+        notifyButton: {
+          enable: false,
+        },
+        allowLocalhostAsSecureOrigin: true,
+        welcomeNotification: {
+          title: "🕌 Welcome to Islamic Center of Lumberton",
+          message: "Alerts are now active. You will receive notifications at the start of each Athan and Iqamah.",
+          url: "https://Mohamedo4.github.io/Athan-App/"
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -1246,6 +1264,32 @@
     }
 
     async function toggleNotifications() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+
+      if (isIOS && !isStandalone) {
+        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to receive alerts:\n\n1. Tap Safari Share (square with arrow up).\n2. Select "Add to Home Screen".\n3. Open the app from your Home Screen to enable alerts.");
+        return;
+      }
+
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        try {
+          await OneSignal.Slidedown.promptPush();
+          const btn = document.getElementById("bannerNotifBtn");
+          if (btn) {
+            btn.innerText = "✓ Active";
+            btn.style.background = "var(--primary)";
+          }
+          const navBtn = document.getElementById("notifBtn");
+          if (navBtn) {
+            navBtn.innerHTML = "🔔 Alerts: On";
+            navBtn.style.color = "var(--primary)";
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      });
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
       const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
 
