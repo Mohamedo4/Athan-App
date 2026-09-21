@@ -1,0 +1,26 @@
+name: Schedule Daily Prayer Push Notifications
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs daily at 4:00 AM EDT (08:00 UTC)
+  workflow_dispatch:      # Allows manual one-click testing from GitHub Actions tab
+
+jobs:
+  schedule-prayers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Requests
+        run: pip install requests
+
+      - name: Run Scheduler
+        env:
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+        run: python schedule_prayers.py
