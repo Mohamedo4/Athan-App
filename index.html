@@ -10,11 +10,35 @@
   <meta name="apple-mobile-web-app-title" content="Lumberton Masjid">
   <link rel="apple-touch-icon" href="icon.svg">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- OneSignal Web Push SDK with protected fallback -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      try {
+        const repoPath = window.location.pathname.includes("/Athan-App/") ? "/Athan-App/" : "./";
+        await OneSignal.init({
+          appId: "4513a6de-6783-400c-bc88-4590fae7c576",
+          serviceWorkerPath: repoPath + "OneSignalSDKWorker.js",
+          serviceWorkerParam: { scope: repoPath },
+          notifyButton: { enable: false },
+          allowLocalhostAsSecureOrigin: true,
+          welcomeNotification: {
+            title: "🕌 Welcome to Islamic Center of Lumberton",
+            message: "Alerts are now active. You will receive notifications at the start of each Athan and Iqamah."
+          }
+        });
+      } catch (err) {
+        console.warn("OneSignal initialization warning:", err);
+      }
+    });
+  </script>
+
   <style>
     :root {
       --primary: #0d4a36;
@@ -582,24 +606,6 @@
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
     }
   </style>
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "4513a6de-6783-400c-bc88-4590fae7c576",
-        notifyButton: {
-          enable: false,
-        },
-        allowLocalhostAsSecureOrigin: true,
-        welcomeNotification: {
-          title: "🕌 Welcome to Islamic Center of Lumberton",
-          message: "Alerts are now active. You will receive notifications at the start of each Athan and Iqamah.",
-          url: "https://Mohamedo4.github.io/Athan-App/"
-        }
-      });
-    });
-  </script>
 </head>
 <body>
 
@@ -954,38 +960,9 @@
       "2026-09-07": { fajr: "05:43", sunrise: "06:54", dhuhr: "13:16", asr: "16:49", maghrib: "19:36", isha: "20:45" },
       "2026-09-08": { fajr: "05:44", sunrise: "06:54", dhuhr: "13:15", asr: "16:48", maghrib: "19:35", isha: "20:43" },
       "2026-09-09": { fajr: "05:45", sunrise: "06:55", dhuhr: "13:15", asr: "16:47", maghrib: "19:33", isha: "20:42" },
-      "2026-09-10": { fajr: "05:46", sunrise: "06:56", dhuhr: "13:15", asr: "16:46", maghrib: "19:32", isha: "20:40" },
-      "2026-09-11": { fajr: "05:46", sunrise: "06:57", dhuhr: "13:14", asr: "16:45", maghrib: "19:30", isha: "20:38" },
-      "2026-09-12": { fajr: "05:47", sunrise: "06:56", dhuhr: "13:14", asr: "16:46", maghrib: "19:30", isha: "20:39" },
-      "2026-09-13": { fajr: "05:48", sunrise: "06:56", dhuhr: "13:14", asr: "16:45", maghrib: "19:28", isha: "20:37" },
-      "2026-09-14": { fajr: "05:49", sunrise: "06:57", dhuhr: "13:13", asr: "16:44", maghrib: "19:27", isha: "20:36" },
-      "2026-09-15": { fajr: "05:50", sunrise: "06:58", dhuhr: "13:13", asr: "16:43", maghrib: "19:25", isha: "20:34" },
-      "2026-09-16": { fajr: "05:50", sunrise: "06:59", dhuhr: "13:13", asr: "16:42", maghrib: "19:24", isha: "20:33" },
-      "2026-09-17": { fajr: "05:51", sunrise: "06:59", dhuhr: "13:12", asr: "16:41", maghrib: "19:23", isha: "20:31" },
-      "2026-09-18": { fajr: "05:52", sunrise: "07:00", dhuhr: "13:12", asr: "16:41", maghrib: "19:21", isha: "20:30" },
-      "2026-09-19": { fajr: "05:53", sunrise: "07:01", dhuhr: "13:11", asr: "16:40", maghrib: "19:20", isha: "20:28" },
-      "2026-09-20": { fajr: "05:54", sunrise: "07:01", dhuhr: "13:11", asr: "16:39", maghrib: "19:18", isha: "20:27" },
-      "2026-09-21": { fajr: "05:54", sunrise: "07:02", dhuhr: "13:11", asr: "16:38", maghrib: "19:17", isha: "20:25" },
-      "2026-09-22": { fajr: "05:55", sunrise: "07:03", dhuhr: "13:10", asr: "16:37", maghrib: "19:15", isha: "20:24" },
-      "2026-09-23": { fajr: "05:56", sunrise: "07:04", dhuhr: "13:10", asr: "16:36", maghrib: "19:14", isha: "20:22" },
-      "2026-09-24": { fajr: "05:57", sunrise: "07:04", dhuhr: "13:10", asr: "16:35", maghrib: "19:13", isha: "20:21" },
-      "2026-09-25": { fajr: "05:57", sunrise: "07:05", dhuhr: "13:09", asr: "16:34", maghrib: "19:11", isha: "20:19" },
-      "2026-09-26": { fajr: "05:58", sunrise: "07:06", dhuhr: "13:09", asr: "16:33", maghrib: "19:10", isha: "20:18" },
-      "2026-09-27": { fajr: "05:59", sunrise: "07:06", dhuhr: "13:09", asr: "16:32", maghrib: "19:08", isha: "20:16" },
-      "2026-09-28": { fajr: "06:00", sunrise: "07:07", dhuhr: "13:08", asr: "16:31", maghrib: "19:07", isha: "20:15" },
-      "2026-09-29": { fajr: "06:01", sunrise: "07:08", dhuhr: "13:08", asr: "16:30", maghrib: "19:06", isha: "20:13" },
-      "2026-09-30": { fajr: "06:01", sunrise: "07:09", dhuhr: "13:08", asr: "16:29", maghrib: "19:04", isha: "20:12" },
       "2026-10-01": { fajr: "06:02", sunrise: "07:09", dhuhr: "13:07", asr: "16:28", maghrib: "19:03", isha: "20:11" },
       "2026-10-02": { fajr: "06:03", sunrise: "07:10", dhuhr: "13:07", asr: "16:28", maghrib: "19:01", isha: "20:09" },
-      "2026-10-03": { fajr: "06:04", sunrise: "07:11", dhuhr: "13:07", asr: "16:27", maghrib: "19:00", isha: "20:08" },
-      "2026-10-04": { fajr: "06:04", sunrise: "07:12", dhuhr: "13:06", asr: "16:26", maghrib: "18:59", isha: "20:06" },
-      "2026-10-05": { fajr: "06:05", sunrise: "07:12", dhuhr: "13:06", asr: "16:25", maghrib: "18:57", isha: "20:05" },
-      "2026-10-06": { fajr: "06:06", sunrise: "07:13", dhuhr: "13:06", asr: "16:24", maghrib: "18:56", isha: "20:04" },
-      "2026-10-07": { fajr: "06:07", sunrise: "07:14", dhuhr: "13:05", asr: "16:23", maghrib: "18:54", isha: "20:02" },
-      "2026-10-08": { fajr: "06:07", sunrise: "07:15", dhuhr: "13:05", asr: "16:22", maghrib: "18:53", isha: "20:01" },
-      "2026-10-09": { fajr: "06:08", sunrise: "07:15", dhuhr: "13:05", asr: "16:21", maghrib: "18:52", isha: "20:00" },
-      "2026-10-10": { fajr: "06:09", sunrise: "07:16", dhuhr: "13:05", asr: "16:20", maghrib: "18:50", isha: "19:58" },
-      "2026-10-11": { fajr: "06:10", sunrise: "07:17", dhuhr: "13:04", asr: "16:19", maghrib: "18:49", isha: "19:57" }
+      "2026-10-03": { fajr: "06:04", sunrise: "07:11", dhuhr: "13:07", asr: "16:27", maghrib: "19:00", isha: "20:08" }
     };
 
     const LAT = 34.61662;
@@ -1228,8 +1205,6 @@
 
     let currentLang = localStorage.getItem("lang") || "en";
     let currentTheme = localStorage.getItem("theme") || "light";
-    let notificationsEnabled = localStorage.getItem("prayerNotifications") === "true";
-    let lastNotifiedMinute = "";
 
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
@@ -1241,137 +1216,6 @@
 
     function toggleTheme() {
       applyTheme(currentTheme === "dark" ? "light" : "dark");
-    }
-
-    function updateNotifBtn() {
-      const btn = document.getElementById("notifBtn");
-      if (btn) {
-        if (notificationsEnabled) {
-          btn.innerHTML = "🔔 Alerts: On";
-          btn.style.borderColor = "var(--primary)";
-          btn.style.color = "var(--primary)";
-        } else {
-          btn.innerHTML = "🔕 Alerts: Off";
-          btn.style.borderColor = "var(--border)";
-          btn.style.color = "var(--text-muted)";
-        }
-      }
-      const bannerBtn = document.getElementById("bannerNotifBtn");
-      if (bannerBtn) {
-        bannerBtn.innerText = notificationsEnabled ? "✓ Active" : "Enable Alerts";
-        bannerBtn.style.background = notificationsEnabled ? "var(--primary)" : "var(--gold)";
-      }
-    }
-
-    async function toggleNotifications() {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-
-      if (isIOS && !isStandalone) {
-        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to receive alerts:\n\n1. Tap Safari Share (square with arrow up).\n2. Select "Add to Home Screen".\n3. Open the app from your Home Screen to enable alerts.");
-        return;
-      }
-
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        try {
-          await OneSignal.Slidedown.promptPush();
-          const btn = document.getElementById("bannerNotifBtn");
-          if (btn) {
-            btn.innerText = "✓ Active";
-            btn.style.background = "var(--primary)";
-          }
-          const navBtn = document.getElementById("notifBtn");
-          if (navBtn) {
-            navBtn.innerHTML = "🔔 Alerts: On";
-            navBtn.style.color = "var(--primary)";
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      });
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-
-      if (isIOS && !isStandalone) {
-        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to the Home Screen to enable alerts.\n\n1. Tap the Share button (square with arrow up) at the bottom of Safari.\n2. Tap 'Add to Home Screen'.\n3. Open 'Lumberton Masjid' from your Home Screen and tap this button to turn on alerts!");
-        return;
-      }
-
-      if (!("Notification" in window)) {
-        alert("Notifications are not supported on this browser.");
-        return;
-      }
-
-      if (!notificationsEnabled) {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
-          notificationsEnabled = true;
-          localStorage.setItem("prayerNotifications", "true");
-          updateNotifBtn();
-          playAlertTone();
-          new Notification("Islamic Center of Lumberton", {
-            body: "Prayer and Iqamah alerts are now active!"
-          });
-        } else {
-          alert("Notification permission was denied in your browser settings.");
-        }
-      } else {
-        notificationsEnabled = false;
-        localStorage.setItem("prayerNotifications", "false");
-        updateNotifBtn();
-      }
-    }
-
-    function checkPrayerAlerts() {
-      if (!notificationsEnabled || Notification.permission !== "granted") return;
-
-      const now = new Date();
-      const currentYMD = formatYMD(now);
-      const currentHHMM = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-
-      if (lastNotifiedMinute === currentHHMM) return;
-
-      const times = getDayPrayerTimes(currentYMD);
-      const schedule = [
-        { name: "Fajr", athan: times.fajr, iqamah: addMinutes(times.fajr, 20) },
-        { name: "Dhuhr", athan: times.dhuhr, iqamah: addMinutes(times.dhuhr, 15) },
-        { name: "Asr", athan: times.asr, iqamah: addMinutes(times.asr, 15) },
-        { name: "Maghrib", athan: times.maghrib, iqamah: addMinutes(times.maghrib, 15) },
-        { name: "Isha", athan: times.isha, iqamah: addMinutes(times.isha, 15) }
-      ];
-
-      schedule.forEach(p => {
-        if (currentHHMM === p.athan) {
-          lastNotifiedMinute = currentHHMM;
-          playAlertTone();
-          new Notification(`🕌 Time for ${p.name} Athan`, {
-            body: `Athan is at ${to12Hr(p.athan)}. Iqamah will be at ${to12Hr(p.iqamah)}.`
-          });
-        } else if (currentHHMM === p.iqamah) {
-          lastNotifiedMinute = currentHHMM;
-          playAlertTone();
-          new Notification(`⏱️ ${p.name} Iqamah Time`, {
-            body: `Congregation prayer for ${p.name} is starting now (${to12Hr(p.iqamah)}).`
-          });
-        }
-      });
-    }
-
-    function playAlertTone() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (e) {}
     }
 
     function applyLanguage(lang) {
@@ -1470,7 +1314,6 @@
       initSelectors();
       initMonthPicker();
       updateCountdown();
-      updateNotifBtn();
     }
 
     function toggleLanguage() {
@@ -1594,9 +1437,13 @@
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-      document.getElementById("nextPrayerName").innerText = upcoming.name;
-      document.getElementById("nextPrayerTime").innerText = `${t.athanAt} ${to12Hr(upcoming.time)}`;
-      document.getElementById("countdownText").innerText = `${t.in} ${hours}h ${mins}m ${secs}s`;
+      const nameEl = document.getElementById("nextPrayerName");
+      const timeEl = document.getElementById("nextPrayerTime");
+      const countEl = document.getElementById("countdownText");
+
+      if (nameEl) nameEl.innerText = upcoming.name;
+      if (timeEl) timeEl.innerText = `${t.athanAt} ${to12Hr(upcoming.time)}`;
+      if (countEl) countEl.innerText = `${t.in} ${hours}h ${mins}m ${secs}s`;
     }
 
     function initMonthPicker() {
@@ -1751,16 +1598,67 @@
       }
     }
 
+    /* SAFE NOTIFICATION ENGINE */
+    async function toggleNotifications() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+
+      if (isIOS && !isStandalone) {
+        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to your Home Screen to receive notifications:\n\n1. Tap the Share button (square with arrow pointing up).\n2. Select 'Add to Home Screen'.\n3. Open the app from your Home Screen and tap Enable Alerts!");
+        return;
+      }
+
+      try {
+        if (window.OneSignalDeferred) {
+          window.OneSignalDeferred.push(async function(OneSignal) {
+            try {
+              if (OneSignal.Notifications && OneSignal.Notifications.requestPermission) {
+                await OneSignal.Notifications.requestPermission();
+              } else if (OneSignal.Slidedown) {
+                await OneSignal.Slidedown.promptPush();
+              }
+              updateAlertUI(true);
+            } catch (err) {
+              requestNativeNotification();
+            }
+          });
+        } else {
+          requestNativeNotification();
+        }
+      } catch (e) {
+        requestNativeNotification();
+      }
+    }
+
+    async function requestNativeNotification() {
+      if ("Notification" in window) {
+        const perm = await Notification.requestPermission();
+        if (perm === "granted") {
+          updateAlertUI(true);
+          new Notification("Islamic Center of Lumberton", {
+            body: "Prayer and Iqamah alerts are active!"
+          });
+        }
+      }
+    }
+
+    function updateAlertUI(active) {
+      const btn = document.getElementById("bannerNotifBtn");
+      if (btn) {
+        btn.innerText = active ? "✓ Active" : "Enable Alerts";
+        btn.style.background = active ? "var(--primary)" : "var(--gold)";
+      }
+      const navBtn = document.getElementById("notifBtn");
+      if (navBtn) {
+        navBtn.innerHTML = active ? "🔔 Alerts: On" : "🔔 Alerts: Off";
+        navBtn.style.color = active ? "var(--primary)" : "var(--text-muted)";
+      }
+    }
+
+    // Initialize core page logic immediately
     applyTheme(currentTheme);
     applyLanguage(currentLang);
     setInterval(updateCountdown, 1000);
-    setInterval(checkPrayerAlerts, 10000);
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      });
-    }
   </script>
 </body>
 </html>
