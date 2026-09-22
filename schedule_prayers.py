@@ -8,11 +8,8 @@ APP_ID = "4513a6de-6783-400c-bc88-4590fae7c576"
 RAW_KEY = os.environ.get("ONESIGNAL_REST_API_KEY", "").strip()
 
 if not RAW_KEY:
-    print("FATAL: ONESIGNAL_REST_API_KEY secret is empty or not found.")
+    print("FATAL: ONESIGNAL_REST_API_KEY is empty.")
     sys.exit(1)
-
-# Format authorization header depending on whether legacy key or new os_v2 key is provided
-AUTH_HEADER = f"Key {RAW_KEY}" if RAW_KEY.startswith("os_v2_") else f"Basic {RAW_KEY}"
 
 LAT = 34.61662
 LNG = -79.00830
@@ -26,7 +23,6 @@ def get_calculated_times(dt):
     eot = 9.87 * math.sin(rad(2 * B)) - 7.53 * math.cos(rad(B)) - 1.5 * math.sin(rad(B))
     decl = 23.45 * math.sin(rad((360 / 365) * (day_of_year - 81)))
 
-    # EDT (UTC-4) / EST (UTC-5)
     tz_offset_hours = -4 if dt.month in range(3, 11) else -5
     solar_noon = 720 - 4 * LNG - eot + tz_offset_hours * 60
 
@@ -67,7 +63,6 @@ def to12(t_str):
     h = h % 12 or 12
     return f"{h}:{m:02d} {suffix}"
 
-# Current localized Lumberton time (UTC-4 in Daylight Saving)
 utc_now = datetime.datetime.utcnow()
 local_now = utc_now - datetime.timedelta(hours=4)
 times = get_calculated_times(local_now)
@@ -80,11 +75,17 @@ prayers = [
     ("Isha", times["isha"], add_mins(times["isha"], 15))
 ]
 
-headers = {
-    "Authorization": AUTH_HEADER,
-    "Content-Type": "application/json",
-    "accept": "application/json"
-}
+def send_notification(payload):
+    headers_options = [
+        {"Authorization": f"Key {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"},
+        {"Authorization": f"Basic {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"},
+        {"Authorization": f"Bearer {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"}
+    ]
+    for h in headers_options:
+        res = requests.post("https://api.onesignal.com/notifications", json=payload, headers=h)
+        if res.status_code in (200, 201):
+            return True, res.status_code, res.text
+    return False, res.status_code, res.text
 
 print(f"Current local time in Lumberton: {local_now.strftime('%Y-%m-%d %H:%M')}")
 
@@ -93,13 +94,12 @@ for name, athan, iqamah in prayers:
         h, m = map(int, t_str.split(":"))
         target_local = datetime.datetime(local_now.year, local_now.month, local_now.day, h, m)
 
-        # Convert local time to UTC for reliable cross-server dispatch
-        target_utc = target_local + datetime.timedelta(hours=4)
-        delivery_iso = target_utc.strftime("%Y-%m-%d %H:%M:%S GMT+0000")
-
         if target_local <= local_now:
             print(f"Skipping {name} {kind} ({t_str}): already passed today.")
             continue
+
+        target_utc = target_local + datetime.timedelta(hours=4)
+        delivery_iso = target_utc.strftime("%Y-%m-%d %H:%M:%S GMT+0000")
 
         title = f"🕌 Time for {name} Athan" if kind == "Athan" else f"⏱️ {name} Iqamah Time"
         msg = f"Athan is at {to12(athan)}. Iqamah will be at {to12(iqamah)}." if kind == "Athan" else f"Congregation prayer for {name} is starting now."
@@ -113,8 +113,8 @@ for name, athan, iqamah in prayers:
             "url": "https://Mohamedo4.github.io/Athan-App/"
         }
 
-        res = requests.post("https://api.onesignal.com/notifications", json=payload, headers=headers)
-        if res.status_code in (200, 201):
+        success, code, body = send_notification(payload)
+        if success:
             print(f"✓ Scheduled {name} {kind} for {t_str} EDT")
         else:
-            print(f"✗ Failed {name} {kind}: HTTP {res.status_code} - {res.text}")
+            print(f"✗ Failed {name} {kind}: HTTP {code} - {body}")
