@@ -27,7 +27,7 @@ def get_calculated_times(dt):
     solar_noon = 720 - 4 * LNG - eot + tz_offset_hours * 60
 
     def get_ha(alt):
-        cos_ha = (math.sin(rad(alt)) - math.sin(rad(LAT)) * math.sin(rad(decl))) / (math.cos(rad(LAT)) * math.cos(rad(decl)))
+        cos_ha = (math.sin(rad(alt)) - math.sin(rad(LAT)) * math.sin(rad(decl))) / (math.cos(rad(LAT)) * math.cos(decl))
         if cos_ha > 1 or cos_ha < -1: return None
         return deg(math.acos(cos_ha))
 
@@ -81,13 +81,15 @@ def send_notification(payload):
         {"Authorization": f"Basic {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"},
         {"Authorization": f"Bearer {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"}
     ]
+    last_res = None
     for h in headers_options:
         res = requests.post("https://api.onesignal.com/notifications", json=payload, headers=h)
+        last_res = res
         if res.status_code in (200, 201):
             return True, res.status_code, res.text
-    return False, res.status_code, res.text
+    return False, last_res.status_code, last_res.text
 
-print(f"Current local time in Lumberton: {local_now.strftime('%Y-%m-%d %H:%M')}")
+print(f"Current local time in Lumberton: {local_now.strftime("%Y-%m-%d %H:%M")}")
 
 for name, athan, iqamah in prayers:
     for kind, t_str in [("Athan", athan), ("Iqamah", iqamah)]:
