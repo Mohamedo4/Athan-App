@@ -1,14 +1,18 @@
 import os
+import sys
 import datetime
 import requests
 import math
 
 APP_ID = "4513a6de-6783-400c-bc88-4590fae7c576"
-REST_API_KEY = os.environ.get("ONESIGNAL_REST_API_KEY")
+RAW_KEY = os.environ.get("ONESIGNAL_REST_API_KEY", "").strip()
 
-if not REST_API_KEY:
-    print("ERROR: ONESIGNAL_REST_API_KEY environment variable not found.")
-    exit(1)
+if not RAW_KEY:
+    print("FATAL: ONESIGNAL_REST_API_KEY secret is empty or not found.")
+    sys.exit(1)
+
+# Format authorization header depending on whether legacy key or new os_v2 key is provided
+AUTH_HEADER = f"Key {RAW_KEY}" if RAW_KEY.startswith("os_v2_") else f"Basic {RAW_KEY}"
 
 LAT = 34.61662
 LNG = -79.00830
@@ -16,17 +20,15 @@ LNG = -79.00830
 def rad(d): return (d * math.pi) / 180
 def deg(r): return (r * 180) / math.pi
 
-def get_calculated_times(now):
-    year, month, day = now.year, now.month, now.day
-    day_of_year = now.timetuple().tm_yday
+def get_calculated_times(dt):
+    day_of_year = dt.timetuple().tm_yday
     B = (360 / 365) * (day_of_year - 81)
     eot = 9.87 * math.sin(rad(2 * B)) - 7.53 * math.cos(rad(B)) - 1.5 * math.sin(rad(B))
     decl = 23.45 * math.sin(rad((360 / 365) * (day_of_year - 81)))
 
-    # EDT is UTC-4, EST is UTC-5
-    # Python will use system timezone offset
-    tz_offset_hours = -4 if now.month in range(3, 11) else -5
-    solar_noon_minutes = 720 - 4 * LNG - eot + tz_offset_hours * 60
+    # EDT (UTC-4) / EST (UTC-5)
+    tz_offset_hours = -4 if dt.month in range(3, 11) else -5
+    solar_noon = 720 - 4 * LNG - eot + tz_offset_hours * 60
 
     def get_ha(alt):
         cos_ha = (math.sin(rad(alt)) - math.sin(rad(LAT)) * math.sin(rad(decl))) / (math.cos(rad(LAT)) * math.cos(rad(decl)))
@@ -46,12 +48,12 @@ def get_calculated_times(now):
         return f"{t // 60:02d}:{t % 60:02d}"
 
     return {
-        "fajr": m2t(solar_noon_minutes - (ha_fajr * 4)),
-        "sunrise": m2t(solar_noon_minutes - (ha_sun * 4)),
-        "dhuhr": m2t(solar_noon_minutes + 1),
-        "asr": m2t(solar_noon_minutes + (ha_asr * 4) + 1),
-        "maghrib": m2t(solar_noon_minutes + (ha_sun * 4) + 2),
-        "isha": m2t(solar_noon_minutes + (ha_isha * 4))
+        "fajr": m2t(solar_noon - (ha_fajr * 4)),
+        "sunrise": m2t(solar_noon - (ha_sun * 4)),
+        "dhuhr": m2t(solar_noon + 1),
+        "asr": m2t(solar_noon + (ha_asr * 4) + 1),
+        "maghrib": m2t(solar_noon + (ha_sun * 4) + 2),
+        "isha": m2t(solar_noon + (ha_isha * 4))
     }
 
 def add_mins(t_str, mins):
@@ -65,8 +67,10 @@ def to12(t_str):
     h = h % 12 or 12
     return f"{h}:{m:02d} {suffix}"
 
-today = datetime.datetime.now()
-times = get_calculated_times(today)
+# Current localized Lumberton time (UTC-4 in Daylight Saving)
+utc_now = datetime.datetime.utcnow()
+local_now = utc_now - datetime.timedelta(hours=4)
+times = get_calculated_times(local_now)
 
 prayers = [
     ("Fajr", times["fajr"], add_mins(times["fajr"], 20)),
@@ -77,32 +81,40 @@ prayers = [
 ]
 
 headers = {
-    "Authorization": f"Basic {REST_API_KEY}",
-    "Content-Type": "application/json"
+    "Authorization": AUTH_HEADER,
+    "Content-Type": "application/json",
+    "accept": "application/json"
 }
 
-# Schedule notifications for each prayer and iqamah
+print(f"Current local time in Lumberton: {local_now.strftime('%Y-%m-%d %H:%M')}")
+
 for name, athan, iqamah in prayers:
     for kind, t_str in [("Athan", athan), ("Iqamah", iqamah)]:
         h, m = map(int, t_str.split(":"))
-        tz_offset = "-0400" if today.month in range(3, 11) else "-0500"
-        delivery_str = f"{today.strftime('%Y-%m-%d')} {h:02d}:{m:02d}:00 GMT{tz_offset}"
-        
-        target_dt = datetime.datetime(today.year, today.month, today.day, h, m)
-        if target_dt < today:
-            continue # already passed today
+        target_local = datetime.datetime(local_now.year, local_now.month, local_now.day, h, m)
+
+        # Convert local time to UTC for reliable cross-server dispatch
+        target_utc = target_local + datetime.timedelta(hours=4)
+        delivery_iso = target_utc.strftime("%Y-%m-%d %H:%M:%S GMT+0000")
+
+        if target_local <= local_now:
+            print(f"Skipping {name} {kind} ({t_str}): already passed today.")
+            continue
 
         title = f"🕌 Time for {name} Athan" if kind == "Athan" else f"⏱️ {name} Iqamah Time"
-        msg = f"Athan is now at {to12(athan)}. Iqamah will be at {to12(iqamah)}." if kind == "Athan" else f"Congregation prayer for {name} is starting now."
+        msg = f"Athan is at {to12(athan)}. Iqamah will be at {to12(iqamah)}." if kind == "Athan" else f"Congregation prayer for {name} is starting now."
 
         payload = {
             "app_id": APP_ID,
             "included_segments": ["Total Subscriptions"],
             "headings": {"en": title},
             "contents": {"en": msg},
-            "send_after": delivery_str,
+            "send_after": delivery_iso,
             "url": "https://Mohamedo4.github.io/Athan-App/"
         }
 
-        res = requests.post("https://onesignal.com/api/v1/notifications", json=payload, headers=headers)
-        print(f"Scheduled {name} {kind} at {delivery_str}: status {res.status_code}")
+        res = requests.post("https://api.onesignal.com/notifications", json=payload, headers=headers)
+        if res.status_code in (200, 201):
+            print(f"✓ Scheduled {name} {kind} for {t_str} EDT")
+        else:
+            print(f"✗ Failed {name} {kind}: HTTP {res.status_code} - {res.text}")
