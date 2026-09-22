@@ -27,7 +27,7 @@ def get_calculated_times(dt):
     solar_noon = 720 - 4 * LNG - eot + tz_offset_hours * 60
 
     def get_ha(alt):
-        cos_ha = (math.sin(rad(alt)) - math.sin(rad(LAT)) * math.sin(rad(decl))) / (math.cos(rad(LAT)) * math.cos(decl))
+        cos_ha = (math.sin(rad(alt)) - math.sin(rad(LAT)) * math.sin(rad(decl))) / (math.cos(rad(LAT)) * math.cos(rad(decl)))
         if cos_ha > 1 or cos_ha < -1: return None
         return deg(math.acos(cos_ha))
 
@@ -77,9 +77,9 @@ prayers = [
 
 def send_notification(payload):
     headers_options = [
-        {"Authorization": f"Key {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"},
-        {"Authorization": f"Basic {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"},
-        {"Authorization": f"Bearer {RAW_KEY}", "Content-Type": "application/json", "accept": "application/json"}
+        {"Authorization": "Key " + RAW_KEY, "Content-Type": "application/json", "accept": "application/json"},
+        {"Authorization": "Basic " + RAW_KEY, "Content-Type": "application/json", "accept": "application/json"},
+        {"Authorization": "Bearer " + RAW_KEY, "Content-Type": "application/json", "accept": "application/json"}
     ]
     last_res = None
     for h in headers_options:
@@ -89,7 +89,8 @@ def send_notification(payload):
             return True, res.status_code, res.text
     return False, last_res.status_code, last_res.text
 
-print(f"Current local time in Lumberton: {local_now.strftime("%Y-%m-%d %H:%M")}")
+formatted_now = local_now.strftime("%Y-%m-%d %H:%M")
+print("Current local time in Lumberton: " + formatted_now)
 
 for name, athan, iqamah in prayers:
     for kind, t_str in [("Athan", athan), ("Iqamah", iqamah)]:
@@ -97,7 +98,7 @@ for name, athan, iqamah in prayers:
         target_local = datetime.datetime(local_now.year, local_now.month, local_now.day, h, m)
 
         if target_local <= local_now:
-            print(f"Skipping {name} {kind} ({t_str}): already passed today.")
+            print("Skipping " + name + " " + kind + " (" + t_str + "): already passed today.")
             continue
 
         target_utc = target_local + datetime.timedelta(hours=4)
@@ -117,6 +118,6 @@ for name, athan, iqamah in prayers:
 
         success, code, body = send_notification(payload)
         if success:
-            print(f"✓ Scheduled {name} {kind} for {t_str} EDT")
+            print("✓ Scheduled " + name + " " + kind + " for " + t_str + " EDT")
         else:
-            print(f"✗ Failed {name} {kind}: HTTP {code} - {body}")
+            print("✗ Failed " + name + " " + kind + ": HTTP " + str(code) + " - " + body)
