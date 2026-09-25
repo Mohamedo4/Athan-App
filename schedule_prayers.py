@@ -44,7 +44,7 @@ def get_calculated_times(dt):
         return f"{t // 60:02d}:{t % 60:02d}"
 
     return {
-        "fajr": m2t(solar_noon - (ha_fajr * 4)),
+        "fajr": m2t(solar_noon - (ha_fajr * 4) + 1),     # Adjusted +1 min to match masjid sheet
         "sunrise": m2t(solar_noon - (ha_sun * 4)),
         "dhuhr": m2t(solar_noon + 1),
         "asr": m2t(solar_noon + (ha_asr * 4) + 1),
