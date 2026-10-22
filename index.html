@@ -606,6 +606,50 @@
       .sheet-table th, .sheet-table td { padding: 4px 2px !important; border: 1px solid #777 !important; color: #000 !important; }
     }
   </style>
+
+<script>
+const OCTOBER_TIMETABLE = {
+    1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
+    2:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:05 PM", asr: "4:26 PM", maghrib: "6:59 PM", isha: "8:08 PM" },
+    3:  { fajr: "6:03 AM", sunrise: "7:12 AM", dhuhr: "1:05 PM", asr: "4:25 PM", maghrib: "6:57 PM", isha: "8:06 PM" },
+    4:  { fajr: "6:04 AM", sunrise: "7:13 AM", dhuhr: "1:05 PM", asr: "4:24 PM", maghrib: "6:56 PM", isha: "8:05 PM" },
+    5:  { fajr: "6:05 AM", sunrise: "7:14 AM", dhuhr: "1:04 PM", asr: "4:24 PM", maghrib: "6:54 PM", isha: "8:03 PM" },
+    6:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:23 PM", maghrib: "6:53 PM", isha: "8:02 PM" },
+    7:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:22 PM", maghrib: "6:52 PM", isha: "8:01 PM" },
+    8:  { fajr: "6:07 AM", sunrise: "7:16 AM", dhuhr: "1:04 PM", asr: "4:21 PM", maghrib: "6:50 PM", isha: "7:59 PM" },
+    9:  { fajr: "6:08 AM", sunrise: "7:17 AM", dhuhr: "1:03 PM", asr: "4:20 PM", maghrib: "6:49 PM", isha: "7:58 PM" },
+    10: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:19 PM", maghrib: "6:48 PM", isha: "7:57 PM" },
+    11: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:18 PM", maghrib: "6:46 PM", isha: "7:55 PM" },
+    12: { fajr: "6:10 AM", sunrise: "7:19 AM", dhuhr: "1:02 PM", asr: "4:17 PM", maghrib: "6:45 PM", isha: "7:54 PM" },
+    13: { fajr: "6:11 AM", sunrise: "7:20 AM", dhuhr: "1:02 PM", asr: "4:16 PM", maghrib: "6:44 PM", isha: "7:53 PM" },
+    14: { fajr: "6:12 AM", sunrise: "7:21 AM", dhuhr: "1:02 PM", asr: "4:15 PM", maghrib: "6:43 PM", isha: "7:52 PM" },
+    15: { fajr: "6:12 AM", sunrise: "7:22 AM", dhuhr: "1:02 PM", asr: "4:14 PM", maghrib: "6:41 PM", isha: "7:51 PM" },
+    16: { fajr: "6:13 AM", sunrise: "7:23 AM", dhuhr: "1:02 PM", asr: "4:13 PM", maghrib: "6:40 PM", isha: "7:49 PM" },
+    17: { fajr: "6:14 AM", sunrise: "7:23 AM", dhuhr: "1:01 PM", asr: "4:12 PM", maghrib: "6:39 PM", isha: "7:48 PM" },
+    18: { fajr: "6:15 AM", sunrise: "7:24 AM", dhuhr: "1:01 PM", asr: "4:11 PM", maghrib: "6:38 PM", isha: "7:47 PM" },
+    19: { fajr: "6:16 AM", sunrise: "7:25 AM", dhuhr: "1:01 PM", asr: "4:10 PM", maghrib: "6:36 PM", isha: "7:46 PM" },
+    20: { fajr: "6:16 AM", sunrise: "7:26 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:35 PM", isha: "7:45 PM" },
+    21: { fajr: "6:17 AM", sunrise: "7:27 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:34 PM", isha: "7:44 PM" },
+    22: { fajr: "6:18 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:08 PM", maghrib: "6:33 PM", isha: "7:43 PM" },
+    23: { fajr: "6:19 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:07 PM", maghrib: "6:32 PM", isha: "7:41 PM" },
+    24: { fajr: "6:19 AM", sunrise: "7:29 AM", dhuhr: "1:00 PM", asr: "4:06 PM", maghrib: "6:31 PM", isha: "7:40 PM" },
+    25: { fajr: "6:20 AM", sunrise: "7:30 AM", dhuhr: "1:00 PM", asr: "4:05 PM", maghrib: "6:29 PM", isha: "7:39 PM" },
+    26: { fajr: "6:21 AM", sunrise: "7:31 AM", dhuhr: "1:00 PM", asr: "4:04 PM", maghrib: "6:28 PM", isha: "7:38 PM" },
+    27: { fajr: "6:22 AM", sunrise: "7:32 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:27 PM", isha: "7:37 PM" },
+    28: { fajr: "6:23 AM", sunrise: "7:33 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:26 PM", isha: "7:36 PM" },
+    29: { fajr: "6:24 AM", sunrise: "7:34 AM", dhuhr: "1:00 PM", asr: "4:02 PM", maghrib: "6:25 PM", isha: "7:35 PM" },
+    30: { fajr: "6:24 AM", sunrise: "7:35 AM", dhuhr: "1:00 PM", asr: "4:01 PM", maghrib: "6:24 PM", isha: "7:35 PM" },
+    31: { fajr: "6:25 AM", sunrise: "7:36 AM", dhuhr: "1:00 PM", asr: "4:00 PM", maghrib: "6:23 PM", isha: "7:34 PM" }
+};
+
+function getTodayTimetable(date) {
+    if (date.getMonth() === 9) { // October is month index 9
+        return OCTOBER_TIMETABLE[date.getDate()];
+    }
+    return null;
+}
+</script>
+
 </head>
 <body>
 
