@@ -21,7 +21,19 @@
       --gold-accent: #fbbf24;
       --gold-glow: rgba(251, 191, 36, 0.2);
       --blue-accent: #38bdf8;
-      --purple-accent: #a855f7;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
+      --emerald-accent: #059669;
+      --emerald-glow: rgba(5, 150, 105, 0.15);
+      --gold-accent: #d97706;
+      --gold-glow: rgba(217, 119, 6, 0.15);
+      --blue-accent: #0284c7;
     }
 
     * { box-sizing: border-box; }
@@ -33,15 +45,11 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
-      background-image: 
-        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
-        radial-gradient(at 90% 90%, rgba(251, 191, 36, 0.06) 0px, transparent 50%);
-      background-attachment: fixed;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .site-header {
-      background: rgba(22, 34, 56, 0.85);
-      backdrop-filter: blur(12px);
+      background: var(--card-bg);
       border-bottom: 1px solid var(--card-border);
       padding: 1rem 2rem;
       position: sticky;
@@ -62,9 +70,7 @@
     .logo-text {
       font-size: 1.3rem;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--emerald-accent), var(--blue-accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--emerald-accent);
       letter-spacing: -0.02em;
     }
 
@@ -97,28 +103,21 @@
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--card-bg);
       color: var(--text-color);
       transition: all 0.25s ease;
     }
 
     .btn:hover {
-      background: rgba(255, 255, 255, 0.1);
       border-color: var(--emerald-accent);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--emerald-accent), #059669);
-      color: #000;
+      background: var(--emerald-accent);
+      color: #fff;
       font-weight: 700;
       border: none;
       text-decoration: none;
-      box-shadow: 0 4px 14px var(--emerald-glow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px var(--emerald-glow);
     }
 
     .container {
@@ -136,7 +135,6 @@
       font-family: 'Amiri', serif;
       font-size: 2.5rem;
       color: var(--gold-accent);
-      text-shadow: 0 0 20px var(--gold-glow);
       margin-bottom: 0.25rem;
     }
 
@@ -165,28 +163,16 @@
       border-radius: 2rem;
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--text-color);
     }
 
-    /* Centered Main Upcoming Prayer Hero Card */
     .hero-upcoming-card {
-      background: linear-gradient(145deg, #182740, #111c30);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 1.5rem;
       padding: 2.5rem 2rem;
       text-align: center;
       margin-bottom: 2.5rem;
-      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-upcoming-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--emerald-accent), var(--gold-accent), var(--blue-accent));
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
     }
 
     .upcoming-tag {
@@ -199,7 +185,6 @@
       letter-spacing: 0.1em;
       padding: 0.35rem 1rem;
       border-radius: 2rem;
-      border: 1px solid rgba(16, 185, 129, 0.3);
       margin-bottom: 0.75rem;
     }
 
@@ -207,9 +192,6 @@
       font-size: 3.25rem;
       font-weight: 800;
       margin: 0;
-      background: linear-gradient(135deg, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .upcoming-time-str {
@@ -227,7 +209,7 @@
     }
 
     .countdown-unit {
-      background: rgba(13, 21, 39, 0.7);
+      background: var(--bg-color);
       border: 1px solid var(--card-border);
       padding: 0.875rem 1.25rem;
       border-radius: 1rem;
@@ -249,25 +231,11 @@
       margin-top: 0.35rem;
     }
 
-    .alerts-toggle-banner {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: 1rem;
-      padding: 0.875rem 1.25rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
-
-    /* Timetable Card */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 1.25rem;
       padding: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       margin-bottom: 2rem;
     }
 
@@ -321,10 +289,6 @@
       letter-spacing: 0.05em;
     }
 
-    .prayer-row.active-prayer {
-      background: rgba(16, 185, 129, 0.1);
-    }
-
     .badge-iqamah {
       background: var(--emerald-glow);
       color: var(--emerald-accent);
@@ -332,39 +296,12 @@
       border-radius: 1rem;
       font-weight: 700;
       font-size: 0.9rem;
-      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
-    /* Program Cards Grid */
     .programs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-    }
-
-    .program-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .program-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 4px;
-      background: var(--emerald-accent);
-    }
-
-    .program-card.eid-card::before {
-      background: var(--gold-accent);
-    }
-
-    .program-card.school-card::before {
-      background: var(--blue-accent);
-    }
-
-    .program-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
     }
 
     .program-title {
@@ -380,10 +317,6 @@
       margin-bottom: 0.5rem;
     }
 
-    .eid-card .program-time {
-      color: var(--gold-accent);
-    }
-
     .program-desc {
       color: var(--text-muted);
       font-size: 0.925rem;
@@ -397,16 +330,17 @@
 <body>
   <header class="site-header">
     <div class="nav-container">
-      <div class="logo-text">Islamic Center of Lumberton</div>
+      <div class="logo-text" id="logo-title">Islamic Center of Lumberton</div>
       <nav class="nav-menu">
-        <a href="#schedule" class="nav-link">Prayer Times</a>
-        <a href="#programs" class="nav-link">Services</a>
-        <a href="#school" class="nav-link">School</a>
+        <a href="#schedule" class="nav-link" id="nav-schedule">Prayer Times</a>
+        <a href="#programs" class="nav-link" id="nav-programs">Services</a>
+        <a href="#school" class="nav-link" id="nav-school">School</a>
       </nav>
       <div class="controls-group">
         <button id="alerts-btn" class="btn">🔔 Alerts: Off</button>
+        <button id="lang-btn" class="btn">🌐 العربية</button>
         <button id="theme-btn" class="btn">🌙 Dark</button>
-        <a href="#donate" class="btn btn-primary">Donate / Pay Dues</a>
+        <a href="#donate" id="donate-btn" class="btn btn-primary">Donate / Pay Dues</a>
       </div>
     </div>
   </header>
@@ -414,39 +348,35 @@
   <main class="container">
     <div class="hero-header">
       <div class="bismillah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-      <h1 class="hero-title">Islamic Center of Lumberton</h1>
-      <p class="hero-subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+      <h1 class="hero-title" id="main-title">Islamic Center of Lumberton</h1>
+      <p class="hero-subtitle" id="main-subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
       
       <div class="info-badges">
         <div class="badge-item">📍 104 South Chestnut St, Lumberton, NC</div>
         <div class="badge-item">📞 (910) 802-3212</div>
-        <div class="badge-item">🤲 Support the Masjid</div>
+        <div class="badge-item" id="support-badge">🤲 Support the Masjid</div>
       </div>
     </div>
 
-    <!-- Centered Upcoming Prayer & Countdown Hero Section -->
+    <!-- Centered Upcoming Prayer Card -->
     <section class="hero-upcoming-card">
-      <span class="upcoming-tag">Upcoming Prayer</span>
+      <span class="upcoming-tag" id="upcoming-label">Upcoming Prayer</span>
       <h2 id="next-prayer-name" class="upcoming-name">Asr</h2>
       <div id="next-prayer-time" class="upcoming-time-str">Athan at 4:07 PM</div>
 
       <div class="countdown-boxes">
         <div class="countdown-unit">
           <div id="cd-hours" class="countdown-value">00</div>
-          <div class="countdown-label">Hours</div>
+          <div class="countdown-label" id="lbl-hours">Hours</div>
         </div>
         <div class="countdown-unit">
           <div id="cd-mins" class="countdown-value">00</div>
-          <div class="countdown-label">Mins</div>
+          <div class="countdown-label" id="lbl-mins">Mins</div>
         </div>
         <div class="countdown-unit">
           <div id="cd-secs" class="countdown-value">00</div>
-          <div class="countdown-label">Secs</div>
+          <div class="countdown-label" id="lbl-secs">Secs</div>
         </div>
-      </div>
-
-      <div class="alerts-toggle-banner">
-        <span>🔔 Receive automatic sound and push notifications when Athan begins</span>
       </div>
     </section>
 
@@ -454,8 +384,8 @@
     <section id="schedule" class="card">
       <div class="card-header">
         <div>
-          <h2 class="card-title">Daily Prayer Schedule</h2>
-          <p class="card-subtitle">Official Lumberton, NC Printed Timetable</p>
+          <h2 class="card-title" id="sched-title">Daily Prayer Schedule</h2>
+          <p class="card-subtitle" id="sched-sub">Official Lumberton, NC Printed Timetable</p>
         </div>
         <div>
           <select id="day-select" class="form-select"></select>
@@ -465,9 +395,9 @@
       <table class="prayer-table">
         <thead>
           <tr>
-            <th>Prayer</th>
-            <th>Athan</th>
-            <th>Iqamah</th>
+            <th id="th-prayer">Prayer</th>
+            <th id="th-athan">Athan</th>
+            <th id="th-iqamah">Iqamah</th>
           </tr>
         </thead>
         <tbody id="prayer-table-body"></tbody>
@@ -476,25 +406,25 @@
 
     <!-- Services & Program Cards -->
     <section id="programs" class="programs-grid">
-      <div class="card program-card">
-        <div class="program-icon">🕌</div>
-        <h3 class="program-title">Jumu'ah Prayer</h3>
-        <div class="program-time">Khutbah & Prayer: 1:00 PM</div>
-        <p class="program-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
+      <div class="card">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🕌</div>
+        <h3 class="program-title" id="jumuah-title">Jumu'ah Prayer</h3>
+        <div class="program-time" id="jumuah-time">Khutbah & Prayer: 1:00 PM</div>
+        <p class="program-desc" id="jumuah-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
       </div>
 
-      <div class="card program-card eid-card">
-        <div class="program-icon">🌙</div>
-        <h3 class="program-title">Eid Prayers</h3>
-        <div class="program-time">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
-        <p class="program-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
+      <div class="card">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌙</div>
+        <h3 class="program-title" id="eid-title">Eid Prayers</h3>
+        <div class="program-time" id="eid-time" style="color: var(--gold-accent);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
+        <p class="program-desc" id="eid-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
       </div>
 
-      <div class="card program-card school-card" id="school">
-        <div class="program-icon">📖</div>
-        <h3 class="program-title">Weekend Islamic School</h3>
-        <div class="program-time">Sundays: 10:00 AM – 1:30 PM</div>
-        <p class="program-desc">Youth classes in Quran, Tajweed, Islamic Studies, and Arabic fundamentals.</p>
+      <div class="card" id="school">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📖</div>
+        <h3 class="program-title" id="school-title">Weekend Islamic School</h3>
+        <div class="program-time" id="school-time">Sundays: 10:00 AM – 1:30 PM</div>
+        <p class="program-desc" id="school-desc">Youth classes in Quran, Tajweed, Islamic Studies, and Arabic fundamentals.</p>
       </div>
     </section>
   </main>
@@ -559,51 +489,59 @@
       return `${resH}:${resM < 10 ? "0" : ""}${resM} ${suffix}`;
     }
 
-    function parseTodayTime(timeStr) {
-      let parts = timeStr.split(" ");
-      let timeParts = parts[0].split(":");
-      let h = parseInt(timeParts[0]);
-      let m = parseInt(timeParts[1]);
-      if (parts[1] === "PM" && h !== 12) h += 12;
-      if (parts[1] === "AM" && h === 12) h = 0;
-      let now = new Date();
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+    // Theme Toggle Handler
+    const themeBtn = document.getElementById("theme-btn");
+    let currentTheme = localStorage.getItem("theme") || "dark";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    themeBtn.innerText = currentTheme === "dark" ? "🌙 Dark" : "☀️ Light";
+
+    themeBtn.addEventListener("click", () => {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      localStorage.setItem("theme", currentTheme);
+      themeBtn.innerText = currentTheme === "dark" ? "🌙 Dark" : "☀️ Light";
+    });
+
+    // Language Toggle Handler
+    const langBtn = document.getElementById("lang-btn");
+    let currentLang = "en";
+
+    langBtn.addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
+      langBtn.innerText = currentLang === "en" ? "🌐 العربية" : "🌐 English";
+      
+      document.getElementById("main-title").innerText = currentLang === "ar" ? "المركز الإسلامي في لومبرتون" : "Islamic Center of Lumberton";
+      document.getElementById("upcoming-label").innerText = currentLang === "ar" ? "الصلاة القادمة" : "Upcoming Prayer";
+      document.getElementById("sched-title").innerText = currentLang === "ar" ? "جدول الصلاة اليومي" : "Daily Prayer Schedule";
+      document.getElementById("th-prayer").innerText = currentLang === "ar" ? "الصلاة" : "Prayer";
+      document.getElementById("th-athan").innerText = currentLang === "ar" ? "الأذان" : "Athan";
+      document.getElementById("th-iqamah").innerText = currentLang === "ar" ? "الإقامة" : "Iqamah";
+    });
+
+    // Alerts Button Handler
+    const alertBtn = document.getElementById("alerts-btn");
+    if (localStorage.getItem("fcm_token")) {
+      alertBtn.innerText = "🔔 Alerts: On";
+      alertBtn.style.borderColor = "#10b981";
     }
 
-    let notifiedPrayers = {};
-
-    function startLiveCountdown(targetTime, prayerName) {
-      function update() {
-        let now = new Date();
-        let diff = targetTime - now;
-
-        if (diff <= 0) {
-          document.getElementById("cd-hours").innerText = "00";
-          document.getElementById("cd-mins").innerText = "00";
-          document.getElementById("cd-secs").innerText = "00";
-          
-          if (!notifiedPrayers[prayerName] && Notification.permission === "granted") {
-            new Notification(`Islamic Center of Lumberton`, {
-              body: `It is now time for ${prayerName} Athan!`,
-              icon: 'https://cdn-icons-png.flaticon.com/512/2822/2822552.png'
-            });
-            notifiedPrayers[prayerName] = true;
-          }
-          return;
+    alertBtn.addEventListener("click", async () => {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          const token = await messaging.getToken({
+            vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI"
+          });
+          localStorage.setItem("fcm_token", token);
+          alertBtn.innerText = "🔔 Alerts: On";
+          alertBtn.style.borderColor = "#10b981";
+          alert("Alerts enabled successfully!");
         }
-
-        let hours = Math.floor(diff / (1000 * 60 * 60));
-        let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById("cd-hours").innerText = hours < 10 ? "0" + hours : hours;
-        document.getElementById("cd-mins").innerText = mins < 10 ? "0" + mins : mins;
-        document.getElementById("cd-secs").innerText = secs < 10 ? "0" + secs : secs;
+      } catch (e) {
+        console.error(e);
       }
-
-      update();
-      setInterval(update, 1000);
-    }
+    });
 
     function renderSchedule(dayNum) {
       const data = OCTOBER_TIMETABLE[dayNum] || OCTOBER_TIMETABLE[23];
@@ -625,30 +563,7 @@
           <td>${r.iqamah !== "-" ? `<span class="badge-iqamah">${r.iqamah}</span>` : "-"}</td>
         </tr>
       `).join("");
-
-      // Set default upcoming prayer target
-      document.getElementById("next-prayer-name").innerText = "Maghrib";
-      document.getElementById("next-prayer-time").innerText = `Athan at ${data.maghrib}`;
-      startLiveCountdown(parseTodayTime(data.maghrib), "Maghrib");
     }
-
-    const alertBtn = document.getElementById("alerts-btn");
-    alertBtn.addEventListener("click", async () => {
-      try {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
-          const token = await messaging.getToken({
-            vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI"
-          });
-          localStorage.setItem("fcm_token", token);
-          alertBtn.innerText = "🔔 Alerts: On";
-          alertBtn.style.borderColor = "#10b981";
-          alert("Alerts and notifications enabled successfully!");
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    });
 
     document.addEventListener("DOMContentLoaded", () => {
       const daySelect = document.getElementById("day-select");
