@@ -1,1127 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" id="rootHtml">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islamic Center of Lumberton</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Lumberton Masjid">
-  <link rel="apple-touch-icon" href="icon.svg">
-  <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-  <!-- OneSignal Web Push SDK with protected fallback -->
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  
-
-
-
-
-
-
-
-
-<script>
-const OCTOBER_TIMETABLE = {
-    1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
-    2:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:05 PM", asr: "4:26 PM", maghrib: "6:59 PM", isha: "8:08 PM" },
-    3:  { fajr: "6:03 AM", sunrise: "7:12 AM", dhuhr: "1:05 PM", asr: "4:25 PM", maghrib: "6:57 PM", isha: "8:06 PM" },
-    4:  { fajr: "6:04 AM", sunrise: "7:13 AM", dhuhr: "1:05 PM", asr: "4:24 PM", maghrib: "6:56 PM", isha: "8:05 PM" },
-    5:  { fajr: "6:05 AM", sunrise: "7:14 AM", dhuhr: "1:04 PM", asr: "4:24 PM", maghrib: "6:54 PM", isha: "8:03 PM" },
-    6:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:23 PM", maghrib: "6:53 PM", isha: "8:02 PM" },
-    7:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:22 PM", maghrib: "6:52 PM", isha: "8:01 PM" },
-    8:  { fajr: "6:07 AM", sunrise: "7:16 AM", dhuhr: "1:04 PM", asr: "4:21 PM", maghrib: "6:50 PM", isha: "7:59 PM" },
-    9:  { fajr: "6:08 AM", sunrise: "7:17 AM", dhuhr: "1:03 PM", asr: "4:20 PM", maghrib: "6:49 PM", isha: "7:58 PM" },
-    10: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:19 PM", maghrib: "6:48 PM", isha: "7:57 PM" },
-    11: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:18 PM", maghrib: "6:46 PM", isha: "7:55 PM" },
-    12: { fajr: "6:10 AM", sunrise: "7:19 AM", dhuhr: "1:02 PM", asr: "4:17 PM", maghrib: "6:45 PM", isha: "7:54 PM" },
-    13: { fajr: "6:11 AM", sunrise: "7:20 AM", dhuhr: "1:02 PM", asr: "4:16 PM", maghrib: "6:44 PM", isha: "7:53 PM" },
-    14: { fajr: "6:12 AM", sunrise: "7:21 AM", dhuhr: "1:02 PM", asr: "4:15 PM", maghrib: "6:43 PM", isha: "7:52 PM" },
-    15: { fajr: "6:12 AM", sunrise: "7:22 AM", dhuhr: "1:02 PM", asr: "4:14 PM", maghrib: "6:41 PM", isha: "7:51 PM" },
-    16: { fajr: "6:13 AM", sunrise: "7:23 AM", dhuhr: "1:02 PM", asr: "4:13 PM", maghrib: "6:40 PM", isha: "7:49 PM" },
-    17: { fajr: "6:14 AM", sunrise: "7:23 AM", dhuhr: "1:01 PM", asr: "4:12 PM", maghrib: "6:39 PM", isha: "7:48 PM" },
-    18: { fajr: "6:15 AM", sunrise: "7:24 AM", dhuhr: "1:01 PM", asr: "4:11 PM", maghrib: "6:38 PM", isha: "7:47 PM" },
-    19: { fajr: "6:16 AM", sunrise: "7:25 AM", dhuhr: "1:01 PM", asr: "4:10 PM", maghrib: "6:36 PM", isha: "7:46 PM" },
-    20: { fajr: "6:16 AM", sunrise: "7:26 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:35 PM", isha: "7:45 PM" },
-    21: { fajr: "6:17 AM", sunrise: "7:27 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:34 PM", isha: "7:44 PM" },
-    22: { fajr: "6:18 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:08 PM", maghrib: "6:33 PM", isha: "7:43 PM" },
-    23: { fajr: "6:19 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:07 PM", maghrib: "6:32 PM", isha: "7:41 PM" },
-    24: { fajr: "6:19 AM", sunrise: "7:29 AM", dhuhr: "1:00 PM", asr: "4:06 PM", maghrib: "6:31 PM", isha: "7:40 PM" },
-    25: { fajr: "6:20 AM", sunrise: "7:30 AM", dhuhr: "1:00 PM", asr: "4:05 PM", maghrib: "6:29 PM", isha: "7:39 PM" },
-    26: { fajr: "6:21 AM", sunrise: "7:31 AM", dhuhr: "1:00 PM", asr: "4:04 PM", maghrib: "6:28 PM", isha: "7:38 PM" },
-    27: { fajr: "6:22 AM", sunrise: "7:32 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:27 PM", isha: "7:37 PM" },
-    28: { fajr: "6:23 AM", sunrise: "7:33 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:26 PM", isha: "7:36 PM" },
-    29: { fajr: "6:24 AM", sunrise: "7:34 AM", dhuhr: "1:00 PM", asr: "4:02 PM", maghrib: "6:25 PM", isha: "7:35 PM" },
-    30: { fajr: "6:24 AM", sunrise: "7:35 AM", dhuhr: "1:00 PM", asr: "4:01 PM", maghrib: "6:24 PM", isha: "7:35 PM" },
-    31: { fajr: "6:25 AM", sunrise: "7:36 AM", dhuhr: "1:00 PM", asr: "4:00 PM", maghrib: "6:23 PM", isha: "7:34 PM" }
-};
-
-function getTodayTimetable(date) {
-    if (date.getMonth() === 9) { // October
-        return OCTOBER_TIMETABLE[date.getDate()] || null;
-    }
-    return null;
-}
-</script>
-
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 </head>
 <body>
-
-  <!-- MAIN APP CONTAINER -->
-  <div id="mainAppView">
-
-    <!-- Navigation Bar -->
+  <header>
     <nav class="navbar">
-      <div class="nav-container">
-        <a href="#" class="brand">
-          <span class="brand-title" id="t-brand-title">Islamic Center of Lumberton</span>
-          <span class="brand-subtitle" id="t-brand-subtitle">A Place for Worship</span>
-        </a>
-        <div class="nav-right">
-          <ul class="nav-links">
-            <li><a href="#prayers" id="t-nav-prayers">Prayer Times</a></li>
-            <li><a href="#monthlyScheduleCard" id="t-nav-monthly">Monthly Sheet</a></li>
-            <li><a href="#school" id="t-nav-school">School</a></li>
-            <li><a href="#about" id="t-nav-about">About & Location</a></li>
-          </ul>
-
-          <div class="nav-actions">
-            <button type="button" class="top-action-btn" onclick="toggleNotifications()" id="notifBtn" title="Prayer Notifications">
-              🔔 Alerts: Off
-            </button>
-            <button type="button" class="top-action-btn" onclick="toggleLanguage()" id="langBtn" title="Change Language">
-              🌐 العربية
-            </button>
-            <button type="button" class="top-action-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Dark/Light Mode">
-              🌙 Dark
-            </button>
-            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-nav" id="t-nav-donate">Donate / Pay Dues</a>
-          </div>
-        </div>
+      <div class="logo">Islamic Center of Lumberton</div>
+      <ul class="nav-links">
+        <li><a href="#schedule">Prayer Times</a></li>
+        <li><a href="#monthly">Monthly Sheet</a></li>
+        <li><a href="#school">School</a></li>
+        <li><a href="#about">About & Location</a></li>
+      </ul>
+      <div class="controls">
+        <button id="alerts-btn" class="alerts-btn">🔔 Alerts: Off</button>
+        <button id="lang-btn" class="lang-btn">🌐 العربية</button>
+        <button id="theme-btn" class="theme-btn">☀️ Light</button>
+        <a href="#donate" class="donate-btn">Donate / Pay Dues</a>
       </div>
     </nav>
+  </header>
 
-    <!-- Hero Header -->
-    <header class="hero">
-      <div class="hero-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-      <h1 id="t-hero-title">Islamic Center of Lumberton</h1>
-      <p id="t-hero-sub">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
-      <div class="hero-badges">
-        <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="hero-badge">
-          📍 104 South Chestnut St, Lumberton, NC
-        </a>
-        <a href="tel:19108023212" class="hero-badge">
-          📞 (910) 802-3212
-        </a>
-        <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="hero-badge" style="background: var(--gold); border-color: transparent; font-weight: 600;" id="t-hero-support">
-          🤲 Support the Masjid
-        </a>
-      </div>
-    </header>
-
-    <!-- Main Content Layout -->
-    <main class="main-wrap">
-
-      <!-- Live Next Prayer Highlight -->
-      <section class="next-prayer-banner">
-        <div class="next-prayer-left">
-          <div class="tag" id="t-upcoming-tag">Upcoming Prayer</div>
-          <h2 id="nextPrayerName">--</h2>
-          <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 2px;" id="nextPrayerTime">--</div>
-        </div>
-        <div class="next-prayer-right">
-          <div class="countdown-timer" id="countdownText">Calculating...</div>
-        </div>
-      </section>
-
-      <!-- Mobile Quick Alert Bar -->
-      <div id="quickAlertBar">
-        <div>
-          <strong style="font-size: 0.95rem; color: var(--primary);">🔔 Prayer & Iqamah Alerts</strong>
-          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Get notified on your phone when Athan or Iqamah starts.</p>
-        </div>
-        <button type="button" onclick="toggleNotifications()" id="bannerNotifBtn" style="background: var(--gold); color: #ffffff; border: none; padding: 8px 14px; border-radius: 7px; font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap;">Enable Alerts</button>
-      </div>
-
-      <!-- Content Grid -->
-      <div class="content-grid">
-
-        <!-- Left Column: Daily Table -->
-        <section class="section-card" id="prayers">
-          <div class="section-header">
-            <div>
-              <h2 class="section-title" id="t-table-title">Prayer Schedule</h2>
-              <p style="font-size: 0.8rem; color: var(--text-muted);" id="t-table-sub">Official Lumberton, NC Timetable</p>
-            </div>
-            
-            <div class="selectors-wrap">
-              <select id="scheduleMonthSelect" class="date-select" onchange="onMonthSelectChanged()"></select>
-              <select id="scheduleDaySelect" class="date-select" onchange="renderTimes(this.value)"></select>
-            </div>
-          </div>
-
-          <div class="table-container">
-            <table class="prayer-table">
-              <thead>
-                <tr>
-                  <th id="th-prayer">Prayer</th>
-                  <th id="th-athan">Athan</th>
-                  <th style="text-align: right;" id="th-iqamah">Iqamah</th>
-                </tr>
-              </thead>
-              <tbody id="tableBody"></tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- Right Column: Reordered Sequence -->
-        <div class="side-stack" id="services">
-
-          <!-- 1. Jumu'ah Prayer -->
-          <div class="program-card" id="jumuah">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <h3 id="t-jum-title">🕌 Jumu'ah Prayer</h3>
-              <span class="program-badge" id="t-badge-all">All Year</span>
-            </div>
-            <p id="t-jum-desc">Weekly Friday congregational prayer and khutbah.</p>
-            <div class="program-time" id="t-jum-time">Khutbah Starts: 1:00 PM</div>
-            <div class="program-time" style="margin-bottom:0;" id="t-jum-end">Khutbah Ends: 1:30 PM</div>
-          </div>
-
-          <!-- 2. Eid Prayers -->
-          <div class="program-card" id="eid">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <h3 id="t-eid-title">🌙 Eid Prayers</h3>
-              <span class="program-badge" id="t-badge-eids">Both Eids</span>
-            </div>
-            <p id="t-eid-desc">Congregational prayers for Eid al-Fitr and Eid al-Adha.</p>
-            <div class="program-time" id="t-eid-takbeerat">Takbeerat Starts: 7:30 AM</div>
-            <div class="program-time" id="t-eid-time">Prayer Starts: 8:00 AM</div>
-            <div class="program-time" style="margin-bottom:0; font-size:0.98rem; color:var(--text-muted);" id="t-eid-khutbah">Khutbah Starts right after prayer</div>
-          </div>
-
-          <!-- 3. Mosque Information & Directions -->
-          <div class="program-card" id="about">
-            <h3 id="t-info-title">📍 Mosque Information</h3>
-            <ul class="contact-list">
-              <li class="contact-item">
-                <span>📌</span>
-                <div>
-                  <strong id="t-addr-label">Address:</strong><br>
-                  104 South Chestnut St.<br>
-                  Lumberton, NC 28358
-                </div>
-              </li>
-              <li class="contact-item">
-                <span>📞</span>
-                <div>
-                  <strong id="t-phone-label">Phone / WhatsApp:</strong><br>
-                  <a href="tel:19108023212">(910) 802-3212</a>
-                </div>
-              </li>
-            </ul>
-            <a href="https://www.google.com/maps/dir//Islamic+Center+Of+Lumberton,+104+S+Chestnut+St,+Lumberton,+NC+28358/@34.6168122,-79.0081135,15z/data=!4m16!1m7!3m6!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2sIslamic+Center+Of+Lumberton!8m2!3d34.6166229!4d-79.008304!16s%2Fg%2F11p_29dwr8!4m7!1m0!1m5!1m1!1s0x89aae7d312cd18db:0x283f1ae7eb4892ae!2m2!1d-79.008304!2d34.6166229?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-action" id="t-directions-btn">
-              Get Driving Directions
-            </a>
-          </div>
-
-          <!-- 4. Membership & Donations -->
-          <div class="program-card" id="dues" style="border: 2px solid var(--gold);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <h3 id="t-dues-title">🤲 Membership & Donations</h3>
-              <span class="program-badge" id="t-badge-online">Online</span>
-            </div>
-            <p id="t-dues-desc">Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.</p>
-            <a href="https://givebutter.com/NfHi5l" target="_blank" rel="noopener noreferrer" class="btn-donate-card" id="t-dues-btn">
-              Pay Dues & Donate on Givebutter
-            </a>
-          </div>
-
-          <!-- 5. Al-Noor Islamic School -->
-          <div class="program-card" id="school" style="border: 2px solid #0284c7;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <h3 id="t-school-title">📚 Al-Noor Islamic School</h3>
-              <span class="program-badge" style="background:#e0f2fe; color:#0369a1;" id="t-badge-fee">$100 / Month</span>
-            </div>
-            <p id="t-school-desc">Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.</p>
-            <div class="program-time" id="t-school-time">Schedule: Sat & Sun, 10:00 AM – Dhuhr</div>
-            
-            <button type="button" class="btn-school-toggle" onclick="toggleSchoolForm(true)" id="t-school-btn">
-              ✍️ Apply & Register for School (Opens Form) ↓
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Expandable Registration Form -->
-      <section id="schoolFormContainer">
-        <div class="form-header-bar">
-          <div>
-            <h2 style="color:var(--primary); font-size:1.4rem; font-weight:800;" id="t-form-h2">Al-Noor Islamic School Registration</h2>
-            <p style="font-size:0.92rem; color:var(--text-muted); margin-top:2px;" id="t-form-sub">Islamic Center of Lumberton • Student Enrollment Form</p>
-          </div>
-          <button type="button" class="btn-close-form" onclick="toggleSchoolForm(false)">✕ <span id="t-close">Close Form</span></button>
-        </div>
-
-        <form id="regForm" action="https://formspree.io/f/xbjnedkg" method="POST">
-          <h4 class="form-sec-title" id="t-form-sec1">1. Parent / Guardian Information</h4>
-          <div class="form-row-2">
-            <div class="form-group-in">
-              <label id="t-lbl-parent">Parent Full Name *</label>
-              <input type="text" name="Parent_Name" required placeholder="e.g. Abdullah Khan" />
-            </div>
-            <div class="form-group-in">
-              <label id="t-lbl-phone">Phone / WhatsApp *</label>
-              <input type="tel" name="Parent_Phone" required placeholder="(910) 000-0000" />
-            </div>
-          </div>
-          <div class="form-group-in">
-            <label id="t-lbl-email">Email Address *</label>
-            <input type="email" name="Parent_Email" required placeholder="parent@example.com" />
-          </div>
-
-          <h4 class="form-sec-title" id="t-form-sec2">2. Student Details</h4>
-          <div class="form-row-3">
-            <div class="form-group-in">
-              <label id="t-lbl-child">Child Full Name *</label>
-              <input type="text" name="Student_Name" required placeholder="Child's full name" />
-            </div>
-            <div class="form-group-in">
-              <label id="t-lbl-age">Age / Grade *</label>
-              <input type="text" name="Student_Age_Grade" required placeholder="e.g. 8 yrs / 3rd" />
-            </div>
-            <div class="form-group-in">
-              <label id="t-lbl-gender">Gender *</label>
-              <select name="Student_Gender" required id="select-gender">
-                <option value="" disabled selected>Select Gender</option>
-                <option value="Male" id="opt-male">Male</option>
-                <option value="Female" id="opt-female">Female</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group-in">
-            <label id="t-lbl-level">Proficiency in Arabic & Quran *</label>
-            <select name="Arabic_Proficiency" required id="select-level">
-              <option value="" disabled selected>Select Current Level</option>
-              <option value="Beginner (Learning letters / sounds)" id="opt-lvl1">Beginner (Learning letters / sounds)</option>
-              <option value="Intermediate (Reads simple words / Qaida)" id="opt-lvl2">Intermediate (Reads simple words / Qaida)</option>
-              <option value="Quran Reader (Reads from the Mushaf)" id="opt-lvl3">Quran Reader (Reads from the Mushaf)</option>
-              <option value="Advanced (Fluent with Tajweed)" id="opt-lvl4">Advanced (Fluent with Tajweed)</option>
-            </select>
-          </div>
-
-          <div class="form-group-in">
-            <label id="t-lbl-notes">Additional Notes or Allergies</label>
-            <textarea name="Notes" rows="3" placeholder="Any medical conditions, allergies, or special notes..."></textarea>
-          </div>
-
-          <div class="tuition-box-in">
-            <strong style="color:var(--primary); font-size:1.1rem;" id="t-form-tuition-title">💳 School Tuition ($100 / Month)</strong>
-            <p style="font-size:0.95rem; color:var(--text-muted); margin-top:4px;" id="t-form-tuition-sub">You can fulfill the $100 monthly tuition directly via Givebutter below:</p>
-            <a href="https://givebutter.com/NfHi5l?amount=100&frequency=monthly" target="_blank" rel="noopener noreferrer" class="btn-tuition-in" id="t-form-tuition-btn">
-              Pay $100 Monthly Tuition on Givebutter →
-            </a>
-          </div>
-
-          <div class="form-actions-row">
-            <button type="submit" class="btn-submit-form" id="t-form-submit">Submit Registration Application</button>
-            <button type="button" class="btn-cancel-bottom" onclick="toggleSchoolForm(false)" id="t-cancel-bottom">Cancel & Close</button>
-          </div>
-        </form>
-      </section>
-
-      <!-- On-Page Monthly Timetable -->
-      <section class="section-card" id="monthlyScheduleCard">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title" id="t-month-table-title">Monthly Prayer Timesheet</h2>
-            <p style="font-size:0.8rem; color:var(--text-muted);" id="t-month-table-sub">Official Lumberton, NC Timesheet • Fajr Iqamah (+20m), Others (+15m)</p>
-          </div>
-          <div class="no-print" style="display:flex; gap:10px; align-items:center;">
-            <select id="monthPicker" class="date-select" onchange="renderMonthlyTable(this.value)"></select>
-            <button type="button" class="btn-print-page" onclick="handlePrintClick()" id="t-btn-print">🖨️ Print / Save PDF</button>
-          </div>
-        </div>
-
-        <div style="overflow-x:auto;">
-          <table class="sheet-table">
-            <thead>
-              <tr>
-                <th id="th-m-date">Date</th>
-                <th id="th-m-fajr">Fajr</th>
-                <th id="th-m-sunrise">Sunrise</th>
-                <th id="th-m-dhuhr">Dhuhr</th>
-                <th id="th-m-asr">Asr</th>
-                <th id="th-m-maghrib">Maghrib</th>
-                <th id="th-m-isha">Isha</th>
-              </tr>
-            </thead>
-            <tbody id="sheetTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-    </main>
-
-    <footer>
-      <p id="t-footer-copy">© 2026 Islamic Center of Lumberton. All rights reserved.</p>
-      <p style="margin-top: 4px; font-size: 0.76rem;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-    </footer>
-
-  </div>
-
-  <!-- MOBILE-ONLY FULL SHEET EXPORT SCREEN -->
-  <div id="mobilePrintView">
-    <div class="mobile-print-bar">
-      <div class="mobile-print-btns">
-        <button class="btn-save-mobile" onclick="downloadTimetableImage()">📥 Save Full Timetable (Photos / Files)</button>
-        <button class="btn-back-mobile" onclick="exitMobilePrintView()">← Return to App</button>
-      </div>
-      <p style="text-align:center; font-size:12px; color:#64748b; margin:0;" id="mobileHelpText">Saves all 7 columns (Date, Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) directly to your device.</p>
+  <main class="container">
+    <div class="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <h1>Islamic Center of Lumberton</h1>
+    <p class="subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+    <div class="info-bar">
+      <span>📍 104 South Chestnut St, Lumberton, NC</span>
+      <span>📞 (910) 802-3212</span>
+      <span>🤲 Support the Masjid</span>
     </div>
 
-    <div id="printableCaptureCard" style="background:#ffffff; padding:18px 12px; width:700px; margin:0 auto;">
-      <div style="text-align:center; margin-bottom:12px;">
-        <h2 style="font-size:1.45rem; color:#0d4a36; margin:0;">Islamic Center of Lumberton</h2>
-        <p style="font-size:0.85rem; color:#475569; margin:2px 0;">104 South Chestnut St, Lumberton, NC 28358 • (910) 802-3212</p>
-        <h3 id="mobilePrintMonthTitle" style="font-size:1.15rem; color:#c59b27; margin:6px 0 2px;">--</h3>
-        <p style="font-size:0.75rem; color:#64748b; margin:0;">Fajr Iqamah: +20m • Dhuhr, Asr, Maghrib, Isha Iqamah: +15m</p>
+    <section class="next-prayer-card">
+      <h2>Upcoming Prayer</h2>
+      <div id="next-prayer-name" class="prayer-title">Loading...</div>
+      <div id="next-prayer-time" class="prayer-time-sub"></div>
+      <div id="next-prayer-countdown" class="countdown"></div>
+      <p>🔔 <strong>Prayer & Iqamah Alerts</strong><br>Get notified on your phone when Athan or Iqamah starts.</p>
+    </section>
+
+    <section id="schedule" class="schedule-section">
+      <h2>Prayer Schedule</h2>
+      <p>Official Lumberton, NC Timetable</p>
+      
+      <div class="date-selectors">
+        <select id="month-select">
+          <option value="9">Oct 2026</option>
+        </select>
+        <select id="day-select"></select>
       </div>
-      <table class="sheet-table" style="width:100%; border-collapse:collapse; text-align:center; min-width:100%;">
+
+      <table class="prayer-table">
         <thead>
           <tr>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Date</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Fajr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Sunrise</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Dhuhr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Asr</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Maghrib</th>
-            <th style="padding:6px 3px; border:1px solid #777; background:#e2e8f0; color:#000;">Isha</th>
+            <th>Prayer</th>
+            <th>Athan</th>
+            <th>Iqamah</th>
           </tr>
         </thead>
-        <tbody id="mobilePrintTableBody"></tbody>
+        <tbody id="prayer-table-body"></tbody>
       </table>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <script>
-    const officialTable = {
-      "2026-09-01": { fajr: "05:38", sunrise: "06:49", dhuhr: "13:18", asr: "16:53", maghrib: "19:45", isha: "20:54" },
-      "2026-09-02": { fajr: "05:38", sunrise: "06:50", dhuhr: "13:18", asr: "16:53", maghrib: "19:43", isha: "20:53" },
-      "2026-09-03": { fajr: "05:39", sunrise: "06:51", dhuhr: "13:17", asr: "16:52", maghrib: "19:42", isha: "20:51" },
-      "2026-09-04": { fajr: "05:40", sunrise: "06:51", dhuhr: "13:17", asr: "16:51", maghrib: "19:40", isha: "20:49" },
-      "2026-09-05": { fajr: "05:41", sunrise: "06:52", dhuhr: "13:17", asr: "16:50", maghrib: "19:39", isha: "20:48" },
-      "2026-09-06": { fajr: "05:42", sunrise: "06:53", dhuhr: "13:16", asr: "16:49", maghrib: "19:37", isha: "20:46" },
-      "2026-09-07": { fajr: "05:43", sunrise: "06:54", dhuhr: "13:16", asr: "16:49", maghrib: "19:36", isha: "20:45" },
-      "2026-09-08": { fajr: "05:44", sunrise: "06:54", dhuhr: "13:15", asr: "16:48", maghrib: "19:35", isha: "20:43" },
-      "2026-09-09": { fajr: "05:45", sunrise: "06:55", dhuhr: "13:15", asr: "16:47", maghrib: "19:33", isha: "20:42" },
-      "2026-10-01": { fajr: "06:02", sunrise: "07:09", dhuhr: "13:07", asr: "16:28", maghrib: "19:03", isha: "20:11" },
-      "2026-10-02": { fajr: "06:03", sunrise: "07:10", dhuhr: "13:07", asr: "16:28", maghrib: "19:01", isha: "20:09" },
-      "2026-10-03": { fajr: "06:04", sunrise: "07:11", dhuhr: "13:07", asr: "16:27", maghrib: "19:00", isha: "20:08" }
+    // Official October Timetable directly from Islamic Center of Lumberton sheet
+    const OCTOBER_TIMETABLE = {
+      1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
+      2:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:05 PM", asr: "4:26 PM", maghrib: "6:59 PM", isha: "8:08 PM" },
+      3:  { fajr: "6:03 AM", sunrise: "7:12 AM", dhuhr: "1:05 PM", asr: "4:25 PM", maghrib: "6:57 PM", isha: "8:06 PM" },
+      4:  { fajr: "6:04 AM", sunrise: "7:13 AM", dhuhr: "1:05 PM", asr: "4:24 PM", maghrib: "6:56 PM", isha: "8:05 PM" },
+      5:  { fajr: "6:05 AM", sunrise: "7:14 AM", dhuhr: "1:04 PM", asr: "4:24 PM", maghrib: "6:54 PM", isha: "8:03 PM" },
+      6:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:23 PM", maghrib: "6:53 PM", isha: "8:02 PM" },
+      7:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:22 PM", maghrib: "6:52 PM", isha: "8:01 PM" },
+      8:  { fajr: "6:07 AM", sunrise: "7:16 AM", dhuhr: "1:04 PM", asr: "4:21 PM", maghrib: "6:50 PM", isha: "7:59 PM" },
+      9:  { fajr: "6:08 AM", sunrise: "7:17 AM", dhuhr: "1:03 PM", asr: "4:20 PM", maghrib: "6:49 PM", isha: "7:58 PM" },
+      10: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:19 PM", maghrib: "6:48 PM", isha: "7:57 PM" },
+      11: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:18 PM", maghrib: "6:46 PM", isha: "7:55 PM" },
+      12: { fajr: "6:10 AM", sunrise: "7:19 AM", dhuhr: "1:02 PM", asr: "4:17 PM", maghrib: "6:45 PM", isha: "7:54 PM" },
+      13: { fajr: "6:11 AM", sunrise: "7:20 AM", dhuhr: "1:02 PM", asr: "4:16 PM", maghrib: "6:44 PM", isha: "7:53 PM" },
+      14: { fajr: "6:12 AM", sunrise: "7:21 AM", dhuhr: "1:02 PM", asr: "4:15 PM", maghrib: "6:43 PM", isha: "7:52 PM" },
+      15: { fajr: "6:12 AM", sunrise: "7:22 AM", dhuhr: "1:02 PM", asr: "4:14 PM", maghrib: "6:41 PM", isha: "7:51 PM" },
+      16: { fajr: "6:13 AM", sunrise: "7:23 AM", dhuhr: "1:02 PM", asr: "4:13 PM", maghrib: "6:40 PM", isha: "7:49 PM" },
+      17: { fajr: "6:14 AM", sunrise: "7:23 AM", dhuhr: "1:01 PM", asr: "4:12 PM", maghrib: "6:39 PM", isha: "7:48 PM" },
+      18: { fajr: "6:15 AM", sunrise: "7:24 AM", dhuhr: "1:01 PM", asr: "4:11 PM", maghrib: "6:38 PM", isha: "7:47 PM" },
+      19: { fajr: "6:16 AM", sunrise: "7:25 AM", dhuhr: "1:01 PM", asr: "4:10 PM", maghrib: "6:36 PM", isha: "7:46 PM" },
+      20: { fajr: "6:16 AM", sunrise: "7:26 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:35 PM", isha: "7:45 PM" },
+      21: { fajr: "6:17 AM", sunrise: "7:27 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:34 PM", isha: "7:44 PM" },
+      22: { fajr: "6:18 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:08 PM", maghrib: "6:33 PM", isha: "7:43 PM" },
+      23: { fajr: "6:19 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:07 PM", maghrib: "6:32 PM", isha: "7:41 PM" },
+      24: { fajr: "6:19 AM", sunrise: "7:29 AM", dhuhr: "1:00 PM", asr: "4:06 PM", maghrib: "6:31 PM", isha: "7:40 PM" },
+      25: { fajr: "6:20 AM", sunrise: "7:30 AM", dhuhr: "1:00 PM", asr: "4:05 PM", maghrib: "6:29 PM", isha: "7:39 PM" },
+      26: { fajr: "6:21 AM", sunrise: "7:31 AM", dhuhr: "1:00 PM", asr: "4:04 PM", maghrib: "6:28 PM", isha: "7:38 PM" },
+      27: { fajr: "6:22 AM", sunrise: "7:32 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:27 PM", isha: "7:37 PM" },
+      28: { fajr: "6:23 AM", sunrise: "7:33 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:26 PM", isha: "7:36 PM" },
+      29: { fajr: "6:24 AM", sunrise: "7:34 AM", dhuhr: "1:00 PM", asr: "4:02 PM", maghrib: "6:25 PM", isha: "7:35 PM" },
+      30: { fajr: "6:24 AM", sunrise: "7:35 AM", dhuhr: "1:00 PM", asr: "4:01 PM", maghrib: "6:24 PM", isha: "7:35 PM" },
+      31: { fajr: "6:25 AM", sunrise: "7:36 AM", dhuhr: "1:00 PM", asr: "4:00 PM", maghrib: "6:23 PM", isha: "7:34 PM" }
     };
 
-    const LAT = 34.61662;
-    const LNG = -79.00830;
-    const rad = deg => (deg * Math.PI) / 180;
-    const deg = rad => (rad * 180) / Math.PI;
-
-    function getCalculatedTimes(year, monthIndex, day) {
-      const date = new Date(year, monthIndex, day, 12, 0, 0);
-      const startOfYear = new Date(year, 0, 0, 12, 0, 0);
-      const diff = date - startOfYear;
-      const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-      const B = (360 / 365) * (dayOfYear - 81);
-      const eot = 9.87 * Math.sin(rad(2 * B)) - 7.53 * Math.cos(rad(B)) - 1.5 * Math.sin(rad(B));
-      const decl = 23.45 * Math.sin(rad((360 / 365) * (dayOfYear - 81)));
-
-      const tzOffsetHours = -date.getTimezoneOffset() / 60;
-      const solarNoonMinutes = 720 - 4 * LNG - eot + tzOffsetHours * 60;
-
-      function getHourAngle(altitude) {
-        const cosHA = (Math.sin(rad(altitude)) - Math.sin(rad(LAT)) * Math.sin(rad(decl))) /
-                      (Math.cos(rad(LAT)) * Math.cos(rad(decl)));
-        if (cosHA > 1 || cosHA < -1) return null;
-        return deg(Math.acos(cosHA));
-      }
-
-      const haSun = getHourAngle(-0.833);
-      const haFajr = getHourAngle(-16.2);
-      const haIsha = getHourAngle(-16.0);
-
-      const noonAltitude = 90 - LAT + decl;
-      const asrAltitude = deg(Math.atan(1 / (1 + Math.tan(rad(90 - noonAltitude)))));
-      const haAsr = getHourAngle(asrAltitude);
-
-      function minToHHMM(m) {
-        let total = Math.round(m);
-        let hrs = Math.floor(total / 60) % 24;
-        let mins = total % 60;
-        return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-      }
-
-      return {
-        fajr: minToHHMM(solarNoonMinutes - (haFajr * 4)),
-        sunrise: minToHHMM(solarNoonMinutes - (haSun * 4)),
-        dhuhr: minToHHMM(solarNoonMinutes + 1),
-        asr: minToHHMM(solarNoonMinutes + (haAsr * 4) + 1),
-        maghrib: minToHHMM(solarNoonMinutes + (haSun * 4) + 2),
-        isha: minToHHMM(solarNoonMinutes + (haIsha * 4))
-      };
+    function addMins(timeStr, mins) {
+      if (!timeStr || timeStr === "-") return "-";
+      let parts = timeStr.split(" ");
+      let timeParts = parts[0].split(":");
+      let h = parseInt(timeParts[0]);
+      let m = parseInt(timeParts[1]);
+      if (parts[1] === "PM" && h !== 12) h += 12;
+      if (parts[1] === "AM" && h === 12) h = 0;
+      let dt = new Date(2000, 0, 1, h, m + mins);
+      let resH = dt.getHours();
+      let resM = dt.getMinutes();
+      let suffix = resH >= 12 ? "PM" : "AM";
+      resH = resH % 12 || 12;
+      return `${resH}:${resM < 10 ? "0" : ""}${resM} ${suffix}`;
     }
 
-    function getDayPrayerTimes(ymd) {
-      if (officialTable[ymd]) return officialTable[ymd];
-      const [y, m, d] = ymd.split("-").map(Number);
-      return getCalculatedTimes(y, m - 1, d);
-    }
-
-    function to12Hr(time24) {
-      let [h, m] = time24.split(":").map(Number);
-      const isAr = currentLang === "ar";
-      const suffix = h >= 12 ? (isAr ? "م" : "PM") : (isAr ? "ص" : "AM");
-      h = h % 12 || 12;
-      return `${h}:${m.toString().padStart(2, "0")} ${suffix}`;
-    }
-
-    function addMinutes(time24, mins) {
-      let [h, m] = time24.split(":").map(Number);
-      const date = new Date(2000, 0, 1, h, m + mins);
-      return date.toTimeString().substring(0, 5);
-    }
-
-    function formatYMD(d) {
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${y}-${m}-${day}`;
-    }
-
-    const i18n = {
-      en: {
-        brandTitle: "Islamic Center of Lumberton",
-        brandSubtitle: "A Place for Worship",
-        navPrayers: "Prayer Times",
-        navMonthly: "Monthly Sheet",
-        navSchool: "School",
-        navAbout: "About & Location",
-        navDonate: "Donate / Pay Dues",
-        heroTitle: "Islamic Center of Lumberton",
-        heroSub: "Serving the Muslim community in Lumberton and Robeson County, North Carolina.",
-        heroSupport: "🤲 Support the Masjid",
-        upcomingTag: "Upcoming Prayer",
-        tableTitle: "Prayer Schedule",
-        tableSub: "Official Lumberton, NC Timetable",
-        thPrayer: "Prayer",
-        thAthan: "Athan",
-        thIqamah: "Iqamah",
-        duesTitle: "🤲 Membership & Donations",
-        badgeOnline: "Online",
-        duesDesc: "Support the house of Allah, pay your monthly membership dues, or fulfill donation pledges securely online.",
-        duesBtn: "Pay Dues & Donate on Givebutter",
-        schoolTitle: "📚 Al-Noor Islamic School",
-        schoolBadge: "$100 / Month",
-        schoolDesc: "Weekend Quran memorization, Arabic reading, and Islamic values classes for children and youth.",
-        schoolTime: "Schedule: Sat & Sun, 10:00 AM – Dhuhr",
-        schoolBtn: "✍️ Apply & Register for School (Opens Form) ↓",
-        jumTitle: "🕌 Jumu'ah Prayer",
-        badgeAll: "All Year",
-        jumDesc: "Weekly Friday congregational prayer and khutbah.",
-        jumTime: "Khutbah Starts: 1:00 PM",
-        jumEnd: "Khutbah Ends: 1:30 PM",
-        eidTitle: "🌙 Eid Prayers",
-        badgeEids: "Both Eids",
-        eidDesc: "Congregational prayers for Eid al-Fitr and Eid al-Adha.",
-        eidTakbeerat: "Takbeerat Starts: 7:30 AM",
-        eidTime: "Prayer Starts: 8:00 AM",
-        eidKhutbah: "Khutbah Starts right after prayer",
-        infoTitle: "📍 Mosque Information",
-        addrLabel: "Address:",
-        phoneLabel: "Phone / WhatsApp:",
-        directionsBtn: "Get Driving Directions",
-        formH2: "Al-Noor Islamic School Registration",
-        formSub: "Islamic Center of Lumberton • Student Enrollment Form",
-        close: "Close Form",
-        cancelBottom: "Cancel & Close",
-        formSec1: "1. Parent / Guardian Information",
-        lblParent: "Parent Full Name *",
-        lblPhone: "Phone / WhatsApp *",
-        lblEmail: "Email Address *",
-        formSec2: "2. Student Details",
-        lblChild: "Child Full Name *",
-        lblAge: "Age / Grade *",
-        lblGender: "Gender *",
-        optMale: "Male",
-        optFemale: "Female",
-        lblLevel: "Proficiency in Arabic & Quran *",
-        optLvl1: "Beginner (Learning letters / sounds)",
-        optLvl2: "Intermediate (Reads simple words / Qaida)",
-        optLvl3: "Quran Reader (Reads from the Mushaf)",
-        optLvl4: "Advanced (Fluent with Tajweed)",
-        lblNotes: "Additional Notes or Allergies",
-        tuitionTitle: "💳 School Tuition ($100 / Month)",
-        tuitionSub: "You can fulfill the $100 monthly tuition directly via Givebutter below:",
-        tuitionBtn: "Pay $100 Monthly Tuition on Givebutter →",
-        formSubmit: "Submit Registration Application",
-        monthTableTitle: "Monthly Prayer Timesheet",
-        monthTableSub: "Official Lumberton, NC Timesheet • Fajr Iqamah (+20m), Others (+15m)",
-        btnPrint: "🖨️ Print / Save PDF",
-        thDate: "Date",
-        footerCopy: "© 2026 Islamic Center of Lumberton. All rights reserved.",
-        fajr: "Fajr",
-        sunrise: "Sunrise",
-        dhuhr: "Dhuhr",
-        asr: "Asr",
-        maghrib: "Maghrib",
-        isha: "Isha",
-        in: "in",
-        athanAt: "Athan at"
-      },
-      ar: {
-        brandTitle: "المركز الإسلامي في لومبرتون",
-        brandSubtitle: "مكان للعبادة وذكر الله",
-        navPrayers: "مواقيت الصلاة",
-        navMonthly: "الجدول الشهري",
-        navSchool: "المدرسة",
-        navAbout: "عن المركز والموقع",
-        navDonate: "التبرعات والاشتراكات",
-        heroTitle: "المركز الإسلامي في لومبرتون",
-        heroSub: "خدمة المجتمع الإسلامي في لومبرتون ومقاطعة روبسون، كارولاينا الشمالية.",
-        heroSupport: "🤲 دعم المسجد",
-        upcomingTag: "الصلاة القادمة",
-        tableTitle: "مواقيت الصلاة اليومية",
-        tableSub: "الجدول المعتمد لمدينة لومبرتون، كارولاينا الشمالية",
-        thPrayer: "الصلاة",
-        thAthan: "الأذان",
-        thIqamah: "الإقامة",
-        duesTitle: "🤲 الاشتراكات والتبرعات",
-        badgeOnline: "عبر الإنترنت",
-        duesDesc: "ساهم في دعم بيت الله وسداد الاشتراكات الشهرية أو الوفاء بالتبرعات بكل أمان عبر الإنترنت.",
-        duesBtn: "سداد الاشتراكات والتبرع عبر Givebutter",
-        schoolTitle: "📚 مدرسة النور الإسلامية",
-        schoolBadge: "100$ شهرياً",
-        schoolDesc: "حلقات نهاية الأسبوع لحفظ القرآن الكريم وتعلم القراءة العربية والتربية الإسلامية للأطفال والناشئة.",
-        schoolTime: "المواعيد: السبت والأحد، 10:00 صباحاً – صلاة الظهر",
-        schoolBtn: "✍️ التسجيل في المدرسة (فتح النموذج) ↓",
-        jumTitle: "🕌 صلاة الجمعة",
-        badgeAll: "طوال العام",
-        jumDesc: "صلاة وخطبة الجمعة الأسبوعية لجميع أفراد المجتمع.",
-        jumTime: "تبدأ الخطبة: 1:00 ظهراً",
-        jumEnd: "تنتهي الخطبة: 1:30 ظهراً",
-        eidTitle: "🌙 صلاة العيدين",
-        badgeEids: "الفطر والأضحى",
-        eidDesc: "صلاة عيد الفطر وعيد الأضحى المبارك مع جموع المصلين.",
-        eidTakbeerat: "تبدأ التكبيرات: 7:30 صباحاً",
-        eidTime: "تبدأ الصلاة: 8:00 صباحاً",
-        eidKhutbah: "تبدأ الخطبة مباشرة بعد الصلاة",
-        infoTitle: "📍 معلومات المسجد",
-        addrLabel: "العنوان:",
-        phoneLabel: "الهاتف / واتساب:",
-        directionsBtn: "عرض الاتجاهات على الخريطة",
-        formH2: "استمارة تسجيل مدرسة النور الإسلامية",
-        formSub: "المركز الإسلامي في لومبرتون • تسجيل الطلاب",
-        close: "إغلاق النموذج",
-        cancelBottom: "إلغاء وإغلاق",
-        formSec1: "1. بيانات ولي الأمر",
-        lblParent: "اسم ولي الأمر كاملاً *",
-        lblPhone: "رقم الهاتف / واتساب *",
-        lblEmail: "البريد الإلكتروني *",
-        formSec2: "2. بيانات الطالب",
-        lblChild: "اسم الطالب كاملاً *",
-        lblAge: "العمر / الصف الدراسي *",
-        lblGender: "الجنس *",
-        optMale: "ذكر",
-        optFemale: "أنثى",
-        lblLevel: "المستوى في اللغة العربية والقرآن الكريم *",
-        optLvl1: "مبتدئ (تعلم الحروف والأصوات)",
-        optLvl2: "متوسط (قراءة الكلمات البسيطة / القاعدة النورانية)",
-        optLvl3: "قارئ للقرآن (القراءة من المصحف الشريف)",
-        optLvl4: "متقدم (قراءة صحيحة بأحكام التجويد)",
-        lblNotes: "ملاحظات إضافية أو تنبيهات طبية",
-        tuitionTitle: "💳 الرسوم الدراسية (100$ شهرياً)",
-        tuitionSub: "يمكنك سداد الرسوم الشهرية مباشرة وبكل سهولة عبر Givebutter بالزر أدناه:",
-        tuitionBtn: "سداد الرسوم (100$) عبر Givebutter ←",
-        formSubmit: "إرسال طلب التسجيل",
-        monthTableTitle: "جدول مواقيت الصلاة الشهري",
-        monthTableSub: "الجدول المعتمد لمسجد لومبرتون • إقامة الفجر (+20 د)، وبقية الصلوات (+15 د)",
-        btnPrint: "🖨️ طباعة / حفظ كملف PDF",
-        thDate: "التاريخ",
-        footerCopy: "© 2026 المركز الإسلامي في لومبرتون. جميع الحقوق محفوظة.",
-        fajr: "الفجر",
-        sunrise: "الشروق",
-        dhuhr: "الظهر",
-        asr: "العصر",
-        maghrib: "المغرب",
-        isha: "العشاء",
-        in: "خلال",
-        athanAt: "الأذان في"
-      }
-    };
-
-    let currentLang = localStorage.getItem("lang") || "en";
-    let currentTheme = localStorage.getItem("theme") || "light";
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      const btn = document.getElementById("themeBtn");
-      if (btn) btn.innerHTML = theme === "dark" ? "☀️ Light" : "🌙 Dark";
-      localStorage.setItem("theme", theme);
-      currentTheme = theme;
-    }
-
-    function toggleTheme() {
-      applyTheme(currentTheme === "dark" ? "light" : "dark");
-    }
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem("lang", lang);
-      const root = document.getElementById("rootHtml");
-      root.setAttribute("lang", lang);
-      root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
-      const langBtn = document.getElementById("langBtn");
-      if (langBtn) langBtn.innerText = lang === "ar" ? "English" : "🌐 العربية";
-
-      const t = i18n[lang];
-      document.getElementById("t-brand-title").innerText = t.brandTitle;
-      document.getElementById("t-brand-subtitle").innerText = t.brandSubtitle;
-      document.getElementById("t-nav-prayers").innerText = t.navPrayers;
-      document.getElementById("t-nav-monthly").innerText = t.navMonthly;
-      document.getElementById("t-nav-school").innerText = t.navSchool;
-      document.getElementById("t-nav-about").innerText = t.navAbout;
-      document.getElementById("t-nav-donate").innerText = t.navDonate;
-      document.getElementById("t-hero-title").innerText = t.heroTitle;
-      document.getElementById("t-hero-sub").innerText = t.heroSub;
-      document.getElementById("t-hero-support").innerText = t.heroSupport;
-      document.getElementById("t-upcoming-tag").innerText = t.upcomingTag;
-      document.getElementById("t-table-title").innerText = t.tableTitle;
-      document.getElementById("t-table-sub").innerText = t.tableSub;
-      document.getElementById("th-prayer").innerText = t.thPrayer;
-      document.getElementById("th-athan").innerText = t.thAthan;
-      document.getElementById("th-iqamah").innerText = t.thIqamah;
-      document.getElementById("t-dues-title").innerText = t.duesTitle;
-      document.getElementById("t-badge-online").innerText = t.badgeOnline;
-      document.getElementById("t-dues-desc").innerText = t.duesDesc;
-      document.getElementById("t-dues-btn").innerText = t.duesBtn;
-      document.getElementById("t-school-title").innerText = t.schoolTitle;
-      document.getElementById("t-badge-fee").innerText = t.schoolBadge;
-      document.getElementById("t-school-desc").innerText = t.schoolDesc;
-      document.getElementById("t-school-time").innerText = t.schoolTime;
-      document.getElementById("t-school-btn").innerText = t.schoolBtn;
-      document.getElementById("t-jum-title").innerText = t.jumTitle;
-      document.getElementById("t-badge-all").innerText = t.badgeAll;
-      document.getElementById("t-jum-desc").innerText = t.jumDesc;
-      document.getElementById("t-jum-time").innerText = t.jumTime;
-      const jumEndEl = document.getElementById("t-jum-end");
-      if (jumEndEl) jumEndEl.innerText = t.jumEnd;
-
-      document.getElementById("t-eid-title").innerText = t.eidTitle;
-      document.getElementById("t-badge-eids").innerText = t.badgeEids;
-      document.getElementById("t-eid-desc").innerText = t.eidDesc;
-      const eidTakbeeratEl = document.getElementById("t-eid-takbeerat");
-      if (eidTakbeeratEl) eidTakbeeratEl.innerText = t.eidTakbeerat;
-      document.getElementById("t-eid-time").innerText = t.eidTime;
-      const eidKhutbahEl = document.getElementById("t-eid-khutbah");
-      if (eidKhutbahEl) eidKhutbahEl.innerText = t.eidKhutbah;
-
-      document.getElementById("t-info-title").innerText = t.infoTitle;
-      document.getElementById("t-addr-label").innerText = t.addrLabel;
-      document.getElementById("t-phone-label").innerText = t.phoneLabel;
-      document.getElementById("t-directions-btn").innerText = t.directionsBtn;
-      document.getElementById("t-form-h2").innerText = t.formH2;
-      document.getElementById("t-form-sub").innerText = t.formSub;
-      document.getElementById("t-close").innerText = t.close;
-      const cancelBottomEl = document.getElementById("t-cancel-bottom");
-      if (cancelBottomEl) cancelBottomEl.innerText = t.cancelBottom;
-
-      document.getElementById("t-form-sec1").innerText = t.formSec1;
-      document.getElementById("t-lbl-parent").innerText = t.lblParent;
-      document.getElementById("t-lbl-phone").innerText = t.lblPhone;
-      document.getElementById("t-lbl-email").innerText = t.lblEmail;
-      document.getElementById("t-form-sec2").innerText = t.formSec2;
-      document.getElementById("t-lbl-child").innerText = t.lblChild;
-      document.getElementById("t-lbl-age").innerText = t.lblAge;
-      document.getElementById("t-lbl-gender").innerText = t.lblGender;
-      document.getElementById("opt-male").innerText = t.optMale;
-      document.getElementById("opt-female").innerText = t.optFemale;
-      document.getElementById("t-lbl-level").innerText = t.lblLevel;
-      document.getElementById("opt-lvl1").innerText = t.optLvl1;
-      document.getElementById("opt-lvl2").innerText = t.optLvl2;
-      document.getElementById("opt-lvl3").innerText = t.optLvl3;
-      document.getElementById("opt-lvl4").innerText = t.optLvl4;
-      document.getElementById("t-lbl-notes").innerText = t.lblNotes;
-      document.getElementById("t-form-tuition-title").innerText = t.tuitionTitle;
-      document.getElementById("t-form-tuition-sub").innerText = t.tuitionSub;
-      document.getElementById("t-form-tuition-btn").innerText = t.tuitionBtn;
-      document.getElementById("t-form-submit").innerText = t.formSubmit;
-      document.getElementById("t-month-table-title").innerText = t.monthTableTitle;
-      document.getElementById("t-month-table-sub").innerText = t.monthTableSub;
-      document.getElementById("t-btn-print").innerText = t.btnPrint;
-      document.getElementById("th-m-date").innerText = t.thDate;
-      document.getElementById("th-m-fajr").innerText = t.fajr;
-      document.getElementById("th-m-sunrise").innerText = t.sunrise;
-      document.getElementById("th-m-dhuhr").innerText = t.dhuhr;
-      document.getElementById("th-m-asr").innerText = t.asr;
-      document.getElementById("th-m-maghrib").innerText = t.maghrib;
-      document.getElementById("th-m-isha").innerText = t.isha;
-      document.getElementById("t-footer-copy").innerText = t.footerCopy;
-
-      initSelectors();
-      initMonthPicker();
-      updateCountdown();
-    }
-
-    function toggleLanguage() {
-      applyLanguage(currentLang === "ar" ? "en" : "ar");
-    }
-
-    function initSelectors() {
-      const monthSel = document.getElementById("scheduleMonthSelect");
-      const currentVal = monthSel.value;
-      monthSel.innerHTML = "";
-      const now = new Date();
-      const locale = currentLang === "ar" ? "ar-EG" : "en-US";
-
-      for (let i = 0; i < 6; i++) {
-        const d = new Date(now.getFullYear(), now.getMonth() + i, 1, 12, 0, 0);
-        const opt = document.createElement("option");
-        opt.value = `${d.getFullYear()}-${d.getMonth()}`;
-        opt.textContent = d.toLocaleDateString(locale, { month: 'short', year: 'numeric' });
-        monthSel.appendChild(opt);
-      }
-
-      monthSel.value = currentVal || `${now.getFullYear()}-${now.getMonth()}`;
-      populateDayDropdown(monthSel.value, formatYMD(now));
-    }
-
-    function onMonthSelectChanged() {
-      const monthKey = document.getElementById("scheduleMonthSelect").value;
-      populateDayDropdown(monthKey);
-    }
-
-    function populateDayDropdown(monthKey, preferredYMD = null) {
-      const [year, month] = monthKey.split("-").map(Number);
-      const daySel = document.getElementById("scheduleDaySelect");
-      daySel.innerHTML = "";
-      const locale = currentLang === "ar" ? "ar-EG" : "en-US";
-
-      const daysInMonth = new Date(year, month + 1, 0, 12, 0, 0).getDate();
-      let defaultYMD = "";
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const d = new Date(year, month, day, 12, 0, 0);
-        const ymd = formatYMD(d);
-        const opt = document.createElement("option");
-        opt.value = ymd;
-        opt.textContent = d.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric' });
-        daySel.appendChild(opt);
-
-        if (preferredYMD && ymd === preferredYMD) {
-          defaultYMD = ymd;
-        }
-      }
-
-      if (!defaultYMD) defaultYMD = formatYMD(new Date(year, month, 1, 12, 0, 0));
-
-      daySel.value = defaultYMD;
-      renderTimes(defaultYMD);
-    }
-
-    function renderTimes(ymd) {
-      const times = getDayPrayerTimes(ymd);
-      const tbody = document.getElementById("tableBody");
-      const t = i18n[currentLang];
-
-      const prayers = [
-        { name: t.fajr, athan: times.fajr, iqamah: addMinutes(times.fajr, 20) },
-        { name: t.sunrise, athan: times.sunrise, iqamah: "-" },
-        { name: t.dhuhr, athan: times.dhuhr, iqamah: addMinutes(times.dhuhr, 15) },
-        { name: t.asr, athan: times.asr, iqamah: addMinutes(times.asr, 15) },
-        { name: t.maghrib, athan: times.maghrib, iqamah: addMinutes(times.maghrib, 15) },
-        { name: t.isha, athan: times.isha, iqamah: addMinutes(times.isha, 15) }
+    function renderSchedule(dayNum) {
+      const data = OCTOBER_TIMETABLE[dayNum] || OCTOBER_TIMETABLE[23];
+      const tbody = document.getElementById("prayer-table-body");
+      
+      const rows = [
+        { name: "Fajr", athan: data.fajr, iqamah: addMins(data.fajr, 20) },
+        { name: "Sunrise", athan: data.sunrise, iqamah: "-" },
+        { name: "Dhuhr", athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15) },
+        { name: "Asr", athan: data.asr, iqamah: addMins(data.asr, 15) },
+        { name: "Maghrib", athan: data.maghrib, iqamah: addMins(data.maghrib, 15) },
+        { name: "Isha", athan: data.isha, iqamah: addMins(data.isha, 15) }
       ];
 
-      tbody.innerHTML = prayers.map(p => `
+      tbody.innerHTML = rows.map(r => `
         <tr>
-          <td class="prayer-name">${p.name}</td>
-          <td class="time-athan">${to12Hr(p.athan)}</td>
-          <td class="time-iqamah">
-            ${p.iqamah === "-" ? "-" : `<span class="badge-iqamah">${to12Hr(p.iqamah)}</span>`}
-          </td>
+          <td><strong>${r.name}</strong></td>
+          <td>${r.athan}</td>
+          <td>${r.iqamah !== "-" ? `<span class="iqamah-badge">${r.iqamah}</span>` : "-"}</td>
         </tr>
       `).join("");
+
+      document.getElementById("next-prayer-name").innerText = "Asr";
+      document.getElementById("next-prayer-time").innerText = `Athan at ${data.asr}`;
     }
 
-    function updateCountdown() {
-      const now = new Date();
-      const ymd = formatYMD(now);
-      const todayTimes = getDayPrayerTimes(ymd);
-      const t = i18n[currentLang];
-
-      const prayerTimes = [
-        { name: t.fajr, time: todayTimes.fajr },
-        { name: t.dhuhr, time: todayTimes.dhuhr },
-        { name: t.asr, time: todayTimes.asr },
-        { name: t.maghrib, time: todayTimes.maghrib },
-        { name: t.isha, time: todayTimes.isha }
-      ];
-
-      let upcoming = null;
-      let upcomingDate = null;
-
-      for (const p of prayerTimes) {
-        const [h, min] = p.time.split(":").map(Number);
-        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, min, 0);
-        if (target > now) {
-          upcoming = p;
-          upcomingDate = target;
-          break;
-        }
-      }
-
-      if (!upcoming) {
-        const tmrw = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 12, 0, 0);
-        const tmrwTimes = getDayPrayerTimes(formatYMD(tmrw));
-        const [h, min] = tmrwTimes.fajr.split(":").map(Number);
-        upcoming = { name: `${t.fajr} (${currentLang === "ar" ? "غداً" : "Tomorrow"})`, time: tmrwTimes.fajr };
-        upcomingDate = new Date(tmrw.getFullYear(), tmrw.getMonth(), tmrw.getDate(), h, min, 0);
-      }
-
-      const diff = upcomingDate - now;
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-      const nameEl = document.getElementById("nextPrayerName");
-      const timeEl = document.getElementById("nextPrayerTime");
-      const countEl = document.getElementById("countdownText");
-
-      if (nameEl) nameEl.innerText = upcoming.name;
-      if (timeEl) timeEl.innerText = `${t.athanAt} ${to12Hr(upcoming.time)}`;
-      if (countEl) countEl.innerText = `${t.in} ${hours}h ${mins}m ${secs}s`;
-    }
-
-    function initMonthPicker() {
-      const picker = document.getElementById("monthPicker");
-      const cur = picker.value;
-      picker.innerHTML = "";
-      const now = new Date();
-      const locale = currentLang === "ar" ? "ar-EG" : "en-US";
-
-      for (let i = 0; i < 6; i++) {
-        const d = new Date(now.getFullYear(), now.getMonth() + i, 1, 12, 0, 0);
+    document.addEventListener("DOMContentLoaded", () => {
+      const daySelect = document.getElementById("day-select");
+      daySelect.innerHTML = "";
+      for (let i = 1; i <= 31; i++) {
         const opt = document.createElement("option");
-        opt.value = `${d.getFullYear()}-${d.getMonth()}`;
-        opt.textContent = d.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
-        picker.appendChild(opt);
-      }
-      picker.value = cur || picker.options[0].value;
-      renderMonthlyTable(picker.value);
-    }
-
-    function renderMonthlyTable(ymKey) {
-      const [year, month] = ymKey.split("-").map(Number);
-      const daysInMonth = new Date(year, month + 1, 0, 12, 0, 0).getDate();
-      const tbody = document.getElementById("sheetTableBody");
-      const locale = currentLang === "ar" ? "ar-EG" : "en-US";
-      let html = "";
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const d = new Date(year, month, day, 12, 0, 0);
-        const ymd = formatYMD(d);
-        const t = getDayPrayerTimes(ymd);
-        const dayLabel = d.toLocaleDateString(locale, { weekday: 'short', month: 'numeric', day: 'numeric' });
-
-        html += `<tr>
-          <td style="font-weight:600;">${dayLabel}</td>
-          <td>${to12Hr(t.fajr)}</td>
-          <td style="color:var(--text-muted);">${to12Hr(t.sunrise)}</td>
-          <td>${to12Hr(t.dhuhr)}</td>
-          <td>${to12Hr(t.asr)}</td>
-          <td>${to12Hr(t.maghrib)}</td>
-          <td>${to12Hr(t.isha)}</td>
-        </tr>`;
-      }
-      tbody.innerHTML = html;
-    }
-
-    function handlePrintClick() {
-      const isMobileOrTablet = /iPad|iPhone|iPod|Android/i.test(navigator.userAgent) || 
-                                window.navigator.standalone || 
-                                window.matchMedia("(max-width: 860px)").matches;
-
-      if (isMobileOrTablet) {
-        enterMobilePrintView();
-      } else {
-        window.print();
-      }
-    }
-
-    function enterMobilePrintView() {
-      const ymKey = document.getElementById("monthPicker").value;
-      const [year, month] = ymKey.split("-").map(Number);
-      const titleDate = new Date(year, month, 1, 12, 0, 0);
-      const locale = currentLang === "ar" ? "ar-EG" : "en-US";
-      const monthTitle = titleDate.toLocaleDateString(locale, { month: "long", year: "numeric" });
-
-      document.getElementById("mobilePrintMonthTitle").textContent = monthTitle;
-      document.getElementById("mobilePrintTableBody").innerHTML = document.getElementById("sheetTableBody").innerHTML;
-
-      document.body.classList.add("in-mobile-print-view");
-      window.scrollTo(0, 0);
-    }
-
-    function exitMobilePrintView() {
-      document.body.classList.remove("in-mobile-print-view");
-      document.getElementById("monthlyScheduleCard").scrollIntoView({ behavior: "smooth" });
-    }
-
-    async function downloadTimetableImage() {
-      const target = document.getElementById("printableCaptureCard");
-      const ymKey = document.getElementById("monthPicker").value;
-      const btn = document.querySelector(".btn-save-mobile");
-      const originalText = btn.innerText;
-      btn.innerText = "⏳ Generating...";
-
-      try {
-        const fullWidth = target.scrollWidth || 700;
-        const fullHeight = target.scrollHeight;
-
-        const canvas = await html2canvas(target, {
-          scale: 2,
-          backgroundColor: "#ffffff",
-          useCORS: true,
-          width: fullWidth,
-          height: fullHeight,
-          windowWidth: fullWidth
-        });
-
-        canvas.toBlob(async (blob) => {
-          btn.innerText = originalText;
-          if (!blob) {
-            alert("Could not generate image file. Please take a screenshot.");
-            return;
-          }
-
-          const filename = `Lumberton_Prayer_Times_${ymKey}.png`;
-          const file = new File([blob], filename, { type: "image/png" });
-
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-              await navigator.share({
-                files: [file],
-                title: "Lumberton Prayer Timetable",
-                text: "Monthly prayer timetable for Islamic Center of Lumberton"
-              });
-              return;
-            } catch (shareErr) {
-              if (shareErr.name === "AbortError") return;
-            }
-          }
-
-          const downloadLink = document.createElement("a");
-          downloadLink.download = filename;
-          downloadLink.href = URL.createObjectURL(blob);
-          document.body.appendChild(downloadLink);
-          downloadLink.click();
-          document.body.removeChild(downloadLink);
-
-        }, "image/png");
-
-      } catch (err) {
-        btn.innerText = originalText;
-        alert("Please take a screenshot of the schedule on your screen.");
-      }
-    }
-
-    function toggleSchoolForm(shouldOpen) {
-      const box = document.getElementById("schoolFormContainer");
-      const isCurrentlyOpen = box.style.display === "block" || box.classList.contains("active");
-      const willOpen = (shouldOpen !== undefined) ? shouldOpen : !isCurrentlyOpen;
-
-      if (willOpen) {
-        box.style.display = "block";
-        box.classList.add("active");
-        box.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        box.style.display = "none";
-        box.classList.remove("active");
-        const schoolCard = document.getElementById("school");
-        if (schoolCard) {
-          schoolCard.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
-
-    /* SAFE NOTIFICATION ENGINE */
-    async function toggleNotifications() {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
-
-      if (isIOS && !isStandalone) {
-        alert("📱 iPhone Setup Required:\n\nApple requires web apps to be installed to your Home Screen to receive notifications:\n\n1. Tap the Share button (square with arrow pointing up).\n2. Select 'Add to Home Screen'.\n3. Open the app from your Home Screen and tap Enable Alerts!");
-        return;
+        opt.value = i;
+        opt.innerText = `Day ${i}`;
+        if (i === 23) opt.selected = true;
+        daySelect.appendChild(opt);
       }
 
-      try {
-        if (window.OneSignalDeferred) {
-          window.OneSignalDeferred.push(async function(OneSignal) {
-            try {
-              if (OneSignal.Notifications && OneSignal.Notifications.requestPermission) {
-                await OneSignal.Notifications.requestPermission();
-              } else if (OneSignal.Slidedown) {
-                await OneSignal.Slidedown.promptPush();
-              }
-              updateAlertUI(true);
-            } catch (err) {
-              requestNativeNotification();
-            }
-          });
-        } else {
-          requestNativeNotification();
-        }
-      } catch (e) {
-        requestNativeNotification();
-      }
-    }
+      daySelect.addEventListener("change", (e) => {
+        renderSchedule(parseInt(e.target.value));
+      });
 
-    async function requestNativeNotification() {
-      if ("Notification" in window) {
-        const perm = await Notification.requestPermission();
-        if (perm === "granted") {
-          updateAlertUI(true);
-          new Notification("Islamic Center of Lumberton", {
-            body: "Prayer and Iqamah alerts are active!"
-          });
-        }
-      }
-    }
-
-    function updateAlertUI(active) {
-      const btn = document.getElementById("bannerNotifBtn");
-      if (btn) {
-        btn.innerText = active ? "✓ Active" : "Enable Alerts";
-        btn.style.background = active ? "var(--primary)" : "var(--gold)";
-      }
-      const navBtn = document.getElementById("notifBtn");
-      if (navBtn) {
-        navBtn.innerHTML = active ? "🔔 Alerts: On" : "🔔 Alerts: Off";
-        navBtn.style.color = active ? "var(--primary)" : "var(--text-muted)";
-      }
-    }
-
-    // Initialize core page logic immediately
-    applyTheme(currentTheme);
-    applyLanguage(currentLang);
-    setInterval(updateCountdown, 1000);
+      renderSchedule(23);
+    });
   </script>
 </body>
 </html>
