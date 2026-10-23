@@ -16,8 +16,13 @@
       --text-color: #f3f4f6;
       --text-muted: #9ca3af;
       --primary-color: #10b981;
+      --primary-glow: rgba(16, 185, 129, 0.15);
+      --accent-gold: #f59e0b;
       --border-color: #1f2937;
     }
+
+    * { box-sizing: border-box; }
+
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -26,11 +31,16 @@
       padding: 0;
       line-height: 1.6;
     }
+
     .site-header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--border-color);
       padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
+
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -40,11 +50,14 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
+
     .logo-text {
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--primary-color);
+      letter-spacing: -0.02em;
     }
+
     .nav-menu {
       display: flex;
       gap: 1.5rem;
@@ -52,94 +65,129 @@
       padding: 0;
       margin: 0;
     }
+
     .nav-link {
       color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s;
     }
-    .nav-link:hover {
-      color: var(--primary-color);
-    }
+
+    .nav-link:hover { color: var(--primary-color); }
+
     .controls-group {
       display: flex;
       gap: 0.75rem;
       align-items: center;
     }
+
     .btn {
       padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
+      border-radius: 0.5rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--border-color);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.03);
       color: var(--text-color);
+      transition: all 0.2s;
     }
+
+    .btn:hover { background: rgba(255, 255, 255, 0.08); }
+
     .btn-primary {
       background-color: var(--primary-color);
-      color: #fff;
+      color: #000;
       border: none;
       text-decoration: none;
     }
+
+    .btn-primary:hover { opacity: 0.9; }
+
     .container {
-      max-width: 1000px;
-      margin: 2rem auto;
+      max-width: 1100px;
+      margin: 2.5rem auto;
       padding: 0 1rem;
     }
+
     .hero-section {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
+
     .bismillah-text {
       font-family: 'Amiri', serif;
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-    .hero-title {
       font-size: 2.25rem;
+      color: var(--accent-gold);
       margin-bottom: 0.5rem;
     }
+
+    .hero-title {
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+    }
+
     .hero-subtitle {
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
+      margin: 0 0 1.5rem 0;
+      font-size: 1.1rem;
     }
+
     .info-badges {
       display: flex;
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
     }
+
     .badge-item {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.25rem;
       border-radius: 2rem;
       font-size: 0.875rem;
+      font-weight: 500;
     }
+
     .dashboard-grid {
       display: grid;
-      gap: 2rem;
+      grid-template-columns: 1fr 2fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
+
+    @media (max-width: 850px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 1rem;
-      padding: 2rem;
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
+
     .next-prayer-card {
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
+
     .next-prayer-title {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 700;
       color: var(--primary-color);
-      margin: 0.5rem 0;
+      margin: 0.25rem 0;
     }
+
     .next-prayer-sub {
       color: var(--text-muted);
       font-size: 1.1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
+
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -148,53 +196,107 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
+
     .card-title {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
+      font-weight: 700;
     }
+
     .card-subtitle {
       margin: 0;
       color: var(--text-muted);
-      font-size: 0.875rem;
+      font-size: 0.85rem;
     }
+
     .selectors-row {
       display: flex;
       gap: 0.5rem;
     }
+
     .form-select {
       background: var(--bg-color);
       color: var(--text-color);
       border: 1px solid var(--border-color);
-      padding: 0.5rem;
-      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
       font-family: inherit;
+      font-weight: 500;
     }
+
     .prayer-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
     }
+
     .prayer-table th, .prayer-table td {
-      padding: 1rem;
+      padding: 0.875rem 1rem;
       border-bottom: 1px solid var(--border-color);
     }
+
     .prayer-table th {
       color: var(--text-muted);
       font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
     .badge-iqamah {
-      background: rgba(16, 185, 129, 0.15);
+      background: var(--primary-glow);
       color: var(--primary-color);
       padding: 0.25rem 0.75rem;
       border-radius: 1rem;
       font-weight: 600;
       font-size: 0.875rem;
     }
+
+    /* Program Cards Grid */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .program-card {
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .program-card.eid-card {
+      border-top-color: var(--accent-gold);
+    }
+
+    .program-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .program-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .program-time {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .program-desc {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      margin: 0;
+    }
+
     .alerts-notice {
       margin-top: 1.5rem;
       padding-top: 1rem;
       border-top: 1px solid var(--border-color);
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
     }
   </style>
@@ -208,7 +310,7 @@
       <div class="logo-text">Islamic Center of Lumberton</div>
       <nav class="nav-menu">
         <a href="#schedule" class="nav-link">Prayer Times</a>
-        <a href="#monthly" class="nav-link">Monthly Sheet</a>
+        <a href="#programs" class="nav-link">Services</a>
         <a href="#school" class="nav-link">School</a>
         <a href="#about" class="nav-link">About & Location</a>
       </nav>
@@ -270,6 +372,31 @@
         </table>
       </section>
     </div>
+
+    <!-- Programs & Services Cards -->
+    <section id="programs" class="programs-grid">
+      <div class="card program-card">
+        <div class="program-icon">🕌</div>
+        <h3 class="program-title">Jumu'ah Prayer</h3>
+        <div class="program-time">Khutbah: 1:00 PM</div>
+        <p class="program-desc">Friday Congregational Prayer. Please arrive early for parking and Sunnah prayers.</p>
+      </div>
+
+      <div class="card program-card eid-card">
+        <div class="program-icon">🌙</div>
+        <h3 class="program-title">Eid Prayers</h3>
+        <div class="program-time" style="color: var(--accent-gold);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
+        <p class="program-desc">Eid al-Fitr and Eid al-Adha prayer times and venue announcements are posted before Eid.</p>
+      </div>
+
+      <div class="card program-card" id="school">
+        <div class="program-icon">📖</div>
+        <h3 class="program-title">Weekend Islamic School</h3>
+        <div class="program-time">Sundays: 10:00 AM – 1:30 PM</div>
+        <p class="program-desc">Quranic recitation, Tajweed, Islamic studies, and Arabic fundamentals for youth.</p>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -381,7 +508,7 @@
       for (let i = 1; i <= 31; i++) {
         const opt = document.createElement("option");
         opt.value = i;
-        opt.innerText = `Thu, Oct ${i}`;
+        opt.innerText = `Oct ${i}`;
         if (i === 23) opt.selected = true;
         daySelect.appendChild(opt);
       }
