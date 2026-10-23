@@ -1,77 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islamic Center of Lumberton</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Islamic Center of Lumberton</div>
-      <ul class="nav-links">
-        <li><a href="#schedule">Prayer Times</a></li>
-        <li><a href="#monthly">Monthly Sheet</a></li>
-        <li><a href="#school">School</a></li>
-        <li><a href="#about">About & Location</a></li>
-      </ul>
-      <div class="controls">
-        <button id="alerts-btn" class="alerts-btn">🔔 Alerts: Off</button>
-        <button id="lang-btn" class="lang-btn">🌐 العربية</button>
-        <button id="theme-btn" class="theme-btn">☀️ Light</button>
-        <a href="#donate" class="donate-btn">Donate / Pay Dues</a>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="logo-text">Islamic Center of Lumberton</span>
       </div>
-    </nav>
+      <nav class="nav-menu">
+        <a href="#schedule" class="nav-link">Prayer Times</a>
+        <a href="#monthly" class="nav-link">Monthly Sheet</a>
+        <a href="#school" class="nav-link">School</a>
+        <a href="#about" class="nav-link">About & Location</a>
+      </nav>
+      <div class="controls-group">
+        <button id="alerts-btn" class="btn btn-outline alerts-btn">🔔 Alerts: Off</button>
+        <button id="lang-btn" class="btn btn-outline lang-btn">🌐 العربية</button>
+        <button id="theme-btn" class="btn btn-outline theme-btn">🌙 Dark</button>
+        <a href="#donate" class="btn btn-primary donate-btn">Donate / Pay Dues</a>
+      </div>
+    </div>
   </header>
 
-  <main class="container">
-    <div class="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-    <h1>Islamic Center of Lumberton</h1>
-    <p class="subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
-    <div class="info-bar">
-      <span>📍 104 South Chestnut St, Lumberton, NC</span>
-      <span>📞 (910) 802-3212</span>
-      <span>🤲 Support the Masjid</span>
+  <main class="main-content container">
+    <div class="hero-section">
+      <div class="bismillah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <h1 class="hero-title">Islamic Center of Lumberton</h1>
+      <p class="hero-subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
+      
+      <div class="info-badges">
+        <div class="badge-item">📍 104 South Chestnut St, Lumberton, NC</div>
+        <div class="badge-item">📞 (910) 802-3212</div>
+        <div class="badge-item">🤲 Support the Masjid</div>
+      </div>
     </div>
 
-    <section class="next-prayer-card">
-      <h2>Upcoming Prayer</h2>
-      <div id="next-prayer-name" class="prayer-title">Loading...</div>
-      <div id="next-prayer-time" class="prayer-time-sub"></div>
-      <div id="next-prayer-countdown" class="countdown"></div>
-      <p>🔔 <strong>Prayer & Iqamah Alerts</strong><br>Get notified on your phone when Athan or Iqamah starts.</p>
-    </section>
+    <div class="dashboard-grid">
+      <section class="card next-prayer-card">
+        <div class="card-header">
+          <span class="card-tag">Upcoming Prayer</span>
+        </div>
+        <div id="next-prayer-name" class="next-prayer-title">Asr</div>
+        <div id="next-prayer-time" class="next-prayer-sub">Athan at 4:07 PM</div>
+        <div id="next-prayer-countdown" class="countdown-timer">In 1h 48m</div>
+        <div class="alerts-notice">
+          <p>🔔 <strong>Prayer & Iqamah Alerts</strong><br>Get notified on your device when Athan or Iqamah starts.</p>
+        </div>
+      </section>
 
-    <section id="schedule" class="schedule-section">
-      <h2>Prayer Schedule</h2>
-      <p>Official Lumberton, NC Timetable</p>
-      
-      <div class="date-selectors">
-        <select id="month-select">
-          <option value="9">Oct 2026</option>
-        </select>
-        <select id="day-select"></select>
-      </div>
+      <section id="schedule" class="card schedule-card">
+        <div class="card-header flex-between">
+          <div>
+            <h2 class="card-title">Prayer Schedule</h2>
+            <p class="card-subtitle">Official Lumberton, NC Timetable</p>
+          </div>
+          <div class="selectors-row">
+            <select id="month-select" class="form-select">
+              <option value="9">Oct 2026</option>
+            </select>
+            <select id="day-select" class="form-select"></select>
+          </div>
+        </div>
 
-      <table class="prayer-table">
-        <thead>
-          <tr>
-            <th>Prayer</th>
-            <th>Athan</th>
-            <th>Iqamah</th>
-          </tr>
-        </thead>
-        <tbody id="prayer-table-body"></tbody>
-      </table>
-    </section>
+        <div class="table-responsive">
+          <table class="prayer-table">
+            <thead>
+              <tr>
+                <th>Prayer</th>
+                <th>Athan</th>
+                <th>Iqamah</th>
+              </tr>
+            </thead>
+            <tbody id="prayer-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   </main>
 
   <script>
-    // Official October Timetable directly from Islamic Center of Lumberton sheet
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_oAsF6b9sjXHzD0gessQCknqJROjd5c",
+      projectId: "athan-app-e3dec",
+      messagingSenderId: "945830754340",
+      appId: "1:945830754340:web:3ef17560a0bd1a916a00b1"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+
     const OCTOBER_TIMETABLE = {
       1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
       2:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:05 PM", asr: "4:26 PM", maghrib: "6:59 PM", isha: "8:08 PM" },
@@ -139,7 +171,7 @@
         <tr>
           <td><strong>${r.name}</strong></td>
           <td>${r.athan}</td>
-          <td>${r.iqamah !== "-" ? `<span class="iqamah-badge">${r.iqamah}</span>` : "-"}</td>
+          <td>${r.iqamah !== "-" ? `<span class="badge badge-iqamah">${r.iqamah}</span>` : "-"}</td>
         </tr>
       `).join("");
 
@@ -147,13 +179,32 @@
       document.getElementById("next-prayer-time").innerText = `Athan at ${data.asr}`;
     }
 
+    // Alerts Button Handler
+    const alertBtn = document.getElementById("alerts-btn");
+    alertBtn.addEventListener("click", async () => {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          const token = await messaging.getToken({
+            vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI"
+          });
+          localStorage.setItem("fcm_token", token);
+          alertBtn.innerText = "🔔 Alerts: On";
+          alertBtn.classList.add("active");
+          alert("Alerts enabled!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       const daySelect = document.getElementById("day-select");
       daySelect.innerHTML = "";
       for (let i = 1; i <= 31; i++) {
         const opt = document.createElement("option");
         opt.value = i;
-        opt.innerText = `Day ${i}`;
+        opt.innerText = `Thu, Oct ${i}`;
         if (i === 23) opt.selected = true;
         daySelect.appendChild(opt);
       }
