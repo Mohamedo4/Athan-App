@@ -7,18 +7,21 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-color: #0b131e;
-      --card-bg: #151f32;
-      --text-color: #f3f4f6;
-      --text-muted: #9ca3af;
-      --primary-color: #10b981;
-      --primary-glow: rgba(16, 185, 129, 0.15);
-      --accent-gold: #f59e0b;
-      --border-color: #1f2937;
+      --bg-color: #0d1527;
+      --card-bg: #162238;
+      --card-border: #233554;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --emerald-accent: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --gold-accent: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.2);
+      --blue-accent: #38bdf8;
+      --purple-accent: #a855f7;
     }
 
     * { box-sizing: border-box; }
@@ -30,11 +33,16 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(251, 191, 36, 0.06) 0px, transparent 50%);
+      background-attachment: fixed;
     }
 
     .site-header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border-color);
+      background: rgba(22, 34, 56, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
       padding: 1rem 2rem;
       position: sticky;
       top: 0;
@@ -52,9 +60,11 @@
     }
 
     .logo-text {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary-color);
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--emerald-accent), var(--blue-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: -0.02em;
     }
 
@@ -69,11 +79,11 @@
     .nav-link {
       color: var(--text-color);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.2s;
     }
 
-    .nav-link:hover { color: var(--primary-color); }
+    .nav-link:hover { color: var(--emerald-accent); }
 
     .controls-group {
       display: flex;
@@ -83,109 +93,182 @@
 
     .btn {
       padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      border-radius: 0.6rem;
       font-weight: 600;
       cursor: pointer;
-      border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--text-color);
-      transition: all 0.2s;
+      transition: all 0.25s ease;
     }
 
-    .btn:hover { background: rgba(255, 255, 255, 0.08); }
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--emerald-accent);
+    }
 
     .btn-primary {
-      background-color: var(--primary-color);
+      background: linear-gradient(135deg, var(--emerald-accent), #059669);
       color: #000;
+      font-weight: 700;
       border: none;
       text-decoration: none;
+      box-shadow: 0 4px 14px var(--emerald-glow);
     }
 
-    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--emerald-glow);
+    }
 
     .container {
       max-width: 1100px;
-      margin: 2.5rem auto;
+      margin: 2rem auto;
       padding: 0 1rem;
     }
 
-    .hero-section {
+    .hero-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .bismillah-text {
       font-family: 'Amiri', serif;
-      font-size: 2.25rem;
-      color: var(--accent-gold);
-      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      color: var(--gold-accent);
+      text-shadow: 0 0 20px var(--gold-glow);
+      margin-bottom: 0.25rem;
     }
 
     .hero-title {
       font-size: 2.5rem;
+      font-weight: 800;
       margin: 0 0 0.5rem 0;
-      font-weight: 700;
     }
 
     .hero-subtitle {
       color: var(--text-muted);
-      margin: 0 0 1.5rem 0;
-      font-size: 1.1rem;
+      margin: 0 0 1.25rem 0;
     }
 
     .info-badges {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.875rem;
       flex-wrap: wrap;
     }
 
     .badge-item {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--card-border);
+      padding: 0.4rem 1.1rem;
       border-radius: 2rem;
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--text-color);
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+    /* Centered Main Upcoming Prayer Hero Card */
+    .hero-upcoming-card {
+      background: linear-gradient(145deg, #182740, #111c30);
+      border: 1px solid var(--card-border);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
     }
 
-    @media (max-width: 850px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
+    .hero-upcoming-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--emerald-accent), var(--gold-accent), var(--blue-accent));
     }
 
+    .upcoming-tag {
+      display: inline-block;
+      background: var(--emerald-glow);
+      color: var(--emerald-accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      margin-bottom: 0.75rem;
+    }
+
+    .upcoming-name {
+      font-size: 3.25rem;
+      font-weight: 800;
+      margin: 0;
+      background: linear-gradient(135deg, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .upcoming-time-str {
+      font-size: 1.25rem;
+      color: var(--gold-accent);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .countdown-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .countdown-unit {
+      background: rgba(13, 21, 39, 0.7);
+      border: 1px solid var(--card-border);
+      padding: 0.875rem 1.25rem;
+      border-radius: 1rem;
+      min-width: 80px;
+    }
+
+    .countdown-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--emerald-accent);
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 0.35rem;
+    }
+
+    .alerts-toggle-banner {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 1rem;
+      padding: 0.875rem 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Timetable Card */
     .card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 1rem;
-      padding: 1.75rem;
+      border: 1px solid var(--card-border);
+      border-radius: 1.25rem;
+      padding: 2rem;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-
-    .next-prayer-card {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .next-prayer-title {
-      font-size: 2.75rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin: 0.25rem 0;
-    }
-
-    .next-prayer-sub {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 2rem;
     }
 
     .card-header {
@@ -199,29 +282,24 @@
 
     .card-title {
       margin: 0;
-      font-size: 1.35rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 800;
     }
 
     .card-subtitle {
       margin: 0;
       color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    .selectors-row {
-      display: flex;
-      gap: 0.5rem;
+      font-size: 0.875rem;
     }
 
     .form-select {
       background: var(--bg-color);
       color: var(--text-color);
-      border: 1px solid var(--border-color);
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.5rem;
+      border: 1px solid var(--card-border);
+      padding: 0.6rem 1rem;
+      border-radius: 0.6rem;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .prayer-table {
@@ -231,73 +309,85 @@
     }
 
     .prayer-table th, .prayer-table td {
-      padding: 0.875rem 1rem;
-      border-bottom: 1px solid var(--border-color);
+      padding: 1rem;
+      border-bottom: 1px solid var(--card-border);
     }
 
     .prayer-table th {
       color: var(--text-muted);
-      font-weight: 600;
-      font-size: 0.85rem;
+      font-weight: 700;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
+    .prayer-row.active-prayer {
+      background: rgba(16, 185, 129, 0.1);
+    }
+
     .badge-iqamah {
-      background: var(--primary-glow);
-      color: var(--primary-color);
-      padding: 0.25rem 0.75rem;
+      background: var(--emerald-glow);
+      color: var(--emerald-accent);
+      padding: 0.3rem 0.85rem;
       border-radius: 1rem;
-      font-weight: 600;
-      font-size: 0.875rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     /* Program Cards Grid */
     .programs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      margin-top: 2rem;
     }
 
     .program-card {
-      border-top: 4px solid var(--primary-color);
+      position: relative;
+      overflow: hidden;
     }
 
-    .program-card.eid-card {
-      border-top-color: var(--accent-gold);
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 4px;
+      background: var(--emerald-accent);
+    }
+
+    .program-card.eid-card::before {
+      background: var(--gold-accent);
+    }
+
+    .program-card.school-card::before {
+      background: var(--blue-accent);
     }
 
     .program-icon {
-      font-size: 1.75rem;
-      margin-bottom: 0.75rem;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
     }
 
     .program-title {
-      font-size: 1.25rem;
-      font-weight: 700;
+      font-size: 1.3rem;
+      font-weight: 800;
       margin: 0 0 0.5rem 0;
     }
 
     .program-time {
-      color: var(--primary-color);
+      color: var(--emerald-accent);
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 0.5rem;
+    }
+
+    .eid-card .program-time {
+      color: var(--gold-accent);
     }
 
     .program-desc {
       color: var(--text-muted);
       font-size: 0.925rem;
       margin: 0;
-    }
-
-    .alerts-notice {
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.875rem;
-      color: var(--text-muted);
     }
   </style>
 
@@ -312,19 +402,17 @@
         <a href="#schedule" class="nav-link">Prayer Times</a>
         <a href="#programs" class="nav-link">Services</a>
         <a href="#school" class="nav-link">School</a>
-        <a href="#about" class="nav-link">About & Location</a>
       </nav>
       <div class="controls-group">
-        <button id="alerts-btn" class="btn alerts-btn">🔔 Alerts: Off</button>
-        <button id="lang-btn" class="btn lang-btn">🌐 العربية</button>
-        <button id="theme-btn" class="btn theme-btn">🌙 Dark</button>
-        <a href="#donate" class="btn btn-primary donate-btn">Donate / Pay Dues</a>
+        <button id="alerts-btn" class="btn">🔔 Alerts: Off</button>
+        <button id="theme-btn" class="btn">🌙 Dark</button>
+        <a href="#donate" class="btn btn-primary">Donate / Pay Dues</a>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <div class="hero-section">
+    <div class="hero-header">
       <div class="bismillah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
       <h1 class="hero-title">Islamic Center of Lumberton</h1>
       <p class="hero-subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
@@ -336,67 +424,79 @@
       </div>
     </div>
 
-    <div class="dashboard-grid">
-      <section class="card next-prayer-card">
-        <span style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;">Upcoming Prayer</span>
-        <div id="next-prayer-name" class="next-prayer-title">Asr</div>
-        <div id="next-prayer-time" class="next-prayer-sub">Athan at 4:07 PM</div>
-        <div class="alerts-notice">
-          <p>🔔 <strong>Prayer & Iqamah Alerts</strong><br>Get notified on your device when Athan or Iqamah starts.</p>
+    <!-- Centered Upcoming Prayer & Countdown Hero Section -->
+    <section class="hero-upcoming-card">
+      <span class="upcoming-tag">Upcoming Prayer</span>
+      <h2 id="next-prayer-name" class="upcoming-name">Asr</h2>
+      <div id="next-prayer-time" class="upcoming-time-str">Athan at 4:07 PM</div>
+
+      <div class="countdown-boxes">
+        <div class="countdown-unit">
+          <div id="cd-hours" class="countdown-value">00</div>
+          <div class="countdown-label">Hours</div>
         </div>
-      </section>
-
-      <section id="schedule" class="card schedule-card">
-        <div class="card-header">
-          <div>
-            <h2 class="card-title">Prayer Schedule</h2>
-            <p class="card-subtitle">Official Lumberton, NC Timetable</p>
-          </div>
-          <div class="selectors-row">
-            <select id="month-select" class="form-select">
-              <option value="9">Oct 2026</option>
-            </select>
-            <select id="day-select" class="form-select"></select>
-          </div>
+        <div class="countdown-unit">
+          <div id="cd-mins" class="countdown-value">00</div>
+          <div class="countdown-label">Mins</div>
         </div>
+        <div class="countdown-unit">
+          <div id="cd-secs" class="countdown-value">00</div>
+          <div class="countdown-label">Secs</div>
+        </div>
+      </div>
 
-        <table class="prayer-table">
-          <thead>
-            <tr>
-              <th>Prayer</th>
-              <th>Athan</th>
-              <th>Iqamah</th>
-            </tr>
-          </thead>
-          <tbody id="prayer-table-body"></tbody>
-        </table>
-      </section>
-    </div>
+      <div class="alerts-toggle-banner">
+        <span>🔔 Receive automatic sound and push notifications when Athan begins</span>
+      </div>
+    </section>
 
-    <!-- Programs & Services Cards -->
+    <!-- Interactive Schedule Card -->
+    <section id="schedule" class="card">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Daily Prayer Schedule</h2>
+          <p class="card-subtitle">Official Lumberton, NC Printed Timetable</p>
+        </div>
+        <div>
+          <select id="day-select" class="form-select"></select>
+        </div>
+      </div>
+
+      <table class="prayer-table">
+        <thead>
+          <tr>
+            <th>Prayer</th>
+            <th>Athan</th>
+            <th>Iqamah</th>
+          </tr>
+        </thead>
+        <tbody id="prayer-table-body"></tbody>
+      </table>
+    </section>
+
+    <!-- Services & Program Cards -->
     <section id="programs" class="programs-grid">
       <div class="card program-card">
         <div class="program-icon">🕌</div>
         <h3 class="program-title">Jumu'ah Prayer</h3>
-        <div class="program-time">Khutbah: 1:00 PM</div>
-        <p class="program-desc">Friday Congregational Prayer. Please arrive early for parking and Sunnah prayers.</p>
+        <div class="program-time">Khutbah & Prayer: 1:00 PM</div>
+        <p class="program-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
       </div>
 
       <div class="card program-card eid-card">
         <div class="program-icon">🌙</div>
         <h3 class="program-title">Eid Prayers</h3>
-        <div class="program-time" style="color: var(--accent-gold);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
-        <p class="program-desc">Eid al-Fitr and Eid al-Adha prayer times and venue announcements are posted before Eid.</p>
+        <div class="program-time">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
+        <p class="program-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
       </div>
 
-      <div class="card program-card" id="school">
+      <div class="card program-card school-card" id="school">
         <div class="program-icon">📖</div>
         <h3 class="program-title">Weekend Islamic School</h3>
         <div class="program-time">Sundays: 10:00 AM – 1:30 PM</div>
-        <p class="program-desc">Quranic recitation, Tajweed, Islamic studies, and Arabic fundamentals for youth.</p>
+        <p class="program-desc">Youth classes in Quran, Tajweed, Islamic Studies, and Arabic fundamentals.</p>
       </div>
     </section>
-
   </main>
 
   <script>
@@ -459,6 +559,52 @@
       return `${resH}:${resM < 10 ? "0" : ""}${resM} ${suffix}`;
     }
 
+    function parseTodayTime(timeStr) {
+      let parts = timeStr.split(" ");
+      let timeParts = parts[0].split(":");
+      let h = parseInt(timeParts[0]);
+      let m = parseInt(timeParts[1]);
+      if (parts[1] === "PM" && h !== 12) h += 12;
+      if (parts[1] === "AM" && h === 12) h = 0;
+      let now = new Date();
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+    }
+
+    let notifiedPrayers = {};
+
+    function startLiveCountdown(targetTime, prayerName) {
+      function update() {
+        let now = new Date();
+        let diff = targetTime - now;
+
+        if (diff <= 0) {
+          document.getElementById("cd-hours").innerText = "00";
+          document.getElementById("cd-mins").innerText = "00";
+          document.getElementById("cd-secs").innerText = "00";
+          
+          if (!notifiedPrayers[prayerName] && Notification.permission === "granted") {
+            new Notification(`Islamic Center of Lumberton`, {
+              body: `It is now time for ${prayerName} Athan!`,
+              icon: 'https://cdn-icons-png.flaticon.com/512/2822/2822552.png'
+            });
+            notifiedPrayers[prayerName] = true;
+          }
+          return;
+        }
+
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("cd-hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("cd-mins").innerText = mins < 10 ? "0" + mins : mins;
+        document.getElementById("cd-secs").innerText = secs < 10 ? "0" + secs : secs;
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
     function renderSchedule(dayNum) {
       const data = OCTOBER_TIMETABLE[dayNum] || OCTOBER_TIMETABLE[23];
       const tbody = document.getElementById("prayer-table-body");
@@ -480,8 +626,10 @@
         </tr>
       `).join("");
 
-      document.getElementById("next-prayer-name").innerText = "Asr";
-      document.getElementById("next-prayer-time").innerText = `Athan at ${data.asr}`;
+      // Set default upcoming prayer target
+      document.getElementById("next-prayer-name").innerText = "Maghrib";
+      document.getElementById("next-prayer-time").innerText = `Athan at ${data.maghrib}`;
+      startLiveCountdown(parseTodayTime(data.maghrib), "Maghrib");
     }
 
     const alertBtn = document.getElementById("alerts-btn");
@@ -495,7 +643,7 @@
           localStorage.setItem("fcm_token", token);
           alertBtn.innerText = "🔔 Alerts: On";
           alertBtn.style.borderColor = "#10b981";
-          alert("Alerts enabled!");
+          alert("Alerts and notifications enabled successfully!");
         }
       } catch (e) {
         console.error(e);
