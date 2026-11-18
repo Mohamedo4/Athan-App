@@ -518,6 +518,59 @@
       if (!monthSelect || !daySelect) return;
       
       const data = getTimesForDate(selectedYear, parseInt(monthSelect.value), parseInt(daySelect.value || 18));
+      
+      // Determine next upcoming prayer Athan
+      const prayerList = [
+        { name: "Fajr", time: data.fajr },
+        { name: "Sunrise", time: data.sunrise },
+        { name: "Dhuhr", time: data.dhuhr },
+        { name: "Asr", time: data.asr },
+        { name: "Maghrib", time: data.maghrib },
+        { name: "Isha", time: data.isha }
+      ];
+
+      function parseTimeToDate(timeStr) {
+        if (!timeStr || timeStr === "-") return null;
+        let parts = timeStr.split(" ");
+        let tParts = parts[0].split(":");
+        let h = parseInt(tParts[0]), m = parseInt(tParts[1]);
+        if (parts[1] === "PM" && h !== 12) h += 12;
+        if (parts[1] === "AM" && h === 12) h = 0;
+        let d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+        return d;
+      }
+
+      let nextPrayer = prayerList[0];
+      let nextDate = parseTimeToDate(nextPrayer.time);
+      
+      for (let p of prayerList) {
+        let d = parseTimeToDate(p.time);
+        if (d && d > now) {
+          nextPrayer = p;
+          nextDate = d;
+          break;
+        }
+      }
+      if (nextDate <= now) {
+        // If all prayers passed today, next is Fajr tomorrow
+        nextPrayer = prayerList[0];
+        nextDate = parseTimeToDate(nextPrayer.time);
+        nextDate.setDate(nextDate.getDate() + 1);
+      }
+
+      document.getElementById("next-prayer-name").innerText = nextPrayer.name;
+      document.getElementById("next-prayer-time").innerText = `${currentLang === 'ar' ? 'الأذان في' : 'Athan at'} ${nextPrayer.time}`;
+
+      let diff = nextDate - now;
+      if (diff > 0) {
+        let hrs = Math.floor(diff / (1000 * 60 * 60));
+        let mins = Math.floor((diff / (1000 * 60)) % 60);
+        let secs = Math.floor((diff / 1000) % 60);
+        document.getElementById("cd-hours").innerText = String(hrs).padStart(2, '0');
+        document.getElementById("cd-mins").innerText = String(mins).padStart(2, '0');
+        document.getElementById("cd-secs").innerText = String(secs).padStart(2, '0');
+      }
+
       const prayersWithIqamah = [
         { key: "Fajr", time: addMins(data.fajr, 20) },
         { key: "Dhuhr", time: addMins(data.dhuhr, 15) },
