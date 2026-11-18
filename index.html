@@ -39,10 +39,7 @@
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
     }
-    body[dir="rtl"] {
-      direction: rtl;
-      text-align: right;
-    }
+    body[dir="rtl"] { direction: rtl; text-align: right; }
     .site-header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--card-border);
@@ -154,7 +151,7 @@
     .form-label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
     .prayer-table { width: 100%; border-collapse: collapse; text-align: left; }
     body[dir="rtl"] .prayer-table { text-align: right; }
-    .prayer-table th, .prayer-table td { padding: 1rem; border-bottom: 1px solid var(--card-border); }
+    .prayer-table th, .prayer-table td { padding: 1rem; border-bottom: 1px solid var(--card-border); vertical-align: middle; }
     .prayer-table th { color: var(--text-muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; }
     .badge-iqamah {
       background: var(--emerald-glow);
@@ -166,10 +163,15 @@
       display: inline-block;
     }
     .iqamah-countdown {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--gold-accent);
-      margin-top: 0.3rem;
+      margin-top: 0.35rem;
       font-weight: 700;
+      background: var(--bg-color);
+      border: 1px solid var(--card-border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.4rem;
+      display: inline-block;
     }
     .main-grid {
       display: grid;
@@ -235,10 +237,9 @@
       </div>
     </section>
 
-    <!-- Main Content Grid: Left (Schedule & School) | Right (Jumu'ah & Eid Services) -->
+    <!-- Main Content Grid -->
     <div class="main-grid">
       <div class="left-column">
-        <!-- Interactive Schedule Card -->
         <section id="schedule" class="card">
           <div class="card-header">
             <div>
@@ -271,7 +272,7 @@
               <tr>
                 <th id="th-prayer">Prayer</th>
                 <th id="th-athan">Athan</th>
-                <th id="th-iqamah">Iqamah & Time to Iqamah</th>
+                <th id="th-iqamah">Iqamah & Live Countdown</th>
               </tr>
             </thead>
             <tbody id="prayer-table-body"></tbody>
@@ -343,7 +344,7 @@
         schedSub: "Automatic Timetable Generator for Lumberton, NC",
         thPrayer: "Prayer",
         thAthan: "Athan",
-        thIqamah: "Iqamah & Time to Iqamah",
+        thIqamah: "Iqamah & Live Countdown",
         jumuahTitle: "Jumu'ah Prayer",
         jumuahTime: "Khutbah & Prayer: 1:00 PM",
         jumuahDesc: "Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.",
@@ -378,7 +379,7 @@
         schedSub: "مولد جدول المواقيت التلقائي لومبرتون، كارولينا الشمالية",
         thPrayer: "الصلاة",
         thAthan: "الأذان",
-        thIqamah: "الإقامة والوقت المتبقي",
+        thIqamah: "الإقامة والعد التنازلي",
         jumuahTitle: "صلاة الجمعة",
         jumuahTime: "الخطبة والصلاة: 1:00 ظهراً",
         jumuahDesc: "صلاة الجمعة الجماعية. انضم إلينا لحضور الخطبة تليها صلاة الجمعة.",
@@ -501,12 +502,52 @@
           <td>
             ${r.iqamah !== "-" ? `
               <span class="badge-iqamah">${r.iqamah}</span>
-              <div class="iqamah-countdown">⏳ ${r.mins} ${currentLang === 'ar' ? 'دقيقة بعد الأذان' : 'mins after Athan'}</div>
+              <div class="iqamah-countdown" id="iqamah-cd-${r.key}">⏳ calculating...</div>
             ` : "-"}
           </td>
         </tr>
       `).join("");
     }
+
+    // Live countdown updates for Iqamah
+    setInterval(() => {
+      const now = new Date();
+      const monthSelect = document.getElementById("month-select");
+      const daySelect = document.getElementById("day-select");
+      if (!monthSelect || !daySelect) return;
+      
+      const data = getTimesForDate(selectedYear, parseInt(monthSelect.value), parseInt(daySelect.value || 18));
+      const prayersWithIqamah = [
+        { key: "Fajr", time: data.fajr, add: 20 },
+        { key: "Dhuhr", time: data.dhuhr, add: 15 },
+        { key: "Asr", time: data.asr, add: 15 },
+        { key: "Maghrib", time: data.maghrib, add: 10 },
+        { key: "Isha", time: data.isha, add: 15 }
+      ];
+
+      prayersWithIqamah.forEach(p => {
+        let iqamahStr = addMins(p.time, p.add);
+        let parts = iqamahStr.split(" ");
+        let tParts = parts[0].split(":");
+        let h = parseInt(tParts[0]), m = parseInt(tParts[1]);
+        if (parts[1] === "PM" && h !== 12) h += 12;
+        if (parts[1] === "AM" && h === 12) h = 0;
+
+        let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+        let diff = targetDate - now;
+
+        let el = document.getElementById(`iqamah-cd-${p.key}`);
+        if (el) {
+          if (diff > 0) {
+            let mins = Math.floor((diff / 1000) / 60);
+            let secs = Math.floor((diff / 1000) % 60);
+            el.innerText = currentLang === 'ar' ? `⏳ متبقي ${mins}د ${secs}ث للإقامة` : `⏳ ${mins}m ${secs}s left to Iqamah`;
+          } else {
+            el.innerText = currentLang === 'ar' ? "⏳ اقيمت الصلاة" : "⏳ Iqamah passed";
+          }
+        }
+      });
+    }, 1000);
 
     document.getElementById("theme-btn").addEventListener("click", () => {
       let isDark = document.documentElement.getAttribute("data-theme") === "dark";
@@ -558,9 +599,14 @@
 
     document.getElementById("alerts-btn").addEventListener("click", async () => {
       try {
+        if (!('serviceWorker' in navigator)) {
+          alert(currentLang === 'ar' ? "المتصفح لا يدعم إشعارات الويب." : "Browser does not support web notifications.");
+          return;
+        }
         const perm = await Notification.requestPermission();
         if (perm === "granted") {
-          const token = await messaging.getToken({ vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI" });
+          const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(() => null);
+          const token = await messaging.getToken({ vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI", serviceWorkerRegistration: reg });
           localStorage.setItem("fcm_token", token);
           document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
           alert(currentLang === 'ar' ? "تم تفعيل تنبيهات الصلاة بنجاح!" : "Prayer alerts enabled successfully!");
@@ -569,7 +615,7 @@
         }
       } catch (e) {
         console.error(e);
-        alert("Push notifications require a secure HTTPS connection or supported browser.");
+        alert(currentLang === 'ar' ? "تتطلب الإشعارات اتصالاً آمنًا (HTTPS)." : "Push notifications require a secure HTTPS connection.");
       }
     });
 
