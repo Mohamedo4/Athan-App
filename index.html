@@ -158,6 +158,13 @@
       border-radius: 1rem;
       font-weight: 700;
       font-size: 0.9rem;
+      display: inline-block;
+    }
+    .iqamah-countdown {
+      font-size: 0.75rem;
+      color: var(--gold-accent);
+      margin-top: 0.3rem;
+      font-weight: 600;
     }
     .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
     .program-title { font-size: 1.3rem; font-weight: 800; margin: 0 0 0.5rem 0; }
@@ -317,16 +324,7 @@
 
     function getTimesForDate(year, month, day) {
       if (month === 9 && OCTOBER_TIMETABLE[day]) return OCTOBER_TIMETABLE[day];
-      const dayOfYear = Math.floor((new Date(year, month, day) - new Date(year, 0, 0)) / (1000 * 60 * 60 * 24));
-      const baseFajrH = 5 + Math.round((dayOfYear < 80 || dayOfYear > 300) ? 1 : 0);
-      const baseFajrM = (dayOfYear * 17) % 60;
-      const baseSunriseM = (baseFajrM + 68) % 60;
-      const sunriseH = baseFajrH + Math.floor((baseFajrM + 68) / 60);
-      const dhuhrH = 12, dhuhrM = 3;
-      const asrH = 16, asrM = 50;
-      const maghribH = 17, maghribM = 11;
-      const ishaH = 18, ishaM = 26;
-
+      
       function fmt(h, m, forcePM = false) {
         let hour = h;
         let suffix = forcePM ? "PM" : (hour >= 12 ? "PM" : "AM");
@@ -337,16 +335,15 @@
         return `${hour}:${mm < 10 ? "0" : ""}${mm} ${suffix}`;
       }
 
-      // November specific accurate lookup adjustments
       if (month === 10) {
         let fM = (15 + day) % 60;
         let fH = 6;
         let sM = (25 + day) % 60;
         let sH = 7;
         let dH = 12, dM = 3;
-        let aH = 14, aM = 50 - Math.floor(day/3);
-        let mH = 17, mM = 15 - Math.floor(day/4);
-        let iH = 18, iM = 28 - Math.floor(day/4);
+        let aH = 4, aM = 50 - Math.floor(day/3);
+        let mH = 5, mM = 15 - Math.floor(day/4);
+        let iH = 6, iM = 28 - Math.floor(day/4);
         return {
           fajr: fmt(fH, fM),
           sunrise: fmt(sH, sM),
@@ -357,13 +354,14 @@
         };
       }
 
+      const dayOfYear = Math.floor((new Date(year, month, day) - new Date(year, 0, 0)) / (1000 * 60 * 60 * 24));
       return {
-        fajr: fmt(baseFajrH, baseFajrM),
-        sunrise: fmt(sunriseH, baseSunriseM),
-        dhuhr: fmt(dhuhrH, dhuhrM, true),
-        asr: fmt(asrH, asrM, true),
-        maghrib: fmt(maghribH, maghribM, true),
-        isha: fmt(ishaH, ishaM, true)
+        fajr: "5:30 AM",
+        sunrise: "6:50 AM",
+        dhuhr: "12:03 PM",
+        asr: "4:50 PM",
+        maghrib: "5:15 PM",
+        isha: "6:30 PM"
       };
     }
 
@@ -388,21 +386,29 @@
     function renderSchedule(month, day) {
       const data = getTimesForDate(selectedYear, month, day);
       const tbody = document.getElementById("prayer-table-body");
+      
       const rows = [
-        { name: "Fajr", athan: data.fajr, iqamah: addMins(data.fajr, 20) },
-        { name: "Sunrise", athan: data.sunrise, iqamah: "-" },
-        { name: "Dhuhr", athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15) },
-        { name: "Asr", athan: data.asr, iqamah: addMins(data.asr, 15) },
-        { name: "Maghrib", athan: data.maghrib, iqamah: addMins(data.maghrib, 15) },
-        { name: "Isha", athan: data.isha, iqamah: addMins(data.isha, 15) }
+        { name: "Fajr", athan: data.fajr, iqamah: addMins(data.fajr, 20), gap: "20 mins after Athan" },
+        { name: "Sunrise", athan: data.sunrise, iqamah: "-", gap: "" },
+        { name: "Dhuhr", athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15), gap: "15 mins after Athan" },
+        { name: "Asr", athan: data.asr, iqamah: addMins(data.asr, 15), gap: "15 mins after Athan" },
+        { name: "Maghrib", athan: data.maghrib, iqamah: addMins(data.maghrib, 10), gap: "10 mins after Athan" },
+        { name: "Isha", athan: data.isha, iqamah: addMins(data.isha, 15), gap: "15 mins after Athan" }
       ];
+
       tbody.innerHTML = rows.map(r => `
         <tr>
           <td><strong>${r.name}</strong></td>
           <td>${r.athan}</td>
-          <td>${r.iqamah !== "-" ? `<span class="badge-iqamah">${r.iqamah}</span>` : "-"}</td>
+          <td>
+            ${r.iqamah !== "-" ? `
+              <span class="badge-iqamah">${r.iqamah}</span>
+              <div class="iqamah-countdown">⏳ Time to Iqamah: ${r.gap}</div>
+            ` : "-"}
+          </td>
         </tr>
       `).join("");
+
       document.getElementById("next-prayer-name").innerText = "Maghrib";
       document.getElementById("next-prayer-time").innerText = `Athan at ${data.maghrib}`;
     }
