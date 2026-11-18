@@ -18,6 +18,7 @@
       --emerald-glow: rgba(16, 185, 129, 0.25);
       --gold-accent: #fbbf24;
       --gold-glow: rgba(251, 191, 36, 0.2);
+      --blue-accent: #38bdf8;
     }
     [data-theme="light"] {
       --bg-color: #f8fafc;
@@ -28,6 +29,7 @@
       --emerald-accent: #059669;
       --emerald-glow: rgba(5, 150, 105, 0.15);
       --gold-accent: #d97706;
+      --blue-accent: #0284c7;
     }
     * { box-sizing: border-box; }
     body {
@@ -58,8 +60,8 @@
       gap: 1rem;
     }
     .logo-text { font-size: 1.3rem; font-weight: 800; color: var(--emerald-accent); }
-    .nav-menu { display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 0; }
-    .nav-link { color: var(--text-color); text-decoration: none; font-weight: 600; }
+    .nav-menu { display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
+    .nav-link { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.2s; }
     .nav-link:hover { color: var(--emerald-accent); }
     .controls-group { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
     .btn {
@@ -92,6 +94,7 @@
       font-weight: 600;
       color: var(--text-color);
       text-decoration: none;
+      transition: all 0.2s;
     }
     .badge-item:hover { border-color: var(--emerald-accent); color: var(--emerald-accent); }
     .hero-upcoming-card {
@@ -187,9 +190,29 @@
       flex-direction: column;
       gap: 1.5rem;
     }
+    .service-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .service-list li {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .service-list li:last-child { border-bottom: none; }
     .program-title { font-size: 1.3rem; font-weight: 800; margin: 0 0 0.5rem 0; }
     .program-time { color: var(--emerald-accent); font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
     .program-desc { color: var(--text-muted); font-size: 0.925rem; margin: 0; }
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
   </style>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
@@ -202,7 +225,7 @@
         <a href="#schedule" class="nav-link" id="nav-schedule">Prayer Times</a>
         <a href="#services" class="nav-link" id="nav-services">Services</a>
         <a href="#school-section" class="nav-link" id="nav-school">School</a>
-        <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton,+NC+28358" target="_blank" class="nav-link" id="nav-location">Location</a>
+        <a href="https://sites.google.com/view/islamiccenteroflumberton/home" target="_blank" class="nav-link" id="nav-website">Website</a>
       </nav>
       <div class="controls-group">
         <button id="alerts-btn" class="btn">🔔 Alerts: Off</button>
@@ -284,7 +307,7 @@
           <div class="card-header">
             <div>
               <h2 class="card-title" id="school-title-text">📖 Weekend Islamic School</h2>
-              <p class="card-subtitle" id="school-sub-text">Sundays: 10:00 AM – 1:30 PM | Quran, Tajweed & Islamic Studies</p>
+              <p class="card-subtitle" id="school-sub-text">Saturdays & Sundays | Arabic, Islamic Studies & Quran</p>
             </div>
           </div>
           <form id="school-registration-form" onsubmit="event.preventDefault(); alert('Student registration submitted successfully! We will contact you soon.'); this.reset();">
@@ -299,19 +322,36 @@
         </section>
       </div>
 
-      <!-- Right Column: Services (Jumu'ah & Eid Prayers) -->
+      <!-- Right Column: Services (Jumu'ah, Eids & All Center Services) -->
       <div class="services-column" id="services">
         <div class="card">
           <div style="font-size: 2rem; margin-bottom: 0.5rem;">🕌</div>
           <h3 class="program-title" id="jumuah-title">Jumu'ah Prayer</h3>
-          <div class="program-time" id="jumuah-time">Khutbah & Prayer: 1:00 PM</div>
+          <div class="program-time" id="jumuah-time">Khutbah Start All Year Long: 1:00 PM</div>
           <p class="program-desc" id="jumuah-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
         </div>
         <div class="card">
           <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌙</div>
           <h3 class="program-title" id="eid-title">Eid Prayers</h3>
-          <div class="program-time" id="eid-time" style="color: var(--gold-accent);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
+          <div class="program-time" id="eid-time" style="color: var(--gold-accent);">Both Eids Prayers: 8:00 AM</div>
           <p class="program-desc" id="eid-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
+        </div>
+
+        <div class="card">
+          <h3 class="program-title" id="services-title">Our Center Services</h3>
+          <ul class="service-list" id="services-list-content">
+            <li>✅ <strong>Five Daily Prayers:</strong> Always Open. Iqamah intervals: Fajr 20 Min; Dhuhr, Asr, Maghrib & Isha 15 Min (30 Min for Isha during Ramadan).</li>
+            <li>✅ <strong>Weekend Classes:</strong> Saturday & Sunday for Arabic, Islamic Studies & Quran.</li>
+            <li>✅ <strong>Recreation Center:</strong> Sports activities and community engagement.</li>
+            <li>✅ <strong>Religious Counseling:</strong> Spiritual guidance and counseling.</li>
+            <li>✅ <strong>Islamic Weddings & Functions:</strong> Facilities and coordination.</li>
+            <li>✅ <strong>Dawah:</strong> Outreach and support for non-Muslims.</li>
+            <li>✅ <strong>Funeral Services:</strong> Funeral room at the Islamic Center of Lumberton in correlation with Muhajreen Cemetery.</li>
+          </ul>
+          <div class="social-links">
+            <a href="https://sites.google.com/view/islamiccenteroflumberton/home" target="_blank" class="btn">🌐 Official Website</a>
+            <a href="https://www.facebook.com/IslamicCenterofLumberton" target="_blank" class="btn">📘 Facebook Page</a>
+          </div>
         </div>
       </div>
     </div>
@@ -330,7 +370,7 @@
         navSched: "Prayer Times",
         navServices: "Services",
         navSchool: "School",
-        navLoc: "Location",
+        navWebsite: "Website",
         alertsOff: "🔔 Alerts: Off",
         alertsOn: "🔔 Alerts: On",
         themeDark: "🌙 Dark",
@@ -346,13 +386,14 @@
         thAthan: "Athan",
         thIqamah: "Iqamah & Live Countdown",
         jumuahTitle: "Jumu'ah Prayer",
-        jumuahTime: "Khutbah & Prayer: 1:00 PM",
+        jumuahTime: "Khutbah Start All Year Long: 1:00 PM",
         jumuahDesc: "Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.",
         eidTitle: "Eid Prayers",
-        eidTime: "Takbeerat: 7:30 AM | Salah: 8:00 AM",
+        eidTime: "Both Eids Prayers: 8:00 AM",
         eidDesc: "Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.",
+        servicesTitle: "Our Center Services",
         schoolTitle: "📖 Weekend Islamic School",
-        schoolSub: "Sundays: 10:00 AM – 1:30 PM | Quran, Tajweed & Islamic Studies",
+        schoolSub: "Saturdays & Sundays | Arabic, Islamic Studies & Quran",
         lblParent: "Parent / Guardian Name",
         lblEmail: "Email Address",
         lblPhone: "Phone Number",
@@ -365,7 +406,7 @@
         navSched: "أوقات الصلاة",
         navServices: "الخدمات",
         navSchool: "المدرسة",
-        navLoc: "الموقع",
+        navWebsite: "الموقع الإلكتروني",
         alertsOff: "🔔 التنبيهات: معطلة",
         alertsOn: "🔔 التنبيهات: مفعلة",
         themeDark: "🌙 الليلي",
@@ -381,13 +422,14 @@
         thAthan: "الأذان",
         thIqamah: "الإقامة والعد التنازلي",
         jumuahTitle: "صلاة الجمعة",
-        jumuahTime: "الخطبة والصلاة: 1:00 ظهراً",
+        jumuahTime: "بداية خطبة الجمعة طوال العام: 1:00 ظهراً",
         jumuahDesc: "صلاة الجمعة الجماعية. انضم إلينا لحضور الخطبة تليها صلاة الجمعة.",
         eidTitle: "صلاة العيد",
-        eidTime: "التكبيرات: 7:30 صباحاً | الصلاة: 8:00 صباحاً",
+        eidTime: "صلوات العيدين تبدأ الساعة: 8:00 صباحاً",
         eidDesc: "تجمعات صلاة عيد الفطر وعيد الأضحى المبارك لجميع أفراد العائلة.",
+        servicesTitle: "خدمات المركز",
         schoolTitle: "📖 المدرسة الإسلامية الأسبوعية",
-        schoolSub: "الأحد: 10:00 صباحاً – 1:30 ظهراً | القرآن، التجويد والدراسات الإسلامية",
+        schoolSub: "السبت والأحد | اللغة العربية، الدراسات الإسلامية والقرآن الكريم",
         lblParent: "اسم ولي الأمر",
         lblEmail: "البريد الإلكتروني",
         lblPhone: "رقم الهاتف",
@@ -397,7 +439,6 @@
       }
     };
 
-    // Exact accurate November baseline table matching Masjid timetable
     const NOVEMBER_EXACT_TIMETABLE = {
       18: { fajr: "5:40 AM", sunrise: "6:51 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" },
       19: { fajr: "5:41 AM", sunrise: "6:52 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" },
@@ -417,15 +458,6 @@
     function getTimesForDate(year, month, day) {
       if (month === 10 && NOVEMBER_EXACT_TIMETABLE[day]) {
         return NOVEMBER_EXACT_TIMETABLE[day];
-      }
-      // General algorithm fallback for other days/months
-      function fmt(h, m, forcePM = false) {
-        let hour = h;
-        let suffix = forcePM ? "PM" : (hour >= 12 ? "PM" : "AM");
-        if (hour > 12) hour -= 12;
-        if (hour === 0) hour = 12;
-        let mm = Math.abs(m);
-        return `${hour}:${mm < 10 ? "0" : ""}${mm} ${suffix}`;
       }
       return { fajr: "5:40 AM", sunrise: "6:51 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" };
     }
@@ -454,12 +486,12 @@
       const t = translations[currentLang].prayers;
 
       const rows = [
-        { key: "Fajr", name: t.Fajr, athan: data.fajr, iqamah: "6:00 AM" },
+        { key: "Fajr", name: t.Fajr, athan: data.fajr, iqamah: addMins(data.fajr, 20) },
         { key: "Sunrise", name: t.Sunrise, athan: data.sunrise, iqamah: "-" },
-        { key: "Dhuhr", name: t.Dhuhr, athan: data.dhuhr, iqamah: "12:17 PM" },
-        { key: "Asr", name: t.Asr, athan: data.asr, iqamah: "3:05 PM" },
-        { key: "Maghrib", name: t.Maghrib, athan: data.maghrib, iqamah: "5:27 PM" },
-        { key: "Isha", name: t.Isha, athan: data.isha, iqamah: "6:39 PM" }
+        { key: "Dhuhr", name: t.Dhuhr, athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15) },
+        { key: "Asr", name: t.Asr, athan: data.asr, iqamah: addMins(data.asr, 15) },
+        { key: "Maghrib", name: t.Maghrib, athan: data.maghrib, iqamah: addMins(data.maghrib, 15) },
+        { key: "Isha", name: t.Isha, athan: data.isha, iqamah: addMins(data.isha, 15) }
       ];
 
       tbody.innerHTML = rows.map(r => `
@@ -479,7 +511,6 @@
       document.getElementById("next-prayer-time").innerText = `${currentLang === 'ar' ? 'الأذان في' : 'Athan at'} ${data.maghrib}`;
     }
 
-    // Live countdown updates relative to real system time
     setInterval(() => {
       const now = new Date();
       const monthSelect = document.getElementById("month-select");
@@ -488,11 +519,11 @@
       
       const data = getTimesForDate(selectedYear, parseInt(monthSelect.value), parseInt(daySelect.value || 18));
       const prayersWithIqamah = [
-        { key: "Fajr", time: "6:00 AM" },
-        { key: "Dhuhr", time: "12:17 PM" },
-        { key: "Asr", time: "3:05 PM" },
-        { key: "Maghrib", time: "5:27 PM" },
-        { key: "Isha", time: "6:39 PM" }
+        { key: "Fajr", time: addMins(data.fajr, 20) },
+        { key: "Dhuhr", time: addMins(data.dhuhr, 15) },
+        { key: "Asr", time: addMins(data.asr, 15) },
+        { key: "Maghrib", time: addMins(data.maghrib, 15) },
+        { key: "Isha", time: addMins(data.isha, 15) }
       ];
 
       prayersWithIqamah.forEach(p => {
@@ -536,7 +567,7 @@
       document.getElementById("nav-schedule").innerText = tr.navSched;
       document.getElementById("nav-services").innerText = tr.navServices;
       document.getElementById("nav-school").innerText = tr.navSchool;
-      document.getElementById("nav-location").innerText = tr.navLoc;
+      document.getElementById("nav-website").innerText = tr.navWebsite;
       document.getElementById("lang-btn").innerText = currentLang === 'ar' ? "🌐 English" : "🌐 العربية";
       document.getElementById("theme-btn").innerText = document.documentElement.getAttribute("data-theme") === "dark" ? tr.themeDark : tr.themeLight;
       document.getElementById("donate-btn").innerText = tr.donate;
@@ -556,6 +587,7 @@
       document.getElementById("eid-title").innerText = tr.eidTitle;
       document.getElementById("eid-time").innerText = tr.eidTime;
       document.getElementById("eid-desc").innerText = tr.eidDesc;
+      document.getElementById("services-title").innerText = tr.servicesTitle;
       document.getElementById("school-title-text").innerText = tr.schoolTitle;
       document.getElementById("school-sub-text").innerText = tr.schoolSub;
       document.getElementById("lbl-parent").innerText = tr.lblParent;
