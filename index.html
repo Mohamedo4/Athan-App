@@ -39,6 +39,10 @@
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
     }
+    body[dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+    }
     .site-header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--card-border);
@@ -149,6 +153,7 @@
     .form-group { margin-bottom: 1.25rem; }
     .form-label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
     .prayer-table { width: 100%; border-collapse: collapse; text-align: left; }
+    body[dir="rtl"] .prayer-table { text-align: right; }
     .prayer-table th, .prayer-table td { padding: 1rem; border-bottom: 1px solid var(--card-border); }
     .prayer-table th { color: var(--text-muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; }
     .badge-iqamah {
@@ -161,12 +166,25 @@
       display: inline-block;
     }
     .iqamah-countdown {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--gold-accent);
       margin-top: 0.3rem;
-      font-weight: 600;
+      font-weight: 700;
     }
-    .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .services-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
     .program-title { font-size: 1.3rem; font-weight: 800; margin: 0 0 0.5rem 0; }
     .program-time { color: var(--emerald-accent); font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
     .program-desc { color: var(--text-muted); font-size: 0.925rem; margin: 0; }
@@ -180,9 +198,9 @@
       <div class="logo-text" id="logo-title">Islamic Center of Lumberton</div>
       <nav class="nav-menu">
         <a href="#schedule" class="nav-link" id="nav-schedule">Prayer Times</a>
-        <a href="#programs" class="nav-link" id="nav-programs">Services</a>
+        <a href="#services" class="nav-link" id="nav-services">Services</a>
         <a href="#school-section" class="nav-link" id="nav-school">School</a>
-        <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton,+NC+28358" target="_blank" class="nav-link">Location</a>
+        <a href="https://maps.google.com/?q=104+South+Chestnut+St,+Lumberton,+NC+28358" target="_blank" class="nav-link" id="nav-location">Location</a>
       </nav>
       <div class="controls-group">
         <button id="alerts-btn" class="btn">🔔 Alerts: Off</button>
@@ -199,12 +217,13 @@
       <h1 class="hero-title" id="main-title">Islamic Center of Lumberton</h1>
       <p class="hero-subtitle" id="main-subtitle">Serving the Muslim community in Lumberton and Robeson County, North Carolina.</p>
       <div class="info-badges">
-        <a href="https://www.google.com/maps/dir/?api=1&destination=104+South+Chestnut+St,+Lumberton,+NC+28358" target="_blank" class="badge-item">📍 104 South Chestnut St, Lumberton, NC (Get Directions)</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=104+South+Chestnut+St,+Lumberton,+NC+28358" target="_blank" class="badge-item" id="badge-dir">📍 104 South Chestnut St, Lumberton, NC (Get Directions)</a>
         <a href="tel:9108023212" class="badge-item">📞 (910) 802-3212</a>
         <a href="https://givebutter.com/NfHi5l" target="_blank" class="badge-item" id="support-badge">🤲 Support the Masjid</a>
       </div>
     </div>
 
+    <!-- Centered Upcoming Prayer Card -->
     <section class="hero-upcoming-card">
       <span class="upcoming-tag" id="upcoming-label">Upcoming Prayer</span>
       <h2 id="next-prayer-name" class="upcoming-name">Maghrib</h2>
@@ -216,77 +235,166 @@
       </div>
     </section>
 
-    <section id="schedule" class="card">
-      <div class="card-header">
-        <div>
-          <h2 class="card-title" id="sched-title">Monthly Prayer Schedule</h2>
-          <p class="card-subtitle" id="sched-sub">Automatic Timetable Generator for Lumberton, NC</p>
-        </div>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <select id="month-select" class="form-select">
-            <option value="9">October 2026</option>
-            <option value="10" selected>November 2026</option>
-            <option value="11">December 2026</option>
-            <option value="0">January 2027</option>
-            <option value="1">February 2027</option>
-            <option value="2">March 2027</option>
-            <option value="3">April 2027</option>
-            <option value="4">May 2027</option>
-            <option value="5">June 2027</option>
-            <option value="6">July 2027</option>
-            <option value="7">August 2027</option>
-            <option value="8">September 2027</option>
-            <option value="9">October 2027</option>
-            <option value="10">November 2027</option>
-            <option value="11">December 2027</option>
-          </select>
-          <select id="day-select" class="form-select"></select>
-        </div>
-      </div>
-      <table class="prayer-table">
-        <thead><tr><th id="th-prayer">Prayer</th><th id="th-athan">Athan</th><th id="th-iqamah">Iqamah</th></tr></thead>
-        <tbody id="prayer-table-body"></tbody>
-      </table>
-    </section>
+    <!-- Main Content Grid: Left (Schedule & School) | Right (Jumu'ah & Eid Services) -->
+    <div class="main-grid">
+      <div class="left-column">
+        <!-- Interactive Schedule Card -->
+        <section id="schedule" class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title" id="sched-title">Monthly Prayer Schedule</h2>
+              <p class="card-subtitle" id="sched-sub">Automatic Timetable Generator for Lumberton, NC</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <select id="month-select" class="form-select">
+                <option value="9">October 2026</option>
+                <option value="10" selected>November 2026</option>
+                <option value="11">December 2026</option>
+                <option value="0">January 2027</option>
+                <option value="1">February 2027</option>
+                <option value="2">March 2027</option>
+                <option value="3">April 2027</option>
+                <option value="4">May 2027</option>
+                <option value="5">June 2027</option>
+                <option value="6">July 2027</option>
+                <option value="7">August 2027</option>
+                <option value="8">September 2027</option>
+                <option value="9">October 2027</option>
+                <option value="10">November 2027</option>
+                <option value="11">December 2027</option>
+              </select>
+              <select id="day-select" class="form-select"></select>
+            </div>
+          </div>
+          <table class="prayer-table">
+            <thead>
+              <tr>
+                <th id="th-prayer">Prayer</th>
+                <th id="th-athan">Athan</th>
+                <th id="th-iqamah">Iqamah & Time to Iqamah</th>
+              </tr>
+            </thead>
+            <tbody id="prayer-table-body"></tbody>
+          </table>
+        </section>
 
-    <section id="programs" class="programs-grid">
-      <div class="card">
-        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🕌</div>
-        <h3 class="program-title" id="jumuah-title">Jumu'ah Prayer</h3>
-        <div class="program-time" id="jumuah-time">Khutbah & Prayer: 1:00 PM</div>
-        <p class="program-desc" id="jumuah-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
+        <!-- Weekend Islamic School Section -->
+        <section id="school-section" class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title" id="school-title-text">📖 Weekend Islamic School</h2>
+              <p class="card-subtitle" id="school-sub-text">Sundays: 10:00 AM – 1:30 PM | Quran, Tajweed & Islamic Studies</p>
+            </div>
+          </div>
+          <form id="school-registration-form" onsubmit="event.preventDefault(); alert('Student registration submitted successfully! We will contact you soon.'); this.reset();">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+              <div class="form-group"><label class="form-label" id="lbl-parent">Parent / Guardian Name</label><input type="text" class="form-input" placeholder="e.g. Mohamed Obaid" required></div>
+              <div class="form-group"><label class="form-label" id="lbl-email">Email Address</label><input type="email" class="form-input" placeholder="parent@example.com" required></div>
+              <div class="form-group"><label class="form-label" id="lbl-phone">Phone Number</label><input type="tel" class="form-input" placeholder="(910) 000-0000" required></div>
+              <div class="form-group"><label class="form-label" id="lbl-student">Student Name(s) & Age(s)</label><input type="text" class="form-input" placeholder="e.g. Ahmad (Age 8)" required></div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-submit-school" style="margin-top: 1rem; width: 100%; justify-content: center;">Submit Student Registration</button>
+          </form>
+        </section>
       </div>
-      <div class="card">
-        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌙</div>
-        <h3 class="program-title" id="eid-title">Eid Prayers</h3>
-        <div class="program-time" id="eid-time" style="color: var(--gold-accent);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
-        <p class="program-desc" id="eid-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
-      </div>
-    </section>
 
-    <section id="school-section" class="card">
-      <div class="card-header">
-        <div>
-          <h2 class="card-title">📖 Weekend Islamic School</h2>
-          <p class="card-subtitle">Sundays: 10:00 AM – 1:30 PM | Quran, Tajweed & Islamic Studies</p>
+      <!-- Right Column: Services (Jumu'ah & Eid Prayers) -->
+      <div class="services-column" id="services">
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🕌</div>
+          <h3 class="program-title" id="jumuah-title">Jumu'ah Prayer</h3>
+          <div class="program-time" id="jumuah-time">Khutbah & Prayer: 1:00 PM</div>
+          <p class="program-desc" id="jumuah-desc">Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌙</div>
+          <h3 class="program-title" id="eid-title">Eid Prayers</h3>
+          <div class="program-time" id="eid-time" style="color: var(--gold-accent);">Takbeerat: 7:30 AM | Salah: 8:00 AM</div>
+          <p class="program-desc" id="eid-desc">Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.</p>
         </div>
       </div>
-      <form id="school-registration-form" onsubmit="event.preventDefault(); alert('Student registration submitted successfully! We will contact you soon.'); this.reset();">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
-          <div class="form-group"><label class="form-label">Parent / Guardian Name</label><input type="text" class="form-input" placeholder="e.g. Mohamed Obaid" required></div>
-          <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="parent@example.com" required></div>
-          <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="(910) 000-0000" required></div>
-          <div class="form-group"><label class="form-label">Student Name(s) & Age(s)</label><input type="text" class="form-input" placeholder="e.g. Ahmad (Age 8)" required></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; justify-content: center;">Submit Student Registration</button>
-      </form>
-    </section>
+    </div>
   </main>
 
   <script>
     const firebaseConfig = { apiKey: "AIzaSyC_oAsF6b9sjXHzD0gessQCknqJROjd5c", projectId: "athan-app-e3dec", messagingSenderId: "945830754340", appId: "1:945830754340:web:3ef17560a0bd1a916a00b1" };
     firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
+
+    let currentLang = 'en';
+
+    const translations = {
+      en: {
+        logo: "Islamic Center of Lumberton",
+        navSched: "Prayer Times",
+        navServices: "Services",
+        navSchool: "School",
+        navLoc: "Location",
+        alertsOff: "🔔 Alerts: Off",
+        alertsOn: "🔔 Alerts: On",
+        themeDark: "🌙 Dark",
+        themeLight: "☀️ Light",
+        donate: "Donate / Pay Dues",
+        subTitle: "Serving the Muslim community in Lumberton and Robeson County, North Carolina.",
+        dirBadge: "📍 104 South Chestnut St, Lumberton, NC (Get Directions)",
+        supportBadge: "🤲 Support the Masjid",
+        upcomingTag: "Upcoming Prayer",
+        schedTitle: "Monthly Prayer Schedule",
+        schedSub: "Automatic Timetable Generator for Lumberton, NC",
+        thPrayer: "Prayer",
+        thAthan: "Athan",
+        thIqamah: "Iqamah & Time to Iqamah",
+        jumuahTitle: "Jumu'ah Prayer",
+        jumuahTime: "Khutbah & Prayer: 1:00 PM",
+        jumuahDesc: "Friday Congregational Prayer. Join us for Khutbah followed by Jumu'ah prayer.",
+        eidTitle: "Eid Prayers",
+        eidTime: "Takbeerat: 7:30 AM | Salah: 8:00 AM",
+        eidDesc: "Special Eid al-Fitr & Eid al-Adha prayer gatherings for the whole family.",
+        schoolTitle: "📖 Weekend Islamic School",
+        schoolSub: "Sundays: 10:00 AM – 1:30 PM | Quran, Tajweed & Islamic Studies",
+        lblParent: "Parent / Guardian Name",
+        lblEmail: "Email Address",
+        lblPhone: "Phone Number",
+        lblStudent: "Student Name(s) & Age(s)",
+        btnSubmit: "Submit Student Registration",
+        prayers: { Fajr: "Fajr", Sunrise: "Sunrise", Dhuhr: "Dhuhr", Asr: "Asr", Maghrib: "Maghrib", Isha: "Isha" }
+      },
+      ar: {
+        logo: "المركز الإسلامي في لومبرتون",
+        navSched: "أوقات الصلاة",
+        navServices: "الخدمات",
+        navSchool: "المدرسة",
+        navLoc: "الموقع",
+        alertsOff: "🔔 التنبيهات: معطلة",
+        alertsOn: "🔔 التنبيهات: مفعلة",
+        themeDark: "🌙 الليلي",
+        themeLight: "☀️ النهاري",
+        donate: "تبرع / دفع الاشتراكات",
+        subTitle: "خدمة الجالية المسلمة في لومبرتون ومقاطعة روبيسون، كارولينا الشمالية.",
+        dirBadge: "📍 104 South Chestnut St, Lumberton, NC (الاتجاهات)",
+        supportBadge: "🤲 ادعم المسجد",
+        upcomingTag: "الصلاة القادمة",
+        schedTitle: "جدول الصلاة الشهري",
+        schedSub: "مولد جدول المواقيت التلقائي لومبرتون، كارولينا الشمالية",
+        thPrayer: "الصلاة",
+        thAthan: "الأذان",
+        thIqamah: "الإقامة والوقت المتبقي",
+        jumuahTitle: "صلاة الجمعة",
+        jumuahTime: "الخطبة والصلاة: 1:00 ظهراً",
+        jumuahDesc: "صلاة الجمعة الجماعية. انضم إلينا لحضور الخطبة تليها صلاة الجمعة.",
+        eidTitle: "صلاة العيد",
+        eidTime: "التكبيرات: 7:30 صباحاً | الصلاة: 8:00 صباحاً",
+        eidDesc: "تجمعات صلاة عيد الفطر وعيد الأضحى المبارك لجميع أفراد العائلة.",
+        schoolTitle: "📖 المدرسة الإسلامية الأسبوعية",
+        schoolSub: "الأحد: 10:00 صباحاً – 1:30 ظهراً | القرآن، التجويد والدراسات الإسلامية",
+        lblParent: "اسم ولي الأمر",
+        lblEmail: "البريد الإلكتروني",
+        lblPhone: "رقم الهاتف",
+        lblStudent: "اسم الطالب (الطلاب) وأعمارهم",
+        btnSubmit: "إرسال تسجيل الطالب",
+        prayers: { Fajr: "الفجر", Sunrise: "الشروق", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" }
+      }
+    };
 
     const OCTOBER_TIMETABLE = {
       1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
@@ -324,7 +432,6 @@
 
     function getTimesForDate(year, month, day) {
       if (month === 9 && OCTOBER_TIMETABLE[day]) return OCTOBER_TIMETABLE[day];
-      
       function fmt(h, m, forcePM = false) {
         let hour = h;
         let suffix = forcePM ? "PM" : (hour >= 12 ? "PM" : "AM");
@@ -334,7 +441,6 @@
         if (mm >= 60) { hour += Math.floor(mm / 60); mm %= 60; }
         return `${hour}:${mm < 10 ? "0" : ""}${mm} ${suffix}`;
       }
-
       if (month === 10) {
         let fM = (15 + day) % 60;
         let fH = 6;
@@ -353,16 +459,7 @@
           isha: fmt(iH, iM, true)
         };
       }
-
-      const dayOfYear = Math.floor((new Date(year, month, day) - new Date(year, 0, 0)) / (1000 * 60 * 60 * 24));
-      return {
-        fajr: "5:30 AM",
-        sunrise: "6:50 AM",
-        dhuhr: "12:03 PM",
-        asr: "4:50 PM",
-        maghrib: "5:15 PM",
-        isha: "6:30 PM"
-      };
+      return { fajr: "5:30 AM", sunrise: "6:50 AM", dhuhr: "12:03 PM", asr: "4:50 PM", maghrib: "5:15 PM", isha: "6:30 PM" };
     }
 
     function addMins(timeStr, mins) {
@@ -386,14 +483,15 @@
     function renderSchedule(month, day) {
       const data = getTimesForDate(selectedYear, month, day);
       const tbody = document.getElementById("prayer-table-body");
-      
+      const t = translations[currentLang].prayers;
+
       const rows = [
-        { name: "Fajr", athan: data.fajr, iqamah: addMins(data.fajr, 20), gap: "20 mins after Athan" },
-        { name: "Sunrise", athan: data.sunrise, iqamah: "-", gap: "" },
-        { name: "Dhuhr", athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15), gap: "15 mins after Athan" },
-        { name: "Asr", athan: data.asr, iqamah: addMins(data.asr, 15), gap: "15 mins after Athan" },
-        { name: "Maghrib", athan: data.maghrib, iqamah: addMins(data.maghrib, 10), gap: "10 mins after Athan" },
-        { name: "Isha", athan: data.isha, iqamah: addMins(data.isha, 15), gap: "15 mins after Athan" }
+        { key: "Fajr", name: t.Fajr, athan: data.fajr, iqamah: addMins(data.fajr, 20), mins: 20 },
+        { key: "Sunrise", name: t.Sunrise, athan: data.sunrise, iqamah: "-", mins: 0 },
+        { key: "Dhuhr", name: t.Dhuhr, athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15), mins: 15 },
+        { key: "Asr", name: t.Asr, athan: data.asr, iqamah: addMins(data.asr, 15), mins: 15 },
+        { key: "Maghrib", name: t.Maghrib, athan: data.maghrib, iqamah: addMins(data.maghrib, 10), mins: 10 },
+        { key: "Isha", name: t.Isha, athan: data.isha, iqamah: addMins(data.isha, 15), mins: 15 }
       ];
 
       tbody.innerHTML = rows.map(r => `
@@ -403,21 +501,76 @@
           <td>
             ${r.iqamah !== "-" ? `
               <span class="badge-iqamah">${r.iqamah}</span>
-              <div class="iqamah-countdown">⏳ Time to Iqamah: ${r.gap}</div>
+              <div class="iqamah-countdown">⏳ ${r.mins} ${currentLang === 'ar' ? 'دقيقة بعد الأذان' : 'mins after Athan'}</div>
             ` : "-"}
           </td>
         </tr>
       `).join("");
-
-      document.getElementById("next-prayer-name").innerText = "Maghrib";
-      document.getElementById("next-prayer-time").innerText = `Athan at ${data.maghrib}`;
     }
 
     document.getElementById("theme-btn").addEventListener("click", () => {
-      let t = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      let isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      let t = isDark ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", t);
       localStorage.setItem("theme", t);
-      document.getElementById("theme-btn").innerText = t === "dark" ? "🌙 Dark" : "☀️ Light";
+      document.getElementById("theme-btn").innerText = isDark ? translations[currentLang].themeLight : translations[currentLang].themeDark;
+    });
+
+    document.getElementById("lang-btn").addEventListener("click", () => {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      const tr = translations[currentLang];
+      document.body.setAttribute("dir", currentLang === 'ar' ? "rtl" : "ltr");
+      document.getElementById("logo-title").innerText = tr.logo;
+      document.getElementById("nav-schedule").innerText = tr.navSched;
+      document.getElementById("nav-services").innerText = tr.navServices;
+      document.getElementById("nav-school").innerText = tr.navSchool;
+      document.getElementById("nav-location").innerText = tr.navLoc;
+      document.getElementById("lang-btn").innerText = currentLang === 'ar' ? "🌐 English" : "🌐 العربية";
+      document.getElementById("theme-btn").innerText = document.documentElement.getAttribute("data-theme") === "dark" ? tr.themeDark : tr.themeLight;
+      document.getElementById("donate-btn").innerText = tr.donate;
+      document.getElementById("main-title").innerText = tr.logo;
+      document.getElementById("main-subtitle").innerText = tr.subTitle;
+      document.getElementById("badge-dir").innerText = tr.dirBadge;
+      document.getElementById("support-badge").innerText = tr.supportBadge;
+      document.getElementById("upcoming-label").innerText = tr.upcomingTag;
+      document.getElementById("sched-title").innerText = tr.schedTitle;
+      document.getElementById("sched-sub").innerText = tr.schedSub;
+      document.getElementById("th-prayer").innerText = tr.thPrayer;
+      document.getElementById("th-athan").innerText = tr.thAthan;
+      document.getElementById("th-iqamah").innerText = tr.thIqamah;
+      document.getElementById("jumuah-title").innerText = tr.jumuahTitle;
+      document.getElementById("jumuah-time").innerText = tr.jumuahTime;
+      document.getElementById("jumuah-desc").innerText = tr.jumuahDesc;
+      document.getElementById("eid-title").innerText = tr.eidTitle;
+      document.getElementById("eid-time").innerText = tr.eidTime;
+      document.getElementById("eid-desc").innerText = tr.eidDesc;
+      document.getElementById("school-title-text").innerText = tr.schoolTitle;
+      document.getElementById("school-sub-text").innerText = tr.schoolSub;
+      document.getElementById("lbl-parent").innerText = tr.lblParent;
+      document.getElementById("lbl-email").innerText = tr.lblEmail;
+      document.getElementById("lbl-phone").innerText = tr.lblPhone;
+      document.getElementById("lbl-student").innerText = tr.lblStudent;
+      document.getElementById("btn-submit-school").innerText = tr.btnSubmit;
+      
+      const daySel = document.getElementById("day-select");
+      renderSchedule(selectedMonth, parseInt(daySel.value || 18));
+    });
+
+    document.getElementById("alerts-btn").addEventListener("click", async () => {
+      try {
+        const perm = await Notification.requestPermission();
+        if (perm === "granted") {
+          const token = await messaging.getToken({ vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI" });
+          localStorage.setItem("fcm_token", token);
+          document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
+          alert(currentLang === 'ar' ? "تم تفعيل تنبيهات الصلاة بنجاح!" : "Prayer alerts enabled successfully!");
+        } else {
+          alert(currentLang === 'ar' ? "تم رفض إذن التنبيهات." : "Notification permission was denied.");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Push notifications require a secure HTTPS connection or supported browser.");
+      }
     });
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -433,7 +586,7 @@
         for (let i = 1; i <= daysInMonth; i++) {
           const opt = document.createElement("option");
           opt.value = i;
-          opt.innerText = `Day ${i}`;
+          opt.innerText = currentLang === 'ar' ? `اليوم ${i}` : `Day ${i}`;
           if (i === 18) opt.selected = true;
           daySelect.appendChild(opt);
         }
