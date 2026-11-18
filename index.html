@@ -659,16 +659,36 @@
           alert(currentLang === 'ar' ? "هذا المتصفح لا يدعم الإشعارات." : "This browser does not support notifications.");
           return;
         }
-        const perm = await Notification.requestPermission();
-        if (perm === "granted") {
-          document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
-          alert(currentLang === 'ar' ? "تم تفعيل تنبيهات الصلاة بنجاح!" : "Prayer alerts enabled successfully!");
+
+        const isCurrentlyOn = localStorage.getItem("alerts_enabled") === "true";
+
+        if (isCurrentlyOn) {
+          // Turn Off
+          localStorage.removeItem("alerts_enabled");
+          localStorage.removeItem("fcm_token");
+          document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOff;
+          alert(currentLang === 'ar' ? "تم إيقاف تفعيل تنبيهات الصلاة." : "Prayer alerts turned off.");
         } else {
-          alert(currentLang === 'ar' ? "يرجى السماح بالإشعارات من إعدادات المتصفح." : "Please enable notifications in your browser settings.");
+          // Turn On
+          const perm = await Notification.requestPermission();
+          if (perm === "granted") {
+            localStorage.setItem("alerts_enabled", "true");
+            document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
+            alert(currentLang === 'ar' ? "تم تفعيل تنبيهات الصلاة بنجاح!" : "Prayer alerts enabled successfully!");
+          } else {
+            alert(currentLang === 'ar' ? "يرجى السماح بالإشعارات من إعدادات المتصفح." : "Please enable notifications in your browser settings.");
+          }
         }
       } catch (e) {
         console.error(e);
-        alert(currentLang === 'ar' ? "حدث خطأ أثناء تفعيل التنبيهات." : "Error enabling notifications.");
+        alert(currentLang === 'ar' ? "حدث خطأ أثناء تغيير إعدادات التنبيهات." : "Error toggling notifications.");
+      }
+    });
+
+    // Check initial state on load
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("alerts_enabled") === "true") {
+        document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
       }
     });
 
