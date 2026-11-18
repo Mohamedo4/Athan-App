@@ -655,23 +655,20 @@
 
     document.getElementById("alerts-btn").addEventListener("click", async () => {
       try {
-        if (!('serviceWorker' in navigator)) {
-          alert(currentLang === 'ar' ? "المتصفح لا يدعم إشعارات الويب." : "Browser does not support web notifications.");
+        if (!('Notification' in window)) {
+          alert(currentLang === 'ar' ? "هذا المتصفح لا يدعم الإشعارات." : "This browser does not support notifications.");
           return;
         }
         const perm = await Notification.requestPermission();
         if (perm === "granted") {
-          const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(() => null);
-          const token = await messaging.getToken({ vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI", serviceWorkerRegistration: reg });
-          localStorage.setItem("fcm_token", token);
           document.getElementById("alerts-btn").innerText = translations[currentLang].alertsOn;
           alert(currentLang === 'ar' ? "تم تفعيل تنبيهات الصلاة بنجاح!" : "Prayer alerts enabled successfully!");
         } else {
-          alert(currentLang === 'ar' ? "تم رفض إذن التنبيهات." : "Notification permission was denied.");
+          alert(currentLang === 'ar' ? "يرجى السماح بالإشعارات من إعدادات المتصفح." : "Please enable notifications in your browser settings.");
         }
       } catch (e) {
         console.error(e);
-        alert(currentLang === 'ar' ? "تتطلب الإشعارات اتصالاً آمنًا (HTTPS)." : "Push notifications require a secure HTTPS connection.");
+        alert(currentLang === 'ar' ? "حدث خطأ أثناء تفعيل التنبيهات." : "Error enabling notifications.");
       }
     });
 
