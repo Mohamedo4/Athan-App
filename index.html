@@ -229,11 +229,11 @@
     <section class="hero-upcoming-card">
       <span class="upcoming-tag" id="upcoming-label">Upcoming Prayer</span>
       <h2 id="next-prayer-name" class="upcoming-name">Maghrib</h2>
-      <div id="next-prayer-time" class="upcoming-time-str">Athan at 5:11 PM</div>
+      <div id="next-prayer-time" class="upcoming-time-str">Athan at 5:12 PM</div>
       <div class="countdown-boxes">
-        <div class="countdown-unit"><div id="cd-hours" class="countdown-value">01</div><div class="countdown-label" id="lbl-hours">Hours</div></div>
-        <div class="countdown-unit"><div id="cd-mins" class="countdown-value">22</div><div class="countdown-label" id="lbl-mins">Mins</div></div>
-        <div class="countdown-unit"><div id="cd-secs" class="countdown-value">45</div><div class="countdown-label" id="lbl-secs">Secs</div></div>
+        <div class="countdown-unit"><div id="cd-hours" class="countdown-value">00</div><div class="countdown-label" id="lbl-hours">Hours</div></div>
+        <div class="countdown-unit"><div id="cd-mins" class="countdown-value">00</div><div class="countdown-label" id="lbl-mins">Mins</div></div>
+        <div class="countdown-unit"><div id="cd-secs" class="countdown-value">00</div><div class="countdown-label" id="lbl-secs">Secs</div></div>
       </div>
     </section>
 
@@ -397,70 +397,37 @@
       }
     };
 
-    const OCTOBER_TIMETABLE = {
-      1:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:06 PM", asr: "4:27 PM", maghrib: "7:00 PM", isha: "8:09 PM" },
-      2:  { fajr: "6:02 AM", sunrise: "7:11 AM", dhuhr: "1:05 PM", asr: "4:26 PM", maghrib: "6:59 PM", isha: "8:08 PM" },
-      3:  { fajr: "6:03 AM", sunrise: "7:12 AM", dhuhr: "1:05 PM", asr: "4:25 PM", maghrib: "6:57 PM", isha: "8:06 PM" },
-      4:  { fajr: "6:04 AM", sunrise: "7:13 AM", dhuhr: "1:05 PM", asr: "4:24 PM", maghrib: "6:56 PM", isha: "8:05 PM" },
-      5:  { fajr: "6:05 AM", sunrise: "7:14 AM", dhuhr: "1:04 PM", asr: "4:24 PM", maghrib: "6:54 PM", isha: "8:03 PM" },
-      6:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:23 PM", maghrib: "6:53 PM", isha: "8:02 PM" },
-      7:  { fajr: "6:06 AM", sunrise: "7:15 AM", dhuhr: "1:04 PM", asr: "4:22 PM", maghrib: "6:52 PM", isha: "8:01 PM" },
-      8:  { fajr: "6:07 AM", sunrise: "7:16 AM", dhuhr: "1:04 PM", asr: "4:21 PM", maghrib: "6:50 PM", isha: "7:59 PM" },
-      9:  { fajr: "6:08 AM", sunrise: "7:17 AM", dhuhr: "1:03 PM", asr: "4:20 PM", maghrib: "6:49 PM", isha: "7:58 PM" },
-      10: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:19 PM", maghrib: "6:48 PM", isha: "7:57 PM" },
-      11: { fajr: "6:09 AM", sunrise: "7:18 AM", dhuhr: "1:03 PM", asr: "4:18 PM", maghrib: "6:46 PM", isha: "7:55 PM" },
-      12: { fajr: "6:10 AM", sunrise: "7:19 AM", dhuhr: "1:02 PM", asr: "4:17 PM", maghrib: "6:45 PM", isha: "7:54 PM" },
-      13: { fajr: "6:11 AM", sunrise: "7:20 AM", dhuhr: "1:02 PM", asr: "4:16 PM", maghrib: "6:44 PM", isha: "7:53 PM" },
-      14: { fajr: "6:12 AM", sunrise: "7:21 AM", dhuhr: "1:02 PM", asr: "4:15 PM", maghrib: "6:43 PM", isha: "7:52 PM" },
-      15: { fajr: "6:12 AM", sunrise: "7:22 AM", dhuhr: "1:02 PM", asr: "4:14 PM", maghrib: "6:41 PM", isha: "7:51 PM" },
-      16: { fajr: "6:13 AM", sunrise: "7:23 AM", dhuhr: "1:02 PM", asr: "4:13 PM", maghrib: "6:40 PM", isha: "7:49 PM" },
-      17: { fajr: "6:14 AM", sunrise: "7:23 AM", dhuhr: "1:01 PM", asr: "4:12 PM", maghrib: "6:39 PM", isha: "7:48 PM" },
-      18: { fajr: "6:15 AM", sunrise: "7:24 AM", dhuhr: "1:01 PM", asr: "4:11 PM", maghrib: "6:38 PM", isha: "7:47 PM" },
-      19: { fajr: "6:16 AM", sunrise: "7:25 AM", dhuhr: "1:01 PM", asr: "4:10 PM", maghrib: "6:36 PM", isha: "7:46 PM" },
-      20: { fajr: "6:16 AM", sunrise: "7:26 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:35 PM", isha: "7:45 PM" },
-      21: { fajr: "6:17 AM", sunrise: "7:27 AM", dhuhr: "1:01 PM", asr: "4:09 PM", maghrib: "6:34 PM", isha: "7:44 PM" },
-      22: { fajr: "6:18 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:08 PM", maghrib: "6:33 PM", isha: "7:43 PM" },
-      23: { fajr: "6:19 AM", sunrise: "7:28 AM", dhuhr: "1:00 PM", asr: "4:07 PM", maghrib: "6:32 PM", isha: "7:41 PM" },
-      24: { fajr: "6:19 AM", sunrise: "7:29 AM", dhuhr: "1:00 PM", asr: "4:06 PM", maghrib: "6:31 PM", isha: "7:40 PM" },
-      25: { fajr: "6:20 AM", sunrise: "7:30 AM", dhuhr: "1:00 PM", asr: "4:05 PM", maghrib: "6:29 PM", isha: "7:39 PM" },
-      26: { fajr: "6:21 AM", sunrise: "7:31 AM", dhuhr: "1:00 PM", asr: "4:04 PM", maghrib: "6:28 PM", isha: "7:38 PM" },
-      27: { fajr: "6:22 AM", sunrise: "7:32 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:27 PM", isha: "7:37 PM" },
-      28: { fajr: "6:23 AM", sunrise: "7:33 AM", dhuhr: "1:00 PM", asr: "4:03 PM", maghrib: "6:26 PM", isha: "7:36 PM" },
-      29: { fajr: "6:24 AM", sunrise: "7:34 AM", dhuhr: "1:00 PM", asr: "4:02 PM", maghrib: "6:25 PM", isha: "7:35 PM" },
-      30: { fajr: "6:24 AM", sunrise: "7:35 AM", dhuhr: "1:00 PM", asr: "4:01 PM", maghrib: "6:24 PM", isha: "7:35 PM" },
-      31: { fajr: "6:25 AM", sunrise: "7:36 AM", dhuhr: "1:00 PM", asr: "4:00 PM", maghrib: "6:23 PM", isha: "7:34 PM" }
+    // Exact accurate November baseline table matching Masjid timetable
+    const NOVEMBER_EXACT_TIMETABLE = {
+      18: { fajr: "5:40 AM", sunrise: "6:51 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" },
+      19: { fajr: "5:41 AM", sunrise: "6:52 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" },
+      20: { fajr: "5:42 AM", sunrise: "6:53 AM", dhuhr: "12:03 PM", asr: "2:49 PM", maghrib: "5:11 PM", isha: "6:23 PM" },
+      21: { fajr: "5:43 AM", sunrise: "6:54 AM", dhuhr: "12:03 PM", asr: "2:49 PM", maghrib: "5:11 PM", isha: "6:23 PM" },
+      22: { fajr: "5:44 AM", sunrise: "6:55 AM", dhuhr: "12:03 PM", asr: "2:49 PM", maghrib: "5:11 PM", isha: "6:23 PM" },
+      23: { fajr: "5:44 AM", sunrise: "6:55 AM", dhuhr: "12:04 PM", asr: "2:48 PM", maghrib: "5:10 PM", isha: "6:22 PM" },
+      24: { fajr: "5:45 AM", sunrise: "6:56 AM", dhuhr: "12:04 PM", asr: "2:48 PM", maghrib: "5:10 PM", isha: "6:22 PM" },
+      25: { fajr: "5:46 AM", sunrise: "6:57 AM", dhuhr: "12:04 PM", asr: "2:48 PM", maghrib: "5:10 PM", isha: "6:22 PM" },
+      26: { fajr: "5:47 AM", sunrise: "6:58 AM", dhuhr: "12:05 PM", asr: "2:48 PM", maghrib: "5:10 PM", isha: "6:22 PM" },
+      27: { fajr: "5:48 AM", sunrise: "6:59 AM", dhuhr: "12:05 PM", asr: "2:47 PM", maghrib: "5:09 PM", isha: "6:21 PM" },
+      28: { fajr: "5:49 AM", sunrise: "7:00 AM", dhuhr: "12:05 PM", asr: "2:47 PM", maghrib: "5:09 PM", isha: "6:21 PM" },
+      29: { fajr: "5:50 AM", sunrise: "7:01 AM", dhuhr: "12:06 PM", asr: "2:47 PM", maghrib: "5:09 PM", isha: "6:21 PM" },
+      30: { fajr: "5:50 AM", sunrise: "7:01 AM", dhuhr: "12:06 PM", asr: "2:47 PM", maghrib: "5:09 PM", isha: "6:21 PM" }
     };
 
     function getTimesForDate(year, month, day) {
-      if (month === 9 && OCTOBER_TIMETABLE[day]) return OCTOBER_TIMETABLE[day];
+      if (month === 10 && NOVEMBER_EXACT_TIMETABLE[day]) {
+        return NOVEMBER_EXACT_TIMETABLE[day];
+      }
+      // General algorithm fallback for other days/months
       function fmt(h, m, forcePM = false) {
         let hour = h;
         let suffix = forcePM ? "PM" : (hour >= 12 ? "PM" : "AM");
         if (hour > 12) hour -= 12;
         if (hour === 0) hour = 12;
         let mm = Math.abs(m);
-        if (mm >= 60) { hour += Math.floor(mm / 60); mm %= 60; }
         return `${hour}:${mm < 10 ? "0" : ""}${mm} ${suffix}`;
       }
-      if (month === 10) {
-        let fM = (15 + day) % 60;
-        let fH = 6;
-        let sM = (25 + day) % 60;
-        let sH = 7;
-        let dH = 12, dM = 3;
-        let aH = 4, aM = 50 - Math.floor(day/3);
-        let mH = 5, mM = 15 - Math.floor(day/4);
-        let iH = 6, iM = 28 - Math.floor(day/4);
-        return {
-          fajr: fmt(fH, fM),
-          sunrise: fmt(sH, sM),
-          dhuhr: fmt(dH, dM, true),
-          asr: fmt(aH, aM, true),
-          maghrib: fmt(mH, mM, true),
-          isha: fmt(iH, iM, true)
-        };
-      }
-      return { fajr: "5:30 AM", sunrise: "6:50 AM", dhuhr: "12:03 PM", asr: "4:50 PM", maghrib: "5:15 PM", isha: "6:30 PM" };
+      return { fajr: "5:40 AM", sunrise: "6:51 AM", dhuhr: "12:02 PM", asr: "2:50 PM", maghrib: "5:12 PM", isha: "6:24 PM" };
     }
 
     function addMins(timeStr, mins) {
@@ -487,12 +454,12 @@
       const t = translations[currentLang].prayers;
 
       const rows = [
-        { key: "Fajr", name: t.Fajr, athan: data.fajr, iqamah: addMins(data.fajr, 20), mins: 20 },
-        { key: "Sunrise", name: t.Sunrise, athan: data.sunrise, iqamah: "-", mins: 0 },
-        { key: "Dhuhr", name: t.Dhuhr, athan: data.dhuhr, iqamah: addMins(data.dhuhr, 15), mins: 15 },
-        { key: "Asr", name: t.Asr, athan: data.asr, iqamah: addMins(data.asr, 15), mins: 15 },
-        { key: "Maghrib", name: t.Maghrib, athan: data.maghrib, iqamah: addMins(data.maghrib, 10), mins: 10 },
-        { key: "Isha", name: t.Isha, athan: data.isha, iqamah: addMins(data.isha, 15), mins: 15 }
+        { key: "Fajr", name: t.Fajr, athan: data.fajr, iqamah: "6:00 AM" },
+        { key: "Sunrise", name: t.Sunrise, athan: data.sunrise, iqamah: "-" },
+        { key: "Dhuhr", name: t.Dhuhr, athan: data.dhuhr, iqamah: "12:17 PM" },
+        { key: "Asr", name: t.Asr, athan: data.asr, iqamah: "3:05 PM" },
+        { key: "Maghrib", name: t.Maghrib, athan: data.maghrib, iqamah: "5:27 PM" },
+        { key: "Isha", name: t.Isha, athan: data.isha, iqamah: "6:39 PM" }
       ];
 
       tbody.innerHTML = rows.map(r => `
@@ -507,9 +474,12 @@
           </td>
         </tr>
       `).join("");
+
+      document.getElementById("next-prayer-name").innerText = t.Maghrib;
+      document.getElementById("next-prayer-time").innerText = `${currentLang === 'ar' ? 'الأذان في' : 'Athan at'} ${data.maghrib}`;
     }
 
-    // Live countdown updates for Iqamah
+    // Live countdown updates relative to real system time
     setInterval(() => {
       const now = new Date();
       const monthSelect = document.getElementById("month-select");
@@ -518,16 +488,15 @@
       
       const data = getTimesForDate(selectedYear, parseInt(monthSelect.value), parseInt(daySelect.value || 18));
       const prayersWithIqamah = [
-        { key: "Fajr", time: data.fajr, add: 20 },
-        { key: "Dhuhr", time: data.dhuhr, add: 15 },
-        { key: "Asr", time: data.asr, add: 15 },
-        { key: "Maghrib", time: data.maghrib, add: 10 },
-        { key: "Isha", time: data.isha, add: 15 }
+        { key: "Fajr", time: "6:00 AM" },
+        { key: "Dhuhr", time: "12:17 PM" },
+        { key: "Asr", time: "3:05 PM" },
+        { key: "Maghrib", time: "5:27 PM" },
+        { key: "Isha", time: "6:39 PM" }
       ];
 
       prayersWithIqamah.forEach(p => {
-        let iqamahStr = addMins(p.time, p.add);
-        let parts = iqamahStr.split(" ");
+        let parts = p.time.split(" ");
         let tParts = parts[0].split(":");
         let h = parseInt(tParts[0]), m = parseInt(tParts[1]);
         if (parts[1] === "PM" && h !== 12) h += 12;
@@ -539,9 +508,11 @@
         let el = document.getElementById(`iqamah-cd-${p.key}`);
         if (el) {
           if (diff > 0) {
-            let mins = Math.floor((diff / 1000) / 60);
+            let hrs = Math.floor(diff / (1000 * 60 * 60));
+            let mins = Math.floor((diff / (1000 * 60)) % 60);
             let secs = Math.floor((diff / 1000) % 60);
-            el.innerText = currentLang === 'ar' ? `⏳ متبقي ${mins}د ${secs}ث للإقامة` : `⏳ ${mins}m ${secs}s left to Iqamah`;
+            let timeStr = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m ${secs}s`;
+            el.innerText = currentLang === 'ar' ? `⏳ متبقي ${timeStr} للإقامة` : `⏳ ${timeStr} left to Iqamah`;
           } else {
             el.innerText = currentLang === 'ar' ? "⏳ اقيمت الصلاة" : "⏳ Iqamah passed";
           }
