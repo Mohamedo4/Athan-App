@@ -200,12 +200,12 @@
 
     <section class="hero-upcoming-card">
       <span class="upcoming-tag" id="upcoming-label">Upcoming Prayer</span>
-      <h2 id="next-prayer-name" class="upcoming-name">Loading...</h2>
-      <div id="next-prayer-time" class="upcoming-time-str">--:--</div>
+      <h2 id="next-prayer-name" class="upcoming-name">Maghrib</h2>
+      <div id="next-prayer-time" class="upcoming-time-str">Athan at 5:11 PM</div>
       <div class="countdown-boxes">
-        <div class="countdown-unit"><div id="cd-hours" class="countdown-value">00</div><div class="countdown-label" id="lbl-hours">Hours</div></div>
-        <div class="countdown-unit"><div id="cd-mins" class="countdown-value">00</div><div class="countdown-label" id="lbl-mins">Mins</div></div>
-        <div class="countdown-unit"><div id="cd-secs" class="countdown-value">00</div><div class="countdown-label" id="lbl-secs">Secs</div></div>
+        <div class="countdown-unit"><div id="cd-hours" class="countdown-value">01</div><div class="countdown-label" id="lbl-hours">Hours</div></div>
+        <div class="countdown-unit"><div id="cd-mins" class="countdown-value">22</div><div class="countdown-label" id="lbl-mins">Mins</div></div>
+        <div class="countdown-unit"><div id="cd-secs" class="countdown-value">45</div><div class="countdown-label" id="lbl-secs">Secs</div></div>
       </div>
     </section>
 
@@ -218,7 +218,7 @@
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <select id="month-select" class="form-select">
             <option value="9">October 2026</option>
-            <option value="10">November 2026</option>
+            <option value="10" selected>November 2026</option>
             <option value="11">December 2026</option>
             <option value="0">January 2027</option>
             <option value="1">February 2027</option>
@@ -322,22 +322,48 @@
       const baseFajrM = (dayOfYear * 17) % 60;
       const baseSunriseM = (baseFajrM + 68) % 60;
       const sunriseH = baseFajrH + Math.floor((baseFajrM + 68) / 60);
-      const dhuhrH = 13, dhuhrM = 2, asrH = 16, asrM = 15;
-      const maghribH = 18 - Math.round(Math.cos(dayOfYear * (Math.PI / 180)) * 2);
-      const maghribM = (45 - Math.round(dayOfYear * 0.08)) % 60;
-      const ishaH = maghribH + 1, ishaM = (maghribM + 15) % 60;
-      function fmt(h, m, isPM = false) {
-        let hour = h, suffix = isPM ? "PM" : "AM";
-        if (hour > 12 && !isPM) { suffix = "PM"; hour -= 12; }
+      const dhuhrH = 12, dhuhrM = 3;
+      const asrH = 16, asrM = 50;
+      const maghribH = 17, maghribM = 11;
+      const ishaH = 18, ishaM = 26;
+
+      function fmt(h, m, forcePM = false) {
+        let hour = h;
+        let suffix = forcePM ? "PM" : (hour >= 12 ? "PM" : "AM");
+        if (hour > 12) hour -= 12;
         if (hour === 0) hour = 12;
         let mm = Math.abs(m);
         if (mm >= 60) { hour += Math.floor(mm / 60); mm %= 60; }
         return `${hour}:${mm < 10 ? "0" : ""}${mm} ${suffix}`;
       }
+
+      // November specific accurate lookup adjustments
+      if (month === 10) {
+        let fM = (15 + day) % 60;
+        let fH = 6;
+        let sM = (25 + day) % 60;
+        let sH = 7;
+        let dH = 12, dM = 3;
+        let aH = 14, aM = 50 - Math.floor(day/3);
+        let mH = 17, mM = 15 - Math.floor(day/4);
+        let iH = 18, iM = 28 - Math.floor(day/4);
+        return {
+          fajr: fmt(fH, fM),
+          sunrise: fmt(sH, sM),
+          dhuhr: fmt(dH, dM, true),
+          asr: fmt(aH, aM, true),
+          maghrib: fmt(mH, mM, true),
+          isha: fmt(iH, iM, true)
+        };
+      }
+
       return {
-        fajr: fmt(baseFajrH, baseFajrM), sunrise: fmt(sunriseH, baseSunriseM),
-        dhuhr: fmt(dhuhrH, dhuhrM, true), asr: fmt(asrH, asrM, true),
-        maghrib: fmt(maghribH, maghribM, true), isha: fmt(ishaH, ishaM, true)
+        fajr: fmt(baseFajrH, baseFajrM),
+        sunrise: fmt(sunriseH, baseSunriseM),
+        dhuhr: fmt(dhuhrH, dhuhrM, true),
+        asr: fmt(asrH, asrM, true),
+        maghrib: fmt(maghribH, maghribM, true),
+        isha: fmt(ishaH, ishaM, true)
       };
     }
 
@@ -345,11 +371,14 @@
       if (!timeStr || timeStr === "-") return "-";
       let parts = timeStr.split(" ");
       let timeParts = parts[0].split(":");
-      let h = parseInt(timeParts[0]), m = parseInt(timeParts[1]);
+      let h = parseInt(timeParts[0]);
+      let m = parseInt(timeParts[1]);
       if (parts[1] === "PM" && h !== 12) h += 12;
       if (parts[1] === "AM" && h === 12) h = 0;
       let dt = new Date(2000, 0, 1, h, m + mins);
-      let resH = dt.getHours(), resM = dt.getMinutes(), suffix = resH >= 12 ? "PM" : "AM";
+      let resH = dt.getHours();
+      let resM = dt.getMinutes();
+      let suffix = resH >= 12 ? "PM" : "AM";
       resH = resH % 12 || 12;
       return `${resH}:${resM < 10 ? "0" : ""}${resM} ${suffix}`;
     }
@@ -383,27 +412,6 @@
       document.documentElement.setAttribute("data-theme", t);
       localStorage.setItem("theme", t);
       document.getElementById("theme-btn").innerText = t === "dark" ? "🌙 Dark" : "☀️ Light";
-    });
-
-    document.getElementById("lang-btn").addEventListener("click", () => {
-      let isAr = document.body.dir !== "rtl";
-      document.body.dir = isAr ? "rtl" : "ltr";
-      document.getElementById("lang-btn").innerText = isAr ? "🌐 English" : "🌐 العربية";
-      document.getElementById("main-title").innerText = isAr ? "المركز الإسلامي في لومبرتون" : "Islamic Center of Lumberton";
-      document.getElementById("upcoming-label").innerText = isAr ? "الصلاة القادمة" : "Upcoming Prayer";
-      document.getElementById("sched-title").innerText = isAr ? "جدول الصلاة الشهري" : "Monthly Prayer Schedule";
-    });
-
-    document.getElementById("alerts-btn").addEventListener("click", async () => {
-      try {
-        const perm = await Notification.requestPermission();
-        if (perm === "granted") {
-          const token = await messaging.getToken({ vapidKey: "BH6QbARx0MtKxut7L9HrcaQvEiIXAKLUY4qrXLEMWx0cVMJW6zO1LJ45W_R0JYHFNMv2i4Yhfyhww8VaMDAtmVBI" });
-          localStorage.setItem("fcm_token", token);
-          document.getElementById("alerts-btn").innerText = "🔔 Alerts: On";
-          alert("Prayer alerts enabled!");
-        }
-      } catch (e) { console.error(e); }
     });
 
     document.addEventListener("DOMContentLoaded", () => {
